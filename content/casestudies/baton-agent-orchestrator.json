@@ -1,0 +1,30 @@
+{
+  "order": 3,
+  "slug": "baton-agent-orchestrator",
+  "title": "Baton: one orchestrator for Claude Code, Codex and API models",
+  "short": "Baton",
+  "excerpt": "Routing tasks between Claude Code, Codex and API models with shared context, through plan, validate, code, test and integrate stages.",
+  "date": "2026-10-13",
+  "client": "Open source",
+  "year": "2026",
+  "role": "Creator",
+  "type": "AI agents",
+  "stack": ["Python", "Claude Code", "Codex", "OpenRouter", "MCP"],
+  "hue": "4",
+  "art": "constellation",
+  "seed": 2,
+  "liveUrl": "https://github.com/Gane2506/baton",
+  "metrics": [
+    {
+      "value": "5",
+      "delta": "STAGES",
+      "label": "Plan, validate, code, test, integrate"
+    },
+    {
+      "value": "3",
+      "delta": "PROVIDERS",
+      "label": "Claude Code, Codex and OpenRouter models"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>The problem</h2><p>Coding agents are fast, but left alone they skip planning, review and tests. Teams end up babysitting each run instead of shipping.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>One job, five stages</h2><p>Baton (the <code>jev</code> CLI plus a web dashboard) treats every idea as a job that moves through plan, validate, code, test and integrate. Each stage is dispatched to the provider best suited to it, with cost-aware routing and a quality gate before anything merges.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>What it does</h2><ul><li>Autonomy modes from fully supervised to hands-off</li><li>Idea queue, scheduler, Kanban board and a fleet view across runs</li><li>Per-role MCP tools and skills, and learning profiles that improve routing over time</li><li>Browser preview with human takeover</li></ul><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>Open source</h2><p>Work arrives as reviewed, tested pull requests instead of raw diffs. The orchestrator is public on GitHub.</p>"
+}

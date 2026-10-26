@@ -1,31 +1,29 @@
-import gsap from 'gsap';
+// Page transitions. Cross-document View Transitions where supported (CSS in site.css); otherwise the design
+// system's curtain: lime panel rises from the bottom (450ms), navigate, then clears toward the top (450ms).
+import { reducedMotion } from './env.js';
 
-// Page transitions.
-// Browsers with cross-document View Transitions get them from CSS (@view-transition in main.css).
-// Everything else gets a lime curtain wipe: cover on click, navigate, uncover on the next page.
 const KEY = 'gu:curtain';
 const supportsCrossDocVT = 'onpagereveal' in window;
 
 export function initTransitions() {
-  const curtain = document.querySelector('.curtain');
-  if (!curtain) return;
+  const curtain = document.querySelector('.gu-curtain');
+  if (!curtain || reducedMotion) return;
 
-  // uncover if we arrived through a curtain
   let arrived = false;
   try {
     arrived = sessionStorage.getItem(KEY) === '1';
     sessionStorage.removeItem(KEY);
   } catch {
-    /* storage blocked: skip the reveal */
+    /* storage blocked: no reveal */
   }
   if (arrived) {
-    gsap.fromTo(
-      curtain,
-      { clipPath: 'inset(0% 0 0 0)' },
-      { clipPath: 'inset(0 0 100% 0)', duration: 0.9, ease: 'expo.inOut', delay: 0.05 },
-    );
+    curtain.style.transform = 'scaleY(1)';
+    requestAnimationFrame(() => {
+      curtain.style.transform = '';
+      curtain.classList.add('is-out');
+      curtain.addEventListener('animationend', () => curtain.classList.remove('is-out'), { once: true });
+    });
   }
-
   if (supportsCrossDocVT) return;
 
   document.addEventListener('click', (e) => {
@@ -39,20 +37,10 @@ export function initTransitions() {
     } catch {
       /* ignore */
     }
-    gsap.fromTo(
-      curtain,
-      { clipPath: 'inset(100% 0 0 0)' },
-      {
-        clipPath: 'inset(0% 0 0 0)',
-        duration: 0.7,
-        ease: 'expo.inOut',
-        onComplete: () => (location.href = url.href),
-      },
-    );
+    curtain.classList.add('is-in');
+    curtain.addEventListener('animationend', () => (location.href = url.href), { once: true });
   });
-
-  // bfcache restore: never come back to a closed curtain
   window.addEventListener('pageshow', (e) => {
-    if (e.persisted) gsap.set(curtain, { clipPath: 'inset(100% 0 0 0)' });
+    if (e.persisted) curtain.classList.remove('is-in', 'is-out');
   });
 }

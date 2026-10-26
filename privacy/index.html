@@ -1,65 +1,24 @@
 <!doctype html>
-<html lang="en-CA">
+<html lang="en-CA" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0f" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/src/styles/main.css" />
-    <title>Privacy | Ganesh Unnam</title>
+    <!--head:theme-->
+    <!--meta:start-->
+    <title>Privacy · Ganesh Unnam</title>
     <meta name="description" content="How ganeshunnam.com handles personal information." />
     <link rel="canonical" href="https://ganeshunnam.com/privacy/" />
+    <meta property="og:title" content="Privacy · Ganesh Unnam" />
+    <meta property="og:description" content="How ganeshunnam.com handles personal information." />
+    <meta property="og:url" content="https://ganeshunnam.com/privacy/" />
+    <meta property="og:image" content="https://ganeshunnam.com/og.png" />
+    <!--meta:end-->
+    <!--head:common-->
+    <link rel="stylesheet" href="/src/styles/site.css" />
   </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <div class="stage" aria-hidden="true">
-      <div class="stage__poster"></div>
-      <canvas class="stage__canvas" id="gl"></canvas>
-      <div class="stage__grain"></div>
-    </div>
-    <div class="curtain" aria-hidden="true">
-      <span class="curtain__mark">gu<b>.</b></span>
-    </div>
-    <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-    <header class="nav is-scrolled" data-nav>
-      <a class="nav__logo" href="/" title="Ganesh Unnam, home" data-transition>gu<b>.</b></a>
-      <nav aria-label="Primary">
-        <ul class="nav__links">
-          <li><a href="/#about" data-transition>About</a></li>
-          <li><a href="/#work" data-transition>Work</a></li>
-          <li><a href="/casestudy/" data-transition>Case studies</a></li>
-        </ul>
-      </nav>
-      <a class="nav__cta" href="/#contact" data-magnetic data-transition>Start a project</a>
-    </header>
-    <main id="main">
-      <section class="page cs-body" style="margin: 0; padding-left: var(--gutter)">
-        <p class="eyebrow">Legal</p>
-        <h1>Privacy</h1>
-        <p>
-          This website does not use cookies, analytics or third-party trackers. Fonts and scripts are served
-          from this domain only.
-        </p>
-        <p>
-          If you email me, I use your message and address only to reply to you and to deliver any work we
-          agree on. I don’t sell or share it. Ask me at any time to delete our correspondence:
-          <a href="mailto:gane2506@gmail.com">gane2506@gmail.com</a>.
-        </p>
-        <p>
-          This policy follows Canada’s Personal Information Protection and Electronic Documents Act (PIPEDA).
-        </p>
-        <p class="eyebrow" style="margin-top: 2rem">Last updated <span data-year>2026</span></p>
-      </section>
-      <footer class="foot page-foot">
-        <span>© <span data-year>2026</span> Ganesh Unnam · Toronto, Canada</span>
-        <span
-          ><a href="/privacy/" data-transition>Privacy</a> ·
-          <a href="mailto:gane2506@gmail.com">gane2506@gmail.com</a></span
-        >
-      </footer>
-    </main>
+  <body data-page="privacy">
+    <!--chrome-->
+    <!--page:start--><!--page:privacy--><!--page:end-->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

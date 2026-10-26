@@ -1,0 +1,18 @@
+{
+  "order": 4,
+  "slug": "talentsearch",
+  "title": "talentsear.ch, x-ray search for recruiters",
+  "short": "talentsear.ch",
+  "excerpt": "X-ray search for recruiters and job seekers, with predefined filters across professional and creative platforms.",
+  "date": "2026-06-01",
+  "client": "Side project",
+  "year": "2026",
+  "role": "Designer and developer",
+  "type": "Web",
+  "stack": ["Google Custom Search", "JavaScript"],
+  "hue": "5",
+  "art": "cloud",
+  "liveUrl": "https://talentsear.ch/",
+  "metrics": [],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>The problem</h2><p>Recruiters write the same long search-engine queries again and again to find people on LinkedIn, GitHub, Behance and Dribbble.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>The tool</h2><p>talentsear.ch turns those x-ray searches into predefined filters on top of Google Custom Search Engine, so a search that used to take a hand-written query takes a few clicks.</p>"
+}

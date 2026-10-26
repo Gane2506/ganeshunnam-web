@@ -1,5 +1,9 @@
 # ganeshunnam.com v2: Portfolio Rebuild Plan
 
+> **Update 2026-10-26:** positioning, visuals, components, 3D shapes and copy now follow the Ganesh Unnam design system
+> ("Full stack engineer & product owner", light + dark themes, lifecycle story). Sections 4–6 below describe the
+> first version and are kept for history; the README is the current reference.
+
 Status: **VALIDATED 2026-10-26.**
 
 Decisions:

@@ -1,0 +1,29 @@
+{
+  "order": 1,
+  "slug": "document-ocr-rag-bedrock",
+  "title": "Document OCR and RAG on Amazon Bedrock",
+  "short": "Document OCR and RAG",
+  "excerpt": "Textract OCR, chunking, embeddings and pgvector retrieval on Amazon Bedrock, returning structured answers an app can use.",
+  "date": "2026-09-01",
+  "client": "RDPV Solutions",
+  "year": "2026",
+  "role": "Engineer",
+  "type": "AI · Data",
+  "stack": ["Amazon Bedrock", "Textract", "pgvector", "Postgres"],
+  "hue": "3",
+  "art": "helix",
+  "liveUrl": "",
+  "metrics": [
+    {
+      "value": "2",
+      "delta": "PATHS",
+      "label": "Ingest and answer, each testable on its own"
+    },
+    {
+      "value": "5",
+      "delta": "STAGES",
+      "label": "OCR, chunking, embeddings, retrieval, structured output"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>Scanned documents in, structured answers out</h2><p>The goal was an app that could ask questions of PDFs and scans and get back fields it can use directly, not a paragraph of prose to parse.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>Two paths through one store</h2><p>Ingest: Amazon Textract reads the pages, the text is cleaned and split into chunks, Amazon Bedrock embeds each chunk, and the vectors land in pgvector on Postgres. Answer: the question is embedded with the same model, the closest passages are retrieved, and a model on Bedrock answers in JSON fields.</p><!--gu:arch:bedrock--><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>Stage by stage</h2><p>The pipeline was built stage by stage: OCR first, then chunking and embeddings, then retrieval and structured output, each one testable on its own.</p>"
+}

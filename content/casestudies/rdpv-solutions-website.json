@@ -1,0 +1,18 @@
+{
+  "order": 5,
+  "slug": "rdpv-solutions-website",
+  "title": "RDPV Solutions, headless WordPress on Next.js",
+  "short": "RDPV Solutions website",
+  "excerpt": "Headless WordPress with a Next.js front end in Docker, behind Cloudflare DNS, for a technology, design and talent company.",
+  "date": "2026-07-01",
+  "client": "RDPV Solutions",
+  "year": "2026",
+  "role": "Engineer",
+  "type": "Web",
+  "stack": ["Next.js", "WPGraphQL", "Docker", "Cloudflare"],
+  "hue": "2",
+  "art": "stack",
+  "liveUrl": "https://rdpvsolutions.ca/",
+  "metrics": [],
+  "content": "<p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>Three divisions, one system</h2><p>IT solutions, design and recruitment share one site and one design system, with WordPress as the editing tool and Next.js as the front end.</p><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>Launch</h2><p>RDPV Solutions went live as headless WordPress with a Next.js front end in Docker, DNS on Cloudflare and Google Analytics collecting only what is needed.</p>"
+}

@@ -3,3 +3,11 @@ node_modules
 package-lock.json
 wordpress
 *.php
+# copied verbatim from the design system (or generated from it): keep byte-identical for easy re-sync
+design
+src/styles/components.css
+src/styles/page.css
+src/styles/tokens.css
+src/three
+src/ui/glyphs.js
+src/content/lifecycle.js

@@ -1,0 +1,332 @@
+/* Site layer on top of the design system:
+   tokens.css (generated) → components.css (design system, unchanged) → page.css (design system layout) → this file.
+   This file only places components on real pages: fixed stage, curtain, cursor, full-screen menu, reveals. */
+@import './tokens.css';
+@import './components.css';
+@import './page.css';
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/inter-tight.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---------- stage: one fixed WebGL canvas behind every page (z-canvas), poster first ---------- */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+}
+.stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+.is-gl .stage canvas {
+  opacity: 1;
+}
+.stage .gu-mesh {
+  position: absolute;
+  inset: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+.is-gl .stage .gu-mesh {
+  opacity: 0;
+}
+.stage .gu-grain {
+  position: fixed;
+  z-index: var(--z-grain);
+}
+.pg,
+main,
+.pg-header,
+.pg-contact,
+body > .gu-footer {
+  position: relative;
+  z-index: var(--z-content);
+}
+.pg-header {
+  position: fixed;
+  z-index: var(--z-header);
+  left: 0;
+  right: 0;
+  top: 0;
+  max-width: none;
+}
+.pg-header .gu-header {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ---------- full-screen mobile menu (the design system previews it in a frame) ---------- */
+.gu-mmenu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  min-height: 0;
+}
+.gu-mmenu[hidden] {
+  display: none;
+}
+.gu-mmenu.is-closing {
+  animation: gu-menu-out var(--dur-ui) var(--ease-in) forwards;
+}
+@keyframes gu-menu-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ---------- curtain + cursor + toast placement ---------- */
+.gu-curtain {
+  position: fixed;
+  z-index: var(--z-curtain);
+}
+.gu-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  display: none;
+}
+.has-cursor .gu-cursor {
+  display: block;
+}
+.gu-cursor .gu-cursor-dot,
+.gu-cursor .gu-cursor-bubble {
+  left: 0;
+  top: 0;
+}
+.gu-cursor .gu-cursor-bubble[hidden],
+.gu-cursor .gu-cursor-dot[hidden] {
+  display: none;
+}
+.gu-toast[data-toast] {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-4);
+  translate: -50% 0;
+  z-index: var(--z-toast);
+}
+.gu-toast[hidden] {
+  display: none;
+}
+
+/* ---------- hero: CSS line reveal, so the name is the LCP and paints before any JS ---------- */
+.pg-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.pg-hero-name {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.25em;
+}
+.hero-line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.hero-line > span {
+  display: block;
+  animation: hero-line 1050ms var(--ease-out) both;
+}
+.hero-line + .hero-line > span {
+  animation-delay: 60ms;
+}
+.hero-in {
+  animation: hero-in 900ms var(--ease-out) var(--d, 0s) both;
+}
+@keyframes hero-line {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* JS reveals: hidden only between first paint and the split; main.js has a 2.5s safety net */
+.js-motion:not(.motion-ready) [data-split] {
+  visibility: hidden;
+}
+.split-line {
+  overflow: clip;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+/* ---------- generated art as a tinted mask (see GenArt in src/ui/components.js) ---------- */
+.gu-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: currentColor;
+  -webkit-mask: var(--art) center / cover no-repeat;
+  mask: var(--art) center / cover no-repeat;
+}
+.gu-pcard-art .gu-art {
+  color: var(--tint);
+  transition: transform var(--dur-section) var(--ease-out);
+}
+.gu-pcard:hover .gu-pcard-art .gu-art {
+  transform: scale(1.06) rotate(-2deg);
+}
+.gu-cscard-thumb {
+  position: relative;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gu-pcard:hover .gu-pcard-art .gu-art {
+    transform: none;
+  }
+}
+
+/* ---------- small additions the design system leaves to the page ---------- */
+.pg-pin {
+  min-height: 0;
+}
+.pg-more-work {
+  grid-column: 1 / -1;
+  margin-top: var(--space-8);
+}
+.pg-more-work ul {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  column-gap: var(--pg-g);
+  border-top: 1px solid var(--line);
+}
+.pg-more-work a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 12px 2px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    color var(--dur-micro) var(--ease-ui),
+    padding var(--dur-ui) var(--ease-out);
+}
+.pg-more-work a:hover {
+  color: var(--accent-text);
+  padding-left: 10px;
+}
+.pg-edu {
+  margin-top: var(--space-4);
+  color: var(--text-mute);
+}
+.pg-archive {
+  display: grid;
+}
+.pg-cs-live {
+  margin: var(--space-3) 0 0;
+}
+.cs-kicker {
+  color: var(--tint, var(--accent-text));
+  margin-top: 2.4em;
+}
+.gu-prose > .cs-kicker:first-child {
+  margin-top: 0;
+}
+.cs-kicker + h2 {
+  margin-top: 0.4em;
+}
+.gu-prose .pg-wide {
+  margin: var(--space-6) 0;
+}
+.gu-prose .gu-log {
+  margin-top: var(--space-4);
+}
+.gu-cap {
+  cursor: default;
+}
+.gu-cap:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- compact header under 900px (the design system's is-compact state, by media query) ---------- */
+@media (max-width: 899px) {
+  .gu-header {
+    height: 64px;
+    padding: 0 20px;
+  }
+  .gu-header .gu-header-nav,
+  .gu-header .gu-header-cta {
+    display: none;
+  }
+  .gu-header .gu-header-menu {
+    display: inline-grid;
+  }
+  .gu-header .gu-header-tools {
+    margin-left: auto;
+  }
+}
+
+/* ---------- phones: the hero shape gets its own band above the name, never behind it ---------- */
+@media (max-width: 767px) {
+  .pg-hero {
+    display: flex;
+    min-height: 100svh;
+    padding-top: 0;
+  }
+  .pg-hero .pg-wrap::before {
+    content: '';
+    display: block;
+    height: clamp(220px, 38svh, 320px);
+  }
+}
+
+/* ---------- reduced motion: nothing moves, nothing hides ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-line > span,
+  .hero-in {
+    animation: none;
+  }
+}

@@ -1,28 +1,17 @@
-import gsap from 'gsap';
-
-// Elements with [data-magnetic] drift toward the cursor while it is inside them, then spring back.
+// Magnetic buttons: within the box, move toward the pointer by 0.3 × offset (data-magnetic="0.4" for icon
+// buttons), capped at 12px, 180ms; on leave, spring back over 600ms (the system's only overshoot).
 export function initMagnetic(root = document) {
-  const cleanups = [];
   root.querySelectorAll('[data-magnetic]').forEach((el) => {
-    const strength = Number(el.dataset.magnetic) || 0.35;
-    const xTo = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' });
-    const yTo = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' });
-
-    const move = (e) => {
+    const s = Number(el.dataset.magnetic) || 0.3;
+    el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * strength);
-      yTo((e.clientY - (r.top + r.height / 2)) * strength);
-    };
-    const leave = () => {
-      xTo(0);
-      yTo(0);
-    };
-    el.addEventListener('pointermove', move);
-    el.addEventListener('pointerleave', leave);
-    cleanups.push(() => {
-      el.removeEventListener('pointermove', move);
-      el.removeEventListener('pointerleave', leave);
+      const clamp = (v) => Math.max(-12, Math.min(12, v));
+      el.style.transition = 'transform 180ms var(--ease-ui)';
+      el.style.transform = `translate(${clamp((e.clientX - (r.left + r.width / 2)) * s)}px,${clamp((e.clientY - (r.top + r.height / 2)) * s)}px)`;
+    });
+    el.addEventListener('pointerleave', () => {
+      el.style.transition = 'transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1)';
+      el.style.transform = '';
     });
   });
-  return () => cleanups.forEach((fn) => fn());
 }

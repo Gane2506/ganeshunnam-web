@@ -1,0 +1,35 @@
+{
+  "order": 2,
+  "slug": "sarah-voice-agent",
+  "title": "Sarah, an AI employee that answers the phone",
+  "short": "Sarah",
+  "excerpt": "Scoping, architecting and building a voice agent that qualifies and books leads for home-services contractors, owned end to end.",
+  "date": "2026-08-15",
+  "client": "Roster",
+  "year": "2026",
+  "role": "Product owner and engineer",
+  "type": "Voice agents · In build",
+  "status": "In build",
+  "stack": ["Workers", "D1", "KV", "Twilio", "Vapi"],
+  "hue": "1",
+  "art": "ribbon",
+  "liveUrl": "",
+  "metrics": [
+    {
+      "value": "16",
+      "delta": "TABLES",
+      "label": "Multi-tenant schema, one database for every contractor"
+    },
+    {
+      "value": "5–28×",
+      "delta": "PER-CALL COST",
+      "label": "Real voice cost against the first estimate, found in the model before any code"
+    },
+    {
+      "value": "3",
+      "delta": "OAUTH FLOWS",
+      "label": "Jobber, Google and Meta connected from the first release"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>Requirements and scope</h2><p>The first release was cut into two modules a contractor can switch on separately.</p><ul><li>Module A, Reviews: post-sale review collection, AI-drafted SEO review replies, review-to-social content, automated referral asks</li><li>Module B, Leads: instant SMS outreach, AI voice call lead qualification and booking</li></ul><p>Two approvals with long review times, Google Business Profile API allow-listing and Meta app review, were started on day one so they would not block launch.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>System design and cost</h2><p>Everything runs on Cloudflare Workers with D1 for tenants, leads and reviews and KV for sessions, behind a 16-table multi-tenant schema. Calls come in through Twilio, the conversation runs on Vapi, and qualified leads are booked straight into Jobber.</p><!--gu:arch:sarah--><blockquote>The cheapest bug to fix was the pricing one, because it was found in a spreadsheet, not in production.</blockquote><p>Modelling real per-call voice costs before writing code moved the estimate from five to ten cents a call to roughly fifty cents to $1.40 all in. Module pricing and call limits were reworked before the build started.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>Implementation</h2><p>A deployable Worker repo with the Twilio and Vapi integrations and the Jobber, Google and Meta OAuth flows, with the D1 database and KV namespace already provisioned.</p><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>Not yet, on purpose</h2><p>Launch waits on the platform approvals and a pilot with real contractors.</p><p class=\"gu-meta cs-kicker\">05–06 · Maintain and evolve</p><h2>Roadmap and change log</h2><p>Every change goes through one list: what it costs, what it touches, which release it lands in.</p><!--gu:log:sarah-->"
+}

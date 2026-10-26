@@ -1,147 +1,88 @@
-// Post-build step: prerender WordPress "casestudy" posts into static HTML.
-//
-//   WP_API_URL set   → pull every published casestudy from the WordPress REST API (build fails if it can't)
-//   WP_API_URL unset → use the seed JSON in content/casestudies/ (local dev, CI previews)
-//
-// Writes: dist/casestudy/index.html (archive), dist/casestudy/<slug>/index.html,
-//         the teaser on dist/index.html, and dist/sitemap.xml.
-import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+// Post-build step (after `vite build`):
+//   dist/casestudy/<slug>/index.html  one static page per case study, from the archive page's shell
+//   dist/og/<slug>.png                its 1200 × 630 social image (design system template, rendered with resvg)
+//   dist/sitemap.xml
+// Case studies come from WordPress when WP_API_URL is set, otherwise from content/casestudies/ (see lib/casestudies.mjs).
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { Resvg } from '@resvg/resvg-js';
+import { loadCaseStudies, source } from './lib/casestudies.mjs';
+import { caseStudy } from '../src/pages/index.js';
+import { esc, usedArt, genArtSvg } from '../src/ui/components.js';
 
-const ROOT = new URL('..', import.meta.url).pathname;
-const DIST = join(ROOT, 'dist');
+const root = new URL('../', import.meta.url);
+const dist = new URL('dist/', root);
 const SITE = (process.env.SITE_URL || 'https://ganeshunnam.com').replace(/\/$/, '');
-const WP = process.env.WP_API_URL?.replace(/\/$/, '');
-const DEFAULT_PALETTE = ['#c6f432', '#2de2a6'];
 
-const esc = (s = '') =>
-  String(s).replace(
-    /[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
-  );
-const stripTags = (s = '') =>
-  s
-    .replace(/<[^>]*>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-const isHex = (s) => /^#[0-9a-f]{3,8}$/i.test(s || '');
-// Authors are trusted (your own WordPress), but never let script/style/iframe/on* reach the static page.
-const sanitize = (html = '') =>
-  html
-    .replace(/<(script|style|iframe|object|embed)[\s\S]*?<\/\1>/gi, '')
-    .replace(/\son\w+="[^"]*"/gi, '')
-    .replace(/\son\w+='[^']*'/gi, '')
-    .replace(/(href|src)\s*=\s*(["'])\s*javascript:[^"']*\2/gi, '$1="#"');
-
-// ---------- sources ----------
-async function fromWordPress() {
-  const posts = [];
-  for (let page = 1, pages = 1; page <= pages; page++) {
-    const url = `${WP}/wp/v2/casestudy?per_page=50&page=${page}&_embed=wp:featuredmedia&orderby=date&order=desc`;
-    const res = await fetch(url, { headers: { Accept: 'application/json' } });
-    if (!res.ok) throw new Error(`WordPress responded ${res.status} for ${url}`);
-    pages = Number(res.headers.get('x-wp-totalpages') || 1);
-    posts.push(...(await res.json()));
-  }
-  return posts.map((p) => {
-    const m = p.meta || {};
-    const media = p._embedded?.['wp:featuredmedia']?.[0];
-    const palette = [m.cs_palette_primary, m.cs_palette_secondary];
-    return {
-      slug: p.slug,
-      title: stripTags(p.title?.rendered),
-      excerpt: stripTags(p.excerpt?.rendered),
-      content: sanitize(p.content?.rendered),
-      date: p.date,
-      modified: p.modified,
-      client: m.cs_client,
-      year: m.cs_year,
-      role: m.cs_role,
-      type: m.cs_type,
-      stack: (m.cs_stack || '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean),
-      palette: palette.every(isHex) ? palette : DEFAULT_PALETTE,
-      liveUrl: m.cs_live_url,
-      metrics: Array.isArray(m.cs_metrics) ? m.cs_metrics : [],
-      image: media?.source_url ? { src: media.source_url, alt: media.alt_text || '' } : null,
-    };
-  });
-}
-
-async function fromFixtures() {
-  const dir = join(ROOT, 'content/casestudies');
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.json'));
-  const posts = await Promise.all(files.map(async (f) => JSON.parse(await readFile(join(dir, f), 'utf8'))));
-  return posts
-    .map((p) => ({
-      ...p,
-      content: sanitize(p.content),
-      palette: p.palette?.every(isHex) ? p.palette : DEFAULT_PALETTE,
-    }))
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-}
-
-// ---------- markup ----------
-const card = (p, h = 'h3') => `
-          <li class="cs-card" style="--c1:${p.palette[0]}">
-            <a href="/casestudy/${p.slug}/" data-transition data-cursor="Read">
-              <p class="eyebrow">${esc([p.type, p.year].filter(Boolean).join(' · '))}</p>
-              <${h}>${esc(p.title)}</${h}>
-              <p>${esc(p.excerpt)}</p>
-            </a>
-          </li>`;
-const grid = (posts, h) =>
-  posts.length
-    ? `<ul class="cs-grid">${posts.map((p) => card(p, h)).join('')}\n        </ul>`
-    : `<p class="cs-empty">New case studies are on the way.</p>`;
-
-function article(p, next) {
-  const facts = [
-    ['Client', p.client],
-    ['Year', p.year],
-    ['Role', p.role],
-    ['Stack', p.stack?.join(', ')],
-  ].filter(([, v]) => v);
-  const metrics = p.metrics?.length
-    ? `<ul class="cs-metrics">${p.metrics.map((m) => `<li><strong>${esc(m.value)}</strong>${esc(m.label)}</li>`).join('')}</ul>`
-    : '';
-  return `
-      <article>
-        <header class="cs-hero">
-          <p class="eyebrow" data-fade><a href="/casestudy/" data-transition>Case studies</a> / ${esc(p.type || 'Project')}</p>
-          <h1 data-split>${esc(p.title)}</h1>
-          <p class="cs-hero__lede" data-fade>${esc(p.excerpt)}</p>
-          ${p.liveUrl ? `<p data-fade><a class="btn btn--ghost" href="${esc(p.liveUrl)}" rel="noopener" data-magnetic><span>View project ↗</span></a></p>` : ''}
-        </header>
-        <dl class="cs-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
-        <div class="cs-body">
-          ${p.image ? `<img src="${esc(p.image.src)}" alt="${esc(p.image.alt)}" loading="lazy" decoding="async" />` : ''}
-          ${metrics}
-          ${p.content}
-        </div>
-        ${next ? `<nav class="cs-next" aria-label="Next case study"><p class="eyebrow">Next case study</p><a href="/casestudy/${next.slug}/" data-transition>${esc(next.title)} →</a></nav>` : ''}
-      </article>`;
-}
-
-const replaceMain = (tpl, main) => tpl.replace(/<!--CS:MAIN:START-->[\s\S]*<!--CS:MAIN:END-->/, main);
-
-// ---------- build ----------
-const posts = WP ? await fromWordPress() : await fromFixtures();
-const template = await readFile(join(DIST, 'casestudy/index.html'), 'utf8');
-
-// archive
-await writeFile(
-  join(DIST, 'casestudy/index.html'),
-  template.replace('<!--CS:LIST-->', grid(posts, 'h2')).replace(/<!--CS:(TITLE|DESC|CANONICAL|HEAD)-->/g, ''),
+// Dark-theme hue values from design/tokens.json (social images are always dark)
+const tokens = JSON.parse(await readFile(new URL('design/tokens.json', root), 'utf8'));
+const color = Object.fromEntries(
+  tokens.color.tokens.map((t) => [t.name, typeof t.value === 'object' ? t.value.dark : t.value]),
 );
 
-// one page per case study
+// ---------- social image: mono meta line, title wrapped at 22 characters (max 3 lines), constellation in the hue ----------
+function rng(seed) {
+  let s = seed >>> 0 || 1;
+  return () => ((s = (s * 1664525 + 1013904223) >>> 0), s / 4294967296);
+}
+function ogSvg(p) {
+  const lines = p.title
+    .split(' ')
+    .reduce(
+      (a, w) => {
+        const l = a[a.length - 1];
+        (l + ' ' + w).trim().length <= 22 ? (a[a.length - 1] = (l + ' ' + w).trim()) : a.push(w);
+        return a;
+      },
+      [''],
+    )
+    .slice(0, 3);
+  const hue = color[`hue-${p.hue}`];
+  const wash = color[`hue-${p.hue}-wash`];
+  const R = rng([...p.slug].reduce((s, c) => s + c.charCodeAt(0), 0));
+  const pts = Array.from({ length: 90 }, () => [744 + R() * 392, 64 + R() * 502]);
+  const links = pts
+    .slice(0, 14)
+    .map(
+      (q, i) =>
+        `<line x1="${q[0].toFixed(1)}" y1="${q[1].toFixed(1)}" x2="${pts[i + 1][0].toFixed(1)}" y2="${pts[i + 1][1].toFixed(1)}" stroke="${hue}" stroke-opacity=".35"/>`,
+    );
+  const dots = pts.map(
+    (q) =>
+      `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${(1.2 + R() * 2.4).toFixed(2)}" fill="${hue}" fill-opacity="${(0.4 + R() * 0.6).toFixed(2)}"/>`,
+  );
+  const top = 315 - (lines.length * 62) / 2 + 46;
+  const meta = `CASE STUDY · ${(p.type || 'Project').split('·')[0].trim()} · ${p.year || ''}`.toUpperCase();
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="${color.bg}"/>
+  <text x="64" y="94" font-family="JetBrains Mono" font-weight="500" font-size="16" letter-spacing="1.6" fill="${color['text-mute']}">${esc(meta)}</text>
+  ${lines.map((l, i) => `<text x="64" y="${top + i * 62}" font-family="Space Grotesk" font-weight="600" font-size="56" letter-spacing="-2.2" fill="${color.text}">${esc(l)}</text>`).join('\n  ')}
+  <text x="64" y="566" font-family="JetBrains Mono" font-weight="500" font-size="16" letter-spacing="1.6" fill="${color['text-mute']}">GANESHUNNAM.COM</text>
+  <clipPath id="c"><rect x="744" y="64" width="392" height="502" rx="18"/></clipPath>
+  <rect x="744" y="64" width="392" height="502" rx="18" fill="${wash}"/>
+  <g clip-path="url(#c)">${links.join('')}${dots.join('')}</g>
+</svg>`;
+}
+const ogFonts = [
+  new URL('scripts/og-fonts/SpaceGrotesk-SemiBold.ttf', root),
+  new URL('scripts/og-fonts/JetBrainsMono-Medium.ttf', root),
+].map((u) => u.pathname);
+const renderOg = (p) =>
+  new Resvg(ogSvg(p), {
+    font: { fontFiles: ogFonts, loadSystemFonts: false, defaultFontFamily: 'Space Grotesk' },
+  })
+    .render()
+    .asPng();
+
+// ---------- pages ----------
+const posts = await loadCaseStudies();
+const shell = await readFile(new URL('casestudy/index.html', dist), 'utf8');
+await mkdir(new URL('og/', dist), { recursive: true });
+
 for (const [i, p] of posts.entries()) {
   const url = `${SITE}/casestudy/${p.slug}/`;
+  const image = `${SITE}/og/${p.slug}.png`;
   const desc = esc(p.excerpt.slice(0, 160));
+  const next = posts.length > 1 ? posts[(i + 1) % posts.length] : null;
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -149,42 +90,36 @@ for (const [i, p] of posts.entries()) {
     description: p.excerpt,
     datePublished: p.date,
     dateModified: p.modified || p.date,
+    image,
     author: { '@type': 'Person', name: 'Ganesh Unnam', url: SITE },
     mainEntityOfPage: url,
-    ...(p.image ? { image: p.image.src } : {}),
   }).replace(/</g, '\\u003c');
-  const head = `<meta property="og:type" content="article" />
+  const meta = `<title>${esc(p.title)} · Ganesh Unnam</title>
+    <meta name="description" content="${desc}" />
+    <link rel="canonical" href="${url}" />
     <meta property="og:title" content="${esc(p.title)}" />
     <meta property="og:description" content="${desc}" />
     <meta property="og:url" content="${url}" />
-    ${p.image ? `<meta property="og:image" content="${esc(p.image.src)}" />` : `<meta property="og:image" content="${SITE}/og.png" />`}
+    <meta property="og:image" content="${image}" />
+    <meta property="og:image:alt" content="${esc(p.title)}, a case study by Ganesh Unnam" />
     <script type="application/ld+json">${jsonLd}</script>`;
-
-  const next = posts.length > 1 ? posts[(i + 1) % posts.length] : null;
-  const html = replaceMain(template, article(p, next))
-    .replace(/<!--CS:TITLE-->[^<]*/, `${esc(p.title)} | Ganesh Unnam`)
-    .replace(/<!--CS:DESC-->[^"]*/, desc)
-    .replace(/<!--CS:CANONICAL-->[^"]*/, url)
-    .replace('<!--CS:HEAD-->', head)
-    .replace(/data-palette="[^"]*"/, `data-palette="${p.palette.join(',')}"`);
-  await mkdir(join(DIST, 'casestudy', p.slug), { recursive: true });
-  await writeFile(join(DIST, 'casestudy', p.slug, 'index.html'), html);
+  const html = shell
+    .replace(/<!--meta:start-->[\s\S]*?<!--meta:end-->/, meta)
+    .replace(/<!--page:start-->[\s\S]*?<!--page:end-->/, caseStudy(p, next))
+    .replace(
+      '<body data-page="archive">',
+      `<body data-page="casestudy" data-hue="${p.hue}" data-shape="${p.shape}">`,
+    );
+  await mkdir(new URL(`casestudy/${p.slug}/`, dist), { recursive: true });
+  await writeFile(new URL(`casestudy/${p.slug}/index.html`, dist), html);
+  await writeFile(new URL(`og/${p.slug}.png`, dist), renderOg(p));
 }
 
-// home teaser: latest three. Project preview <img>s whose file isn't in the build are dropped, so cards
-// fall back to their gradient art instead of requesting a 404 (run `npm run fetch:previews` to add them).
-const homePath = join(DIST, 'index.html');
-let home = (await readFile(homePath, 'utf8')).replace('<!--CASESTUDY_TEASER-->', grid(posts.slice(0, 3)));
-const missing = [];
-home = home.replace(/<img\s+class="card__img"[^>]*?src="(\/previews\/[^"]+)"[^>]*>/g, (tag, src) => {
-  if (existsSync(join(DIST, src))) return tag;
-  missing.push(src);
-  return '';
-});
-if (missing.length) console.warn(`previews missing (cards use gradient art): ${missing.join(', ')}`);
-await writeFile(homePath, home);
+// drawings used by the case study pages (the Vite build already wrote the ones the other pages use)
+await mkdir(new URL('art/', dist), { recursive: true });
+for (const file of usedArt) await writeFile(new URL(`art/${file}`, dist), genArtSvg(file));
 
-// sitemap
+// ---------- sitemap ----------
 const urls = [
   { loc: `${SITE}/` },
   { loc: `${SITE}/casestudy/` },
@@ -195,10 +130,9 @@ const urls = [
   })),
 ];
 await writeFile(
-  join(DIST, 'sitemap.xml'),
+  new URL('sitemap.xml', dist),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
     .map((u) => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}</url>`)
     .join('\n')}\n</urlset>\n`,
 );
-
-console.log(`casestudy: ${posts.length} page(s) from ${WP ? 'WordPress' : 'seed fixtures'}`);
+console.log(`casestudy: ${posts.length} page(s) + social images from ${source()}`);

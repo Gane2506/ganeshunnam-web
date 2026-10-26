@@ -1,62 +1,30 @@
 <!doctype html>
-<html lang="en-CA">
+<html lang="en-CA" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0f" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/src/styles/main.css" />
-    <title><!--CS:TITLE-->Case Studies | Ganesh Unnam</title>
+    <!--head:theme-->
+    <!--meta:start-->
+    <title>Case studies · Ganesh Unnam</title>
     <meta
       name="description"
-      content="<!--CS:DESC-->Case studies in AI agents, headless websites, e-commerce and automation by Ganesh Unnam."
+      content="Case studies in AI agents, voice agents, headless websites, e-commerce and automation, phase by phase."
     />
-    <link rel="canonical" href="<!--CS:CANONICAL-->https://ganeshunnam.com/casestudy/" />
-    <!--CS:HEAD-->
+    <link rel="canonical" href="https://ganeshunnam.com/casestudy/" />
+    <meta property="og:title" content="Case studies · Ganesh Unnam" />
+    <meta
+      property="og:description"
+      content="Case studies in AI agents, voice agents, headless websites, e-commerce and automation, phase by phase."
+    />
+    <meta property="og:url" content="https://ganeshunnam.com/casestudy/" />
+    <meta property="og:image" content="https://ganeshunnam.com/og.png" />
+    <!--meta:end-->
+    <!--head:common-->
+    <link rel="stylesheet" href="/src/styles/site.css" />
   </head>
-  <body data-palette="#c6f432,#2de2a6">
-    <a class="skip" href="#main">Skip to content</a>
-    <div class="stage" aria-hidden="true">
-      <div class="stage__poster"></div>
-      <canvas class="stage__canvas" id="gl"></canvas>
-      <div class="stage__grain"></div>
-    </div>
-    <div class="curtain" aria-hidden="true">
-      <span class="curtain__mark">gu<b>.</b></span>
-    </div>
-    <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-    <header class="nav is-scrolled" data-nav>
-      <a class="nav__logo" href="/" title="Ganesh Unnam, home" data-transition>gu<b>.</b></a>
-      <nav aria-label="Primary">
-        <ul class="nav__links">
-          <li><a href="/#about" data-transition>About</a></li>
-          <li><a href="/#work" data-transition>Work</a></li>
-          <li><a href="/casestudy/" data-transition>Case studies</a></li>
-        </ul>
-      </nav>
-      <a class="nav__cta" href="/#contact" data-magnetic data-transition>Start a project</a>
-    </header>
-    <main id="main">
-      <!--CS:MAIN:START-->
-      <section class="page">
-        <p class="eyebrow" data-fade>Case studies</p>
-        <h1 data-split>How the work <em>gets done.</em></h1>
-        <p class="cs-hero__lede" data-fade>
-          Problems, decisions, stacks and results from client and open-source work.
-        </p>
-        <div class="cs-archive"><!--CS:LIST--></div>
-      </section>
-      <!--CS:MAIN:END-->
-      <footer class="foot page-foot">
-        <span>© <span data-year>2026</span> Ganesh Unnam · Toronto, Canada</span>
-        <span
-          ><a href="/privacy/" data-transition>Privacy</a> ·
-          <a href="mailto:gane2506@gmail.com">gane2506@gmail.com</a></span
-        >
-      </footer>
-    </main>
+  <body data-page="archive">
+    <!--chrome-->
+    <!--page:start--><!--page:archive--><!--page:end-->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

@@ -13,7 +13,7 @@
     "preview": "vite preview --port 4173",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
-    "fetch:previews": "node scripts/fetch-previews.mjs"
+    "tokens": "node scripts/tokens-css.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",
+    "@resvg/resvg-js": "^2.6.2",
     "eslint": "^10.13.0",
     "globals": "^16.0.0",
     "prettier": "^3.9.10",

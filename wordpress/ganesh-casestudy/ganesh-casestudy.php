@@ -36,7 +36,7 @@ function gcs_register(): void {
 		'supports'     => [ 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields' ],
 	] );
 
-	$text = [ 'cs_client', 'cs_year', 'cs_role', 'cs_type', 'cs_stack' ];
+	$text = [ 'cs_short', 'cs_client', 'cs_year', 'cs_role', 'cs_type', 'cs_status', 'cs_stack' ];
 	foreach ( $text as $key ) {
 		register_post_meta( GCS_TYPE, $key, [
 			'type'              => 'string',
@@ -46,12 +46,13 @@ function gcs_register(): void {
 			'auth_callback'     => fn() => current_user_can( 'edit_posts' ),
 		] );
 	}
-	foreach ( [ 'cs_palette_primary', 'cs_palette_secondary' ] as $key ) {
+	// one design-system hue per project ("1"–"6") and the generated drawing that also picks its 3D shape
+	foreach ( [ 'cs_hue' => GCS_HUES, 'cs_art' => GCS_ARTS ] as $key => $allowed ) {
 		register_post_meta( GCS_TYPE, $key, [
 			'type'              => 'string',
 			'single'            => true,
 			'show_in_rest'      => true,
-			'sanitize_callback' => fn( $v ) => sanitize_hex_color( $v ) ?: '',
+			'sanitize_callback' => fn( $v ) => array_key_exists( (string) $v, $allowed ) ? (string) $v : '',
 			'auth_callback'     => fn() => current_user_can( 'edit_posts' ),
 		] );
 	}
@@ -84,14 +85,26 @@ function gcs_register(): void {
 
 /* ---------------------------------------------------------------- edit screen */
 const GCS_FIELDS = [
-	'cs_client'            => [ 'Client', 'text', 'e.g. Vinyl Sound' ],
-	'cs_year'              => [ 'Year', 'text', 'e.g. 2025' ],
-	'cs_role'              => [ 'Role', 'text', 'e.g. Lead developer' ],
-	'cs_type'              => [ 'Type', 'text', 'AI · Web · E-commerce · Automation · Infra' ],
-	'cs_stack'             => [ 'Stack (comma separated)', 'text', 'Shopify, Liquid, Klaviyo' ],
-	'cs_live_url'          => [ 'Live URL', 'url', 'https://' ],
-	'cs_palette_primary'   => [ 'Primary colour', 'color', '' ],
-	'cs_palette_secondary' => [ 'Secondary colour', 'color', '' ],
+	'cs_short'    => [ 'Short name', 'text', 'For breadcrumbs, e.g. Sarah' ],
+	'cs_client'   => [ 'Client', 'text', 'e.g. RDPV Solutions' ],
+	'cs_year'     => [ 'Year', 'text', 'e.g. 2026' ],
+	'cs_role'     => [ 'Role', 'text', 'e.g. Product owner and engineer' ],
+	'cs_type'     => [ 'Type', 'text', 'e.g. Voice agents · In build' ],
+	'cs_status'   => [ 'Status', 'text', 'Optional, e.g. In build' ],
+	'cs_stack'    => [ 'Stack (comma separated)', 'text', 'Workers, D1, Twilio, Vapi' ],
+	'cs_live_url' => [ 'Live URL', 'url', 'https://' ],
+];
+// Design system project hues (one per project: tag, card tint, hero, social image and particle tint)
+const GCS_HUES = [ '1' => 'Tangerine', '2' => 'Mustard', '3' => 'Sky', '4' => 'Violet', '5' => 'Teal', '6' => 'Rose' ];
+// Generated art; each one also sets the 3D shape behind the case study
+const GCS_ARTS = [
+	'orbit'         => 'Orbit · AI agents',
+	'grid'          => 'Grid · web',
+	'stack'         => 'Stacked packages · e-commerce',
+	'helix'         => 'Helix · SEO, data and growth',
+	'ribbon'        => 'Ribbon · automation and voice',
+	'cloud'         => 'Cloud · hosting',
+	'constellation' => 'Constellation · everything else',
 ];
 
 add_action( 'add_meta_boxes', function () {
@@ -103,23 +116,28 @@ function gcs_render_box( WP_Post $post ): void {
 	echo '<table class="form-table" role="presentation">';
 	foreach ( GCS_FIELDS as $key => [ $label, $type, $placeholder ] ) {
 		$value = get_post_meta( $post->ID, $key, true );
-		if ( 'color' === $type && ! $value ) {
-			$value = 'cs_palette_primary' === $key ? '#c6f432' : '#2de2a6';
-		}
 		printf(
 			'<tr><th><label for="%1$s">%2$s</label></th><td><input class="regular-text" type="%3$s" id="%1$s" name="%1$s" value="%4$s" placeholder="%5$s"></td></tr>',
 			esc_attr( $key ), esc_html( $label ), esc_attr( $type ), esc_attr( $value ), esc_attr( $placeholder )
 		);
 	}
+	foreach ( [ 'cs_hue' => [ 'Colour', GCS_HUES, '3' ], 'cs_art' => [ 'Art and 3D shape', GCS_ARTS, 'orbit' ] ] as $key => [ $label, $options, $default ] ) {
+		$current = get_post_meta( $post->ID, $key, true ) ?: $default;
+		printf( '<tr><th><label for="%1$s">%2$s</label></th><td><select id="%1$s" name="%1$s">', esc_attr( $key ), esc_html( $label ) );
+		foreach ( $options as $v => $name ) {
+			printf( '<option value="%s"%s>%s</option>', esc_attr( $v ), selected( $current, $v, false ), esc_html( $name ) );
+		}
+		echo '</select></td></tr>';
+	}
 	$metrics = array_map(
-		fn( $m ) => ( $m['value'] ?? '' ) . ' | ' . ( $m['label'] ?? '' ),
+		fn( $m ) => trim( ( $m['value'] ?? '' ) . ' | ' . ( $m['label'] ?? '' ) . ( empty( $m['delta'] ) ? '' : ' | ' . $m['delta'] ) ),
 		(array) get_post_meta( $post->ID, 'cs_metrics', true )
 	);
 	printf(
-		'<tr><th><label for="cs_metrics">Metrics</label></th><td><textarea class="large-text" rows="4" id="cs_metrics" name="cs_metrics" placeholder="+30% | online sales">%s</textarea><p class="description">One per line: <code>value | label</code></p></td></tr>',
+		'<tr><th><label for="cs_metrics">Metrics</label></th><td><textarea class="large-text" rows="4" id="cs_metrics" name="cs_metrics" placeholder="16 | Multi-tenant schema, one database for every contractor | TABLES">%s</textarea><p class="description">One per line: <code>value | label | small caption (optional)</code>. Real, checkable numbers only.</p></td></tr>',
 		esc_textarea( implode( "\n", $metrics ) )
 	);
-	echo '</table><p class="description">The primary colour tints the 3D particles and accents on the case study page.</p>';
+	echo '</table><p class="description">Architecture diagrams and change logs: add a Custom HTML block containing <code>&lt;!--gu:arch:sarah--&gt;</code>, <code>&lt;!--gu:arch:bedrock--&gt;</code> or <code>&lt;!--gu:log:sarah--&gt;</code>. Section kickers: a paragraph with the CSS class <code>gu-meta cs-kicker</code>, e.g. “01 · Discover”.</p>';
 }
 
 add_action( 'save_post_' . GCS_TYPE, function ( int $post_id ) {
@@ -129,7 +147,7 @@ add_action( 'save_post_' . GCS_TYPE, function ( int $post_id ) {
 	if ( wp_is_post_autosave( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
-	foreach ( array_keys( GCS_FIELDS ) as $key ) {
+	foreach ( [ ...array_keys( GCS_FIELDS ), 'cs_hue', 'cs_art' ] as $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			update_post_meta( $post_id, $key, wp_unslash( $_POST[ $key ] ) ); // sanitized by register_post_meta
 		}
@@ -138,9 +156,9 @@ add_action( 'save_post_' . GCS_TYPE, function ( int $post_id ) {
 		$rows = preg_split( '/\r?\n/', sanitize_textarea_field( wp_unslash( $_POST['cs_metrics'] ) ) );
 		$out  = [];
 		foreach ( $rows as $row ) {
-			[ $value, $label ] = array_pad( array_map( 'trim', explode( '|', $row, 2 ) ), 2, '' );
+			[ $value, $label, $delta ] = array_pad( array_map( 'trim', explode( '|', $row, 3 ) ), 3, '' );
 			if ( '' !== $value ) {
-				$out[] = [ 'value' => $value, 'label' => $label ];
+				$out[] = [ 'value' => $value, 'label' => $label, 'delta' => $delta ];
 			}
 		}
 		update_post_meta( $post_id, 'cs_metrics', $out );

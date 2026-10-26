@@ -1,16 +1,17 @@
+// Design-system cursor: a 10px dot that becomes a lime pill with a label over [data-cursor]. Fine pointers only;
+// the native cursor stays visible.
 import gsap from 'gsap';
 
-// Dot cursor that grows into a label over elements with [data-cursor="Label"].
 export function initCursor() {
-  const el = document.querySelector('.cursor');
+  const el = document.querySelector('.gu-cursor');
   if (!el) return;
-  const label = el.querySelector('.cursor__label');
+  const dot = el.querySelector('.gu-cursor-dot');
+  const bubble = el.querySelector('.gu-cursor-bubble');
   document.documentElement.classList.add('has-cursor');
-  gsap.set(el, { autoAlpha: 0 }); // stays hidden until the pointer first moves, so it never parks at 0,0
-  let shown = false;
+  gsap.set(el, { autoAlpha: 0 });
   const xTo = gsap.quickTo(el, 'x', { duration: 0.35, ease: 'power3' });
   const yTo = gsap.quickTo(el, 'y', { duration: 0.35, ease: 'power3' });
-
+  let shown = false;
   window.addEventListener(
     'pointermove',
     (e) => {
@@ -25,10 +26,11 @@ export function initCursor() {
     { passive: true },
   );
   document.addEventListener('pointerover', (e) => {
-    const target = e.target.closest('[data-cursor]');
-    el.classList.toggle('is-label', Boolean(target));
-    if (target) label.textContent = target.dataset.cursor;
+    const t = e.target.closest('[data-cursor]');
+    if (t) bubble.textContent = t.dataset.cursor;
+    bubble.hidden = !t;
+    dot.hidden = Boolean(t);
   });
   document.addEventListener('pointerleave', () => gsap.to(el, { autoAlpha: 0, duration: 0.2 }));
-  document.addEventListener('pointerenter', () => gsap.to(el, { autoAlpha: 1, duration: 0.2 }));
+  document.addEventListener('pointerenter', () => shown && gsap.to(el, { autoAlpha: 1, duration: 0.2 }));
 }
