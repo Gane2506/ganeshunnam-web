@@ -112,10 +112,4 @@ Roll back with `ln -sfn releases/<older> current` on the server.
 
 Cloudflare setup (DNS, Origin CA certificate, origin lock, cache rule, Access): **[deploy/cloudflare/README.md](deploy/cloudflare/README.md)**.
 
-Server, once:
-
-```bash
-sudo mkdir -p /var/www/ganeshunnam/releases && sudo chown -R deploy: /var/www/ganeshunnam
-sudo cp deploy/nginx/ganeshunnam.conf /etc/nginx/sites-available/ && sudo ln -s ../sites-available/ganeshunnam.conf /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
-```
+Server, once, and the full launch checklist: **[docs/GO-LIVE.md](docs/GO-LIVE.md)** (`deploy/server/bootstrap.sh` does the setup).
