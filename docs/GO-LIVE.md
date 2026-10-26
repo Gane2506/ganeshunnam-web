@@ -44,7 +44,6 @@ handles www → apex, caching and security headers itself. Skip Cloudflare's Ori
 
 **Empty server:**
 
-
 ```bash
 scp -r deploy root@SERVER_IP:/root/gu-deploy
 ssh root@SERVER_IP

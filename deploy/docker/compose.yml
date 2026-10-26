@@ -7,12 +7,13 @@ services:
     container_name: ganeshunnam-web
     restart: unless-stopped
     volumes:
-      - /var/www/ganeshunnam:/var/www/ganeshunnam:ro   # 'current' symlink resolves inside the same path
+      - /var/www/ganeshunnam:/var/www/ganeshunnam:ro # 'current' symlink resolves inside the same path
       - ./site.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - "127.0.0.1:8088:80"
+      - '127.0.0.1:8088:80'
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "-T", "5", "--header", "Host: ganeshunnam.com", "http://127.0.0.1/"]
+      test:
+        ['CMD', 'wget', '-q', '--spider', '-T', '5', '--header', 'Host: ganeshunnam.com', 'http://127.0.0.1/']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,4 +22,4 @@ services:
 
 networks:
   web:
-    external: true   # the network Nginx Proxy Manager's container is on
+    external: true # the network Nginx Proxy Manager's container is on
