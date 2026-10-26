@@ -98,6 +98,22 @@ jobs:
             -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
             --data '{"purge_everything":true}' | grep -q '"success":true'
 
-      - name: Smoke test
+      # Checks the origin from the server itself, so it works before DNS points here: the site container
+      # (bootstrap-npm.sh, 127.0.0.1:8088) or system nginx (bootstrap.sh, :443) must serve this release's index.html.
+      - name: Smoke test (origin)
         if: steps.cfg.outputs.ready == 'true'
-        run: curl -fsS -o /dev/null -w '%{http_code}\n' https://ganeshunnam.com/
+        env:
+          TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+        run: |
+          want=$(sha256sum dist/index.html | cut -d' ' -f1)
+          got=$(ssh -i ~/.ssh/deploy "$TARGET" \
+            "curl -fsS -H 'Host: ganeshunnam.com' http://127.0.0.1:8088/ 2>/dev/null || curl -fsSk --resolve ganeshunnam.com:443:127.0.0.1 https://ganeshunnam.com/" \
+            | sha256sum | cut -d' ' -f1)
+          [ "$want" = "$got" ] || { echo "::error::origin is not serving this release's index.html"; exit 1; }
+
+      - name: Smoke test (public)
+        if: steps.cfg.outputs.ready == 'true'
+        run: |
+          code=$(curl -sS -o /dev/null -w '%{http_code}' https://ganeshunnam.com/ || true)
+          echo "https://ganeshunnam.com/ → $code"
+          [ "$code" = 200 ] || echo "::warning::public site answered $code (expected until DNS points at the server)"

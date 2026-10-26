@@ -27,6 +27,24 @@ serves it. Re-run with `--replace` to switch it off. The script disables it but 
 
 ## 3. Prepare the server (once)
 
+**Server already running Nginx Proxy Manager (the Contabo box):** don't use `bootstrap.sh`, its nginx would fight NPM
+for ports 80/443. Use `bootstrap-npm.sh` instead. It installs no system nginx and leaves other sites alone. It
+creates the `deploy` user and `/var/www/ganeshunnam`, then runs the site in a small `nginx:alpine` container
+(`ganeshunnam-web`, config in `deploy/docker/`) on NPM's `web` network:
+
+```bash
+scp -r deploy root@SERVER_IP:/root/gu-deploy
+ssh root@SERVER_IP "bash /root/gu-deploy/server/bootstrap-npm.sh --deploy-key '$(cat gu_deploy.pub)'"
+```
+
+Then in NPM → Hosts → Proxy Hosts → Add: domains `ganeshunnam.com`, `www.ganeshunnam.com`; scheme `http`,
+forward host `ganeshunnam-web`, port `80`; Block Common Exploits on. SSL tab: request a Let's Encrypt certificate,
+Force SSL, HTTP/2. The certificate can only be issued once DNS (step 2) points at the server. The container
+handles www → apex, caching and security headers itself. Skip Cloudflare's Origin CA steps in this setup.
+
+**Empty server:**
+
+
 ```bash
 scp -r deploy root@SERVER_IP:/root/gu-deploy
 ssh root@SERVER_IP
@@ -56,7 +74,8 @@ Repo → Settings → Environments → **production**:
 ## 5. Deploy
 
 Push to `main`, or Actions → Deploy → Run workflow. The run builds, uploads to `releases/<sha>-<run>/`, swaps
-the `current` symlink and checks `https://ganeshunnam.com/` returns 200.
+the `current` symlink and checks that the server itself serves the new `index.html`. The public check only warns,
+so deploys work before DNS moves.
 
 Check: `curl -sI https://ganeshunnam.com | head -1` shows `200`, and the site shows the new hero.
 
