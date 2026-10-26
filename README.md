@@ -4,7 +4,7 @@ Portfolio for Ganesh Unnam: AI Engineer & Creative Developer. Static Vite site w
 stage, GSAP scroll choreography and case studies written in a headless WordPress.
 
 ```
-WordPress (cms.ganeshunnam.com)  ──publish──▶  GitHub Actions  ──rsync──▶  Nginx (static)
+WordPress (cms.ganeshunnam.com)  ──publish──▶  GitHub Actions  ──rsync──▶  Nginx (static) ◀── Cloudflare ◀── visitors
   "casestudy" posts + fields       dispatch     build + prerender         /var/www/ganeshunnam/current
 ```
 
@@ -74,18 +74,22 @@ Add `?forcegl` to a URL to force the WebGL stage on machines with software GL (Q
 
 GitHub → Settings → Environments → `production`:
 
-| Kind     | Name                 | Value                                            |
-| -------- | -------------------- | ------------------------------------------------ |
-| Variable | `WP_API_URL`         | `https://cms.ganeshunnam.com/wp-json`            |
-| Secret   | `DEPLOY_HOST`        | server hostname or IP                            |
-| Secret   | `DEPLOY_USER`        | deploy user (owns `DEPLOY_PATH`)                 |
-| Secret   | `DEPLOY_PATH`        | `/var/www/ganeshunnam`                           |
-| Secret   | `DEPLOY_SSH_KEY`     | private key for that user (ed25519, deploy-only) |
-| Secret   | `DEPLOY_KNOWN_HOSTS` | output of `ssh-keyscan -t ed25519 <host>`        |
+| Kind     | Name                   | Value                                                |
+| -------- | ---------------------- | ---------------------------------------------------- |
+| Variable | `WP_API_URL`           | `https://cms.ganeshunnam.com/wp-json`                |
+| Secret   | `DEPLOY_HOST`          | `ssh.ganeshunnam.com` (DNS-only record) or server IP |
+| Secret   | `DEPLOY_USER`          | deploy user (owns `DEPLOY_PATH`)                     |
+| Secret   | `DEPLOY_PATH`          | `/var/www/ganeshunnam`                               |
+| Secret   | `DEPLOY_SSH_KEY`       | private key for that user (ed25519, deploy-only)     |
+| Secret   | `DEPLOY_KNOWN_HOSTS`   | output of `ssh-keyscan -t ed25519 <host>`            |
+| Secret   | `CLOUDFLARE_ZONE_ID`   | zone overview page                                   |
+| Secret   | `CLOUDFLARE_API_TOKEN` | token with Zone → Cache Purge on this zone only      |
 
 Deploys run on push to `main`, on `cms-publish` dispatches from WordPress, nightly, and by hand. Each run
 uploads to `releases/<sha>-<run>/`, swaps the `current` symlink atomically and keeps the last five releases.
 Roll back with `ln -sfn releases/<older> current` on the server.
+
+Cloudflare setup (DNS, Origin CA certificate, origin lock, cache rule, Access): **[deploy/cloudflare/README.md](deploy/cloudflare/README.md)**.
 
 Server, once:
 

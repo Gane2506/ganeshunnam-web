@@ -35,6 +35,7 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
+      # DEPLOY_HOST must be the origin IP or a DNS-only (grey-cloud) name: Cloudflare's proxy doesn't carry SSH.
       - name: Configure SSH
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
@@ -64,6 +65,21 @@ jobs:
           mv -Tf current.tmp current
           ls -1dt releases/*/ | tail -n +6 | xargs -r rm -rf
           EOS
+
+      # HTML can be cached at Cloudflare's edge (see deploy/cloudflare/README.md), so clear it on every release.
+      # Hashed /assets/* would survive, but purge_everything keeps this simple and costs one origin hit per file.
+      - name: Purge Cloudflare cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ZONE_ID" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ZONE_ID not set; skipping cache purge"
+            exit 0
+          fi
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' | grep -q '"success":true'
 
       - name: Smoke test
         run: curl -fsS -o /dev/null -w '%{http_code}\n' https://ganeshunnam.com/
