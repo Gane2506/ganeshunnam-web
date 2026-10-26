@@ -1,0 +1,69 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [cms-publish] # sent by the ganesh-casestudy WordPress plugin
+  schedule:
+    - cron: '17 7 * * *' # nightly safety rebuild (07:17 UTC)
+  workflow_dispatch:
+
+# deploys queue instead of cancelling, so a WordPress publish during a code deploy is never lost
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: https://ganeshunnam.com
+    env:
+      WP_API_URL: ${{ vars.WP_API_URL }}
+      SITE_URL: https://ganeshunnam.com
+      RELEASE: ${{ github.sha }}-${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+          BASE: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -i ~/.ssh/deploy "$TARGET" "mkdir -p '$BASE/releases/$RELEASE'"
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy" dist/ "$TARGET:$BASE/releases/$RELEASE/"
+
+      - name: Activate release (atomic symlink swap) and keep the last 5
+        env:
+          TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+          BASE: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -i ~/.ssh/deploy "$TARGET" bash -s <<EOS
+          set -euo pipefail
+          cd '$BASE'
+          ln -sfn "releases/$RELEASE" current.tmp
+          mv -Tf current.tmp current
+          ls -1dt releases/*/ | tail -n +6 | xargs -r rm -rf
+          EOS
+
+      - name: Smoke test
+        run: curl -fsS -o /dev/null -w '%{http_code}\n' https://ganeshunnam.com/

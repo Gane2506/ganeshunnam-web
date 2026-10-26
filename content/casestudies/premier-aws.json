@@ -1,0 +1,18 @@
+{
+  "slug": "woocommerce-15k-skus-cpanel-to-aws",
+  "title": "Moving three WooCommerce stores with 15,000+ SKUs from cPanel to AWS",
+  "excerpt": "A hosting migration and programmatic SEO program for an electronic parts distributor, with a 25% lift in clicks and impressions within two months.",
+  "date": "2024-06-01",
+  "client": "Premier Electronic Parts Inc",
+  "year": "2023–2024",
+  "role": "Web developer · SEO",
+  "type": "E-commerce",
+  "stack": ["WooCommerce", "AWS VPC", "EC2", "Programmatic SEO", "Microsoft 365"],
+  "palette": ["#e8a24a", "#ffd9a0"],
+  "liveUrl": "",
+  "metrics": [
+    { "value": "15k+", "label": "SKUs across 3 stores" },
+    { "value": "+25%", "label": "clicks & impressions in 2 months" }
+  ],
+  "content": "<h2>The problem</h2><p>Three WooCommerce catalogues with more than 15,000 products had outgrown shared cPanel hosting. Pages were slow, indexing was patchy and every traffic spike was a risk.</p><h2>The approach</h2><ul><li>Designed AWS VPCs for internal and external applications, then migrated all three stores off cPanel</li><li>Hardened networking and kept servers highly available</li><li>Rolled out programmatic SEO templates to improve indexing across the catalogue</li><li>Iterated on conversion paths using performance data</li></ul><h2>The result</h2><p>Faster, more resilient storefronts, and a <strong>25% increase in clicks and impressions within two months</strong>.</p>"
+}

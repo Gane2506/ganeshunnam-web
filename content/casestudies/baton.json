@@ -1,0 +1,18 @@
+{
+  "slug": "baton-agent-orchestrator",
+  "title": "Baton: from idea to reviewed, tested code with an agent orchestrator",
+  "excerpt": "An open-source orchestrator that routes work across Claude Code, Codex and OpenRouter models through plan, validate, code, test and integrate stages.",
+  "date": "2026-10-13",
+  "client": "Open source",
+  "year": "2026",
+  "role": "Creator · Lead engineer",
+  "type": "AI",
+  "stack": ["Python", "Claude Code", "Codex", "OpenRouter", "MCP"],
+  "palette": ["#c6f432", "#2de2a6"],
+  "liveUrl": "https://github.com/Gane2506/baton",
+  "metrics": [
+    { "value": "5", "label": "pipeline stages" },
+    { "value": "3", "label": "model providers" }
+  ],
+  "content": "<h2>The problem</h2><p>AI coding agents are fast, but left alone they skip planning, review and tests. Teams end up babysitting each run instead of shipping.</p><h2>The approach</h2><p>Baton (the <code>jev</code> CLI plus a web dashboard) treats every idea as a job that moves through <strong>plan → validate → code → test → integrate</strong>. Each stage is dispatched to the provider best suited to it, whether Claude Code, Codex or OpenRouter models (free ones included), with cost-aware routing and a quality gate before anything merges.</p><ul><li>Autonomy modes from fully supervised to hands-off</li><li>Idea queue, scheduler and Kanban board, plus a fleet view across runs</li><li>Per-role MCP tools and skills, and recursive learning profiles that improve routing over time</li><li>Browser preview with human takeover</li></ul><h2>The result</h2><p>Work arrives as reviewed, tested pull requests instead of raw diffs. The orchestrator is public on GitHub.</p>"
+}
