@@ -35,8 +35,22 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
+      # Until the server is set up (docs/GO-LIVE.md), runs build and stop here instead of failing.
+      - name: Check deploy settings
+        id: cfg
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          if [ -z "$HOST" ]; then
+            echo "::notice::Deploy secrets are not set yet, so this run only built the site. See docs/GO-LIVE.md."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # DEPLOY_HOST must be the origin IP or a DNS-only (grey-cloud) name: Cloudflare's proxy doesn't carry SSH.
       - name: Configure SSH
+        if: steps.cfg.outputs.ready == 'true'
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
@@ -46,6 +60,7 @@ jobs:
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
 
       - name: Upload release
+        if: steps.cfg.outputs.ready == 'true'
         env:
           TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
           BASE: ${{ secrets.DEPLOY_PATH }}
@@ -54,6 +69,7 @@ jobs:
           rsync -az --delete -e "ssh -i ~/.ssh/deploy" dist/ "$TARGET:$BASE/releases/$RELEASE/"
 
       - name: Activate release (atomic symlink swap) and keep the last 5
+        if: steps.cfg.outputs.ready == 'true'
         env:
           TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
           BASE: ${{ secrets.DEPLOY_PATH }}
@@ -69,6 +85,7 @@ jobs:
       # HTML can be cached at Cloudflare's edge (see deploy/cloudflare/README.md), so clear it on every release.
       # Hashed /assets/* would survive, but purge_everything keeps this simple and costs one origin hit per file.
       - name: Purge Cloudflare cache
+        if: steps.cfg.outputs.ready == 'true'
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
@@ -82,4 +99,5 @@ jobs:
             --data '{"purge_everything":true}' | grep -q '"success":true'
 
       - name: Smoke test
+        if: steps.cfg.outputs.ready == 'true'
         run: curl -fsS -o /dev/null -w '%{http_code}\n' https://ganeshunnam.com/
