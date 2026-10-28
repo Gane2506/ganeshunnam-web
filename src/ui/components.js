@@ -571,9 +571,10 @@ const SITES = (() => {
 })();
 const detectedTags = (url) => {
   const d = SITES[hostOf(url)] || {};
-  return [...(d.platforms || []), d.cloudflare && 'Cloudflare', d.zaraz && 'Cloudflare Zaraz'].filter(
-    Boolean,
-  );
+  const platforms = d.platforms || [];
+  // WooCommerce already says WordPress
+  const shown = platforms.includes('WooCommerce') ? platforms.filter((x) => x !== 'WordPress') : platforms;
+  return [...shown, d.cloudflare && 'Cloudflare', d.zaraz && 'Cloudflare Zaraz'].filter(Boolean);
 };
 
 // "More shipped client work": alternating rows (screenshot left, then right) with a two-line story and tags.
