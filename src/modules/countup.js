@@ -1,5 +1,5 @@
 // Stat count-up from 0, once, at 40% visibility, expo out over 1050ms. The HTML already holds the final value.
-export function initCountUp() {
+export function initCountUp({ signal } = {}) {
   const els = document.querySelectorAll('[data-count]');
   if (!els.length) return;
   const io = new IntersectionObserver(
@@ -22,4 +22,5 @@ export function initCountUp() {
     { threshold: 0.4 },
   );
   els.forEach((el) => io.observe(el));
+  signal?.addEventListener('abort', () => io.disconnect());
 }

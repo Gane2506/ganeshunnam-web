@@ -1,12 +1,13 @@
 // Kinetic marquee: 60px/s base; scroll velocity adds speed and skews up to ±8°, decaying 0.9 per frame.
-export function initMarquee(ticker) {
+export function initMarquee(ticker, { signal } = {}) {
   const el = document.querySelector('[data-marquee]');
   if (!el) return;
   let x = 0;
   let v = 0;
   let lastY = window.scrollY;
   let visible = false;
-  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(el);
+  const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
+  io.observe(el);
   window.addEventListener(
     'scroll',
     () => {
@@ -14,9 +15,9 @@ export function initMarquee(ticker) {
       v += (y - lastY) * 0.6;
       lastY = y;
     },
-    { passive: true },
+    { passive: true, signal },
   );
-  ticker.add((time, deltaMs) => {
+  const tick = (time, deltaMs) => {
     if (!visible) return;
     const dt = Math.min(0.05, deltaMs / 1000);
     v *= 0.9;
@@ -25,5 +26,10 @@ export function initMarquee(ticker) {
     if (-x >= half) x += half;
     const skew = Math.max(-8, Math.min(8, v * 0.4));
     el.style.transform = `translate3d(${x.toFixed(2)}px,0,0) skewX(${(-skew).toFixed(2)}deg)`;
+  };
+  ticker.add(tick);
+  signal?.addEventListener('abort', () => {
+    ticker.remove(tick);
+    io.disconnect();
   });
 }

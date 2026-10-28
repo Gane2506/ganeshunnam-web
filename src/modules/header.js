@@ -1,7 +1,7 @@
 // Header states (top → solid → hidden on scroll down) and the full-screen mobile menu.
 import { reducedMotion } from './env.js';
 
-export function initHeader({ lenis } = {}) {
+export function initHeader({ lenis, signal } = {}) {
   const header = document.querySelector('[data-header]');
   const menu = document.querySelector('[data-menu]');
   const openBtn = document.querySelector('[data-menu-open]');
@@ -19,7 +19,7 @@ export function initHeader({ lenis } = {}) {
       state = 'hidden';
     if (header.dataset.state !== state) header.dataset.state = state;
   };
-  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scroll', update, { passive: true, signal });
   update();
 
   if (!menu || !openBtn) return;

@@ -1,11 +1,13 @@
-// Boot: theme, header, smooth scroll, reveals, pinned sections, micro-interactions, then the WebGL field once
-// the page is idle. Every page is complete static HTML; this only adds motion and behaviour.
+// Boot: theme, smooth scroll, cursor and the WebGL field once per visit; reveals, pinned sections and
+// micro-interactions once per page. Every page is complete static HTML; this only adds motion and behaviour.
+// With motion allowed, internal links swap pages in place (router.js), so mountPage() runs again for each
+// page and the cleanup it returns undoes everything it set up.
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
 import { canFastWebGL, finePointer, isMobile, reducedMotion, saveData } from './modules/env.js';
-import { initTheme, currentTheme } from './modules/theme.js';
+import { initTheme, syncTheme, currentTheme } from './modules/theme.js';
 import { initHeader } from './modules/header.js';
 import { initCopyEmail } from './modules/copy-email.js';
 import { initLifecycle } from './modules/lifecycle.js';
@@ -15,12 +17,10 @@ import { initCountUp } from './modules/countup.js';
 import { initCursor } from './modules/cursor.js';
 import { initMagnetic } from './modules/magnetic.js';
 import { initCards } from './modules/cards.js';
-import { initTransitions } from './modules/transitions.js';
+import { initRouter } from './modules/router.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const html = document.documentElement;
-
-document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));
 initTheme();
 
 // ---------- smooth scroll: Lenis on the GSAP ticker ----------
@@ -31,40 +31,73 @@ if (!reducedMotion) {
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
 }
-initHeader({ lenis });
-document.querySelectorAll('[data-top]').forEach((b) =>
-  b.addEventListener('click', () => {
-    if (lenis) lenis.scrollTo(0);
-    else window.scrollTo(0, 0);
-    document.getElementById('main')?.focus({ preventScroll: true });
-  }),
-);
-
-// ---------- lifecycle tabs (work with or without motion) ----------
-const lifeListeners = [];
-const life = initLifecycle((i, shape) => lifeListeners.forEach((fn) => fn(shape)));
-initArchitecture();
-
-let stage = null;
-initCards((hue) => stage?.retint(hue));
-initCopyEmail((btn) => {
-  if (!reducedMotion) gsap.fromTo(btn, { scale: 0.97 }, { scale: 1, duration: 0.6, ease: 'expo.out' });
+const scrollTo = (target) => {
+  if (lenis)
+    lenis.scrollTo(target, { immediate: true, force: true, offset: typeof target === 'number' ? 0 : -72 });
+  else if (typeof target === 'number') window.scrollTo(0, target);
+  else target.scrollIntoView();
+};
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('[data-top]')) return;
+  if (lenis) lenis.scrollTo(0);
+  else window.scrollTo(0, 0);
+  document.getElementById('main')?.focus({ preventScroll: true });
 });
 
-// ---------- motion ----------
 if (!reducedMotion) {
   html.classList.add('js-motion');
   setTimeout(() => html.classList.add('motion-ready'), 2500); // never leave text hidden
-  document.fonts.ready.then(initMotion);
-  initMarquee(gsap.ticker);
-  initCountUp();
-  if (finePointer) {
-    initMagnetic();
-    initCursor();
-  }
+  if (finePointer) initCursor();
 }
 
-function initMotion() {
+// ---------- per page ----------
+let field = null;
+let stage = null;
+let stageInit = null;
+let page = null; // { ctx, ac, lifeListeners, life }
+
+function mountPage() {
+  const ac = new AbortController();
+  const { signal } = ac;
+  const lifeListeners = [];
+  const p = { ac, lifeListeners, life: null };
+  document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));
+  syncTheme();
+  p.ctx = gsap.context(() => {
+    initHeader({ lenis, signal });
+    p.life = initLifecycle((i, shape) => lifeListeners.forEach((fn) => fn(shape)));
+    initArchitecture();
+    initCards((hue) => stage?.retint(hue));
+    initCopyEmail((btn) => {
+      if (!reducedMotion) gsap.fromTo(btn, { scale: 0.97 }, { scale: 1, duration: 0.6, ease: 'expo.out' });
+    });
+    if (!reducedMotion) {
+      initMarquee(gsap.ticker, { signal });
+      initCountUp({ signal });
+      if (finePointer) initMagnetic();
+    }
+  });
+  page = p;
+  if (!reducedMotion) {
+    if (document.fonts.status === 'loaded') p.ctx.add(() => initMotion(p));
+    else document.fonts.ready.then(() => page === p && p.ctx.add(() => initMotion(p)));
+  }
+  if (field) p.ctx.add(() => (stage = stageInit(field, { lifecycle: lifeHooks(p), signal })));
+}
+
+function unmountPage() {
+  if (!page) return;
+  page.ac.abort();
+  page.ctx.revert();
+  stage = null;
+  page = null;
+  document.querySelector('.gu-cursor-bubble')?.setAttribute('hidden', '');
+  document.querySelector('.gu-cursor-dot')?.removeAttribute('hidden');
+}
+
+const lifeHooks = (p) => ({ onChange: (fn) => p.lifeListeners.push(fn) });
+
+function initMotion(p) {
   // masked line reveal: yPercent 105 → 0, 1050ms expo out, 60ms stagger, once at 15% into the viewport
   document.querySelectorAll('[data-split]').forEach((el) => {
     SplitText.create(el, {
@@ -128,12 +161,13 @@ function initMotion() {
     });
   }
 
-  if (window.innerWidth >= 1024) pinSections();
-  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  if (window.innerWidth >= 1024) pinSections(p);
+  if (document.readyState === 'complete') requestAnimationFrame(() => ScrollTrigger.refresh());
+  else window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 }
 
 // About holds for an extra 50vh (≈150vh) while the shape explodes; How I work holds 300vh and scroll picks the phase.
-function pinSections() {
+function pinSections(p) {
   const pin = (el, extra) =>
     ScrollTrigger.create({
       trigger: el,
@@ -142,8 +176,8 @@ function pinSections() {
       pin: true,
       invalidateOnRefresh: true,
       onUpdate:
-        el.matches('[data-life-pin]') && life
-          ? (self) => life.go(Math.min(life.count - 1, Math.floor(self.progress * life.count)))
+        el.matches('[data-life-pin]') && p.life
+          ? (self) => p.life.go(Math.min(p.life.count - 1, Math.floor(self.progress * p.life.count)))
           : undefined,
     });
   const about = document.querySelector('[data-pin]');
@@ -152,15 +186,19 @@ function pinSections() {
   if (how) pin(how, '200%');
 }
 
-// ---------- WebGL field: after first paint and idle, only on a hardware GPU ----------
+mountPage();
+
+// ---------- WebGL field: after first paint and idle, only on a hardware GPU; lives across page swaps ----------
 async function bootField() {
   const [{ ParticleField }, { initStage }] = await Promise.all([
     import('./three/particle-field.js'),
     import('./modules/stage.js'),
   ]);
-  const field = new ParticleField({ canvas: document.getElementById('gl'), theme: currentTheme() });
+  field = new ParticleField({ canvas: document.getElementById('gl'), theme: currentTheme() });
+  stageInit = initStage;
   html.classList.add('is-gl');
-  stage = initStage(field, { lifecycle: { onChange: (fn) => lifeListeners.push(fn) } });
+  if (page)
+    page.ctx.add(() => (stage = initStage(field, { lifecycle: lifeHooks(page), signal: page.ac.signal })));
   // free the GPU context when the page really goes away (not on bfcache entry)
   window.addEventListener('pagehide', (e) => !e.persisted && field.dispose());
 }
@@ -173,4 +211,15 @@ if (!reducedMotion && !saveData && canFastWebGL()) {
   else window.addEventListener('load', start, { once: true });
 }
 
-initTransitions();
+// ---------- page swaps (motion only; reduced motion keeps plain, instant page loads) ----------
+if (!reducedMotion) {
+  initRouter({
+    unmount: unmountPage,
+    mount: () => {
+      mountPage();
+      lenis?.resize();
+      ScrollTrigger.refresh(); // pins and section triggers measured before any scroll restore
+    },
+    scrollTo,
+  });
+}

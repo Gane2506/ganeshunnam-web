@@ -379,3 +379,100 @@ body > .gu-footer {
     font-size: 14px;
   }
 }
+
+/* ---------- page swaps (router.js): the live particle field stays underneath, the old page lifts away,
+   the new one rises in, and the clicked card's drawing morphs into the case study hero ---------- */
+:root.is-swapping {
+  background: transparent;
+}
+:root.is-swapping::view-transition {
+  background: var(--bg);
+}
+.is-swapping .stage {
+  view-transition-name: gu-stage;
+}
+.is-swapping .pg-header {
+  view-transition-name: gu-header;
+}
+.is-swapping .gu-cursor {
+  view-transition-name: gu-cursor;
+}
+:root.is-swapping::view-transition-group(gu-stage) {
+  z-index: 0;
+  animation: none;
+}
+:root.is-swapping::view-transition-old(gu-stage) {
+  display: none;
+}
+:root.is-swapping::view-transition-new(gu-stage) {
+  animation: none;
+}
+:root.is-swapping::view-transition-group(root) {
+  z-index: 1;
+}
+:root.is-swapping::view-transition-old(root) {
+  animation: gu-page-out 520ms var(--ease-in) both;
+}
+:root.is-swapping::view-transition-new(root) {
+  animation: gu-page-in 1000ms var(--ease-out) 280ms both;
+}
+:root.is-swapping::view-transition-group(gu-shared-art) {
+  z-index: 2;
+  animation-duration: 1100ms;
+  animation-timing-function: var(--ease-out);
+}
+:root.is-swapping::view-transition-old(gu-shared-art),
+:root.is-swapping::view-transition-new(gu-shared-art) {
+  height: 100%;
+  object-fit: cover;
+  animation-duration: 700ms;
+}
+:root.is-swapping::view-transition-group(gu-header),
+:root.is-swapping::view-transition-group(gu-cursor) {
+  z-index: 3;
+}
+:root.is-swapping::view-transition-group(gu-cursor),
+:root.is-swapping::view-transition-old(gu-cursor),
+:root.is-swapping::view-transition-new(gu-cursor) {
+  animation: none;
+}
+:root.is-swapping::view-transition-old(gu-cursor) {
+  display: none;
+}
+:root.is-swapping::view-transition-old(gu-shared-art):only-child {
+  animation: gu-art-exit 900ms var(--ease-out) both;
+}
+@keyframes gu-art-exit {
+  to {
+    opacity: 0;
+    transform: scale(1.18);
+    filter: blur(10px);
+  }
+}
+@keyframes gu-page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-56px) scale(0.98);
+    filter: blur(6px);
+  }
+}
+@keyframes gu-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(72px);
+    clip-path: inset(22% 0 0 0 round 32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0 round 0);
+  }
+}
+@media (max-width: 767px) {
+  @keyframes gu-page-out {
+    to {
+      opacity: 0;
+      transform: translateY(-32px);
+    }
+  }
+}

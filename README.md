@@ -64,7 +64,14 @@ ink dots. The script's hash is in the CSP (`deploy/nginx/ganeshunnam.conf`); `np
 | Case study                       | hero in the project's hue                               | the project's shape, base colour pulled 60% toward its hue             |
 | 404                              |                                                         | sphere falling apart                                                   |
 
-Reduced motion: no smooth scroll, pins, reveals, cursor or WebGL; the static mesh poster stays.
+**Page changes** don't reload: `src/modules/router.js` fetches the next page and swaps it in place, so the particle
+field, Lenis and the cursor carry on. The field morphs from this page's shape into the next one and glides to its
+new spot; the clicked card's drawing morphs into the case study hero when it's on screen (or zooms forward and
+dissolves when it isn't); the old page lifts away and the new one rises in (View Transitions, CSS at the end of
+`site.css`). Browsers without View Transitions get the lime curtain. Links are prefetched on hover, touch or focus;
+back and forward restore the scroll position. `main.js` mounts each page and its cleanup undoes everything.
+
+Reduced motion: no smooth scroll, pins, reveals, cursor or WebGL; the static mesh poster stays. Page changes are normal full loads.
 
 ## Performance guardrails
 

@@ -87,7 +87,7 @@ const forViewport = (s, id) => {
   return { ...s, x: 0.5, y: 0.3, scale: (s.scale || 0.6) * 0.75, opacity: Math.min(s.opacity ?? 1, 0.12) }; // behind body text: barely there
 };
 
-export function initStage(field, { lifecycle } = {}) {
+export function initStage(field, { lifecycle, signal } = {}) {
   const scenes = pageScenes();
   const layout = { ...field.layout };
   let active = null;
@@ -161,15 +161,21 @@ export function initStage(field, { lifecycle } = {}) {
     });
   }
 
-  onThemeChange((theme) => {
+  const offTheme = onThemeChange((theme) => {
     const s = scenes[active];
     field.setTheme(theme, s?.tint ? css(s.tint) : undefined);
     setTimeout(paintBase, 220); // after the fade-out swaps the palette
   });
   // dim while the mobile menu is open
-  document.addEventListener('gu:menu', (e) =>
-    field.setLayout({ opacity: e.detail ? QUIET : (forViewport(scenes[active] || {}, active).opacity ?? 1) }),
+  document.addEventListener(
+    'gu:menu',
+    (e) =>
+      field.setLayout({
+        opacity: e.detail ? QUIET : (forViewport(scenes[active] || {}, active).opacity ?? 1),
+      }),
+    { signal },
   );
+  signal?.addEventListener('abort', offTheme);
 
   return {
     retint: (hue) => active === 'work' && field.setTint(css(`--hue-${hue}`)),

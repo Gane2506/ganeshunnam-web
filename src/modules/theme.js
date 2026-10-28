@@ -5,9 +5,12 @@ import { reducedMotion } from './env.js';
 const root = document.documentElement;
 const listeners = new Set();
 export const currentTheme = () => (root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
-export const onThemeChange = (fn) => listeners.add(fn);
+export const onThemeChange = (fn) => {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+};
 
-function sync() {
+export function syncTheme() {
   const light = currentTheme() === 'light';
   document
     .querySelectorAll('[data-theme-toggle]')
@@ -24,7 +27,7 @@ function apply(next, save) {
         /* storage blocked: the choice lasts for this page only */
       }
     }
-    sync();
+    syncTheme();
     listeners.forEach((fn) => fn(next));
   };
   if (document.startViewTransition && !reducedMotion) document.startViewTransition(go);
@@ -32,7 +35,7 @@ function apply(next, save) {
 }
 
 export function initTheme() {
-  sync();
+  syncTheme();
   document.addEventListener('click', (e) => {
     if (e.target.closest('[data-theme-toggle]')) apply(currentTheme() === 'dark' ? 'light' : 'dark', true);
   });
