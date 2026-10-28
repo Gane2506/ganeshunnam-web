@@ -54,8 +54,8 @@ export function home({ caseStudies = [] } = {}) {
         <p class="pg-hero-lead hero-in" style="--d:.6s">${HERO.lead}</p>
         <div class="pg-hero-ctas hero-in" style="--d:.7s">${G.Button({ label: 'Start a project', size: 'l', iconEnd: 'arrow-up-right', href: '#contact', cursor: 'Say hi' })}${G.Button({ label: 'See the work', size: 'l', variant: 'ghost', href: '#work', cursor: 'View' })}</div>
       </div>
+      <nav class="pg-hero-services hero-in" style="--d:.8s" aria-label="What I do"><span class="gu-meta">What I do</span><ul>${HERO.services.map(([label, href]) => `<li><a href="${href}" class="gu-focusable">${label}</a></li>`).join('')}</ul></nav>
     </div>
-    ${G.ScrollIndicator()}
   </section>
   ${G.Marquee({ items: MARQUEE })}
   ${sec(
@@ -69,24 +69,16 @@ export function home({ caseStudies = [] } = {}) {
     </div>`,
   )}
   ${sec(
-    'how',
-    `<div class="pg-wrap pg-pin" data-life-pin>
-      <div class="pg-how-head"><div class="pg-head">${G.SectionHeader({ index: '02', eyebrow: 'How I work', title: 'From the first call to the next release', lead: 'One person across the whole lifecycle, so nothing gets lost between scoping, building and keeping it running.' })}</div><div class="pg-field-how" aria-hidden="true"></div></div>
-      ${G.Lifecycle({ phases: PHASES })}
-    </div>`,
-    'pg-how',
-  )}
-  ${sec(
-    'featured',
+    'capabilities',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '03', eyebrow: 'Featured build', title: 'Scanned documents in, structured answers out', lead: 'An OCR and retrieval pipeline on Amazon Bedrock: Textract reads the pages, pgvector finds the right passages, and the model answers in fields an app can use.' })}</div>
-      ${G.ArchitectureDiagram(BEDROCK_ARCH)}
+      <div class="pg-head">${G.SectionHeader({ index: '02', eyebrow: 'Services', title: 'What I can take off your plate' })}</div>
+      <div data-caps>${CAPABILITIES.map((c, i) => G.CapabilityRow({ ...c, index: `0${i + 1}` })).join('')}</div>
     </div>`,
   )}
   ${sec(
     'work',
     `<div class="pg-wrap pg-grid">
-      <div class="pg-head" style="grid-column:1 / -1">${G.SectionHeader({ index: '04', eyebrow: 'Selected work', title: 'Agents, storefronts and the glue between them' })}</div>
+      <div class="pg-head" style="grid-column:1 / -1">${G.SectionHeader({ index: '03', eyebrow: 'Selected work', title: 'Stores, search, agents and the glue between them' })}</div>
       <div class="pg-bento">${WORK.map((w, i) => G.ProjectCard({ ...w, size: 'wide', speed: [0.94, 1.06, 1.04, 0.96, 0.95, 1.05][i] })).join('')}</div>
       <div class="pg-more-work">
         <p class="gu-meta">More shipped client work</p>
@@ -95,24 +87,32 @@ export function home({ caseStudies = [] } = {}) {
     </div>`,
   )}
   ${sec(
-    'capabilities',
-    `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '05', eyebrow: 'Capabilities', title: 'What I can take off your plate' })}</div>
-      <div data-caps>${CAPABILITIES.map((c, i) => G.CapabilityRow({ ...c, index: `0${i + 1}` })).join('')}</div>
-    </div>`,
-  )}
-  ${sec(
     'search',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '06', eyebrow: 'Search and WordPress', title: 'Found on Google, quoted by AI, built on WordPress', lead: 'Nine years of SEO and WordPress work, and the answer engine optimization that now sits on top of it.' })}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '04', eyebrow: 'Search and WordPress', title: 'Found on Google, quoted by AI, built on WordPress', lead: 'Nine years of SEO and WordPress work, and the answer engine optimization that now sits on top of it.' })}</div>
       <div class="pg-eng">${EXPERTISE.map(G.ExpertiseCard).join('')}</div>
     </div>`,
   )}
   ${sec(
     'builds',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '07', eyebrow: 'Automation and custom builds', title: 'Less manual work, and software that fits', lead: 'Workflows that connect the tools you already use, and custom applications for the jobs those tools can’t do.' })}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '05', eyebrow: 'Automation and custom builds', title: 'Less manual work, and software that fits', lead: 'Workflows that connect the tools you already use, and custom applications for the jobs those tools can’t do.' })}</div>
       <div class="pg-eng">${BUILDS.map(G.ExpertiseCard).join('')}</div>
+    </div>`,
+  )}
+  ${sec(
+    'how',
+    `<div class="pg-wrap pg-pin" data-life-pin>
+      <div class="pg-how-head"><div class="pg-head">${G.SectionHeader({ index: '06', eyebrow: 'How I work', title: 'From the first call to the next release', lead: 'One person across the whole lifecycle, so nothing gets lost between scoping, building and keeping it running.' })}</div><div class="pg-field-how" aria-hidden="true"></div></div>
+      ${G.Lifecycle({ phases: PHASES })}
+    </div>`,
+    'pg-how',
+  )}
+  ${sec(
+    'featured',
+    `<div class="pg-wrap">
+      <div class="pg-head">${G.SectionHeader({ index: '07', eyebrow: 'Featured build', title: 'Scanned documents in, structured answers out', lead: 'An OCR and retrieval pipeline on Amazon Bedrock: Textract reads the pages, pgvector finds the right passages, and the model answers in fields an app can use.' })}</div>
+      ${G.ArchitectureDiagram(BEDROCK_ARCH)}
     </div>`,
   )}
   ${sec(

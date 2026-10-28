@@ -319,7 +319,10 @@ body > .gu-footer {
   .pg-hero .pg-wrap::before {
     content: '';
     display: block;
-    height: clamp(220px, 38svh, 320px);
+    height: clamp(150px, 22svh, 220px);
+  }
+  .pg-hero {
+    padding-bottom: var(--space-6);
   }
 }
 
@@ -328,5 +331,51 @@ body > .gu-footer {
   .hero-line > span,
   .hero-in {
     animation: none;
+  }
+}
+
+/* hero: every service visible before the first scroll */
+.pg-hero-services {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+.pg-hero-services ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-hero-services a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong, var(--line));
+  border-radius: var(--radius-pill);
+  color: var(--text);
+  font-size: 15px;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-ui, 200ms) var(--ease-out),
+    border-color var(--dur-ui, 200ms) var(--ease-out),
+    color var(--dur-ui, 200ms) var(--ease-out);
+}
+.pg-hero-services a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink, #0b0b0f);
+}
+@media (max-width: 640px) {
+  .pg-hero-services a {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
   }
 }

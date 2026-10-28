@@ -83,7 +83,7 @@ function pageScenes() {
 // phones: centred near the top, quiet behind text (the hero keeps a little more presence)
 const forViewport = (s, id) => {
   if (!isMobile) return s;
-  if (id === 'hero') return { ...s, x: 0.5, y: 0.25, scale: 0.42, opacity: 1 }; // its own band above the name (site.css)
+  if (id === 'hero') return { ...s, x: 0.62, y: 0.135, scale: 0.21, opacity: 1 }; // its own band above the name (site.css)
   return { ...s, x: 0.5, y: 0.3, scale: (s.scale || 0.6) * 0.75, opacity: Math.min(s.opacity ?? 1, 0.12) }; // behind body text: barely there
 };
 

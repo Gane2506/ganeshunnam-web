@@ -5,14 +5,24 @@ export const SITE = {
   name: 'Ganesh Unnam',
   title: 'Ganesh Unnam · Full stack engineer and product owner, Toronto',
   description:
-    'I build custom products for businesses end to end: requirements, architecture, build, launch, maintenance and change. Toronto.',
+    'Websites, WooCommerce and Shopify stores, SEO and AEO, automation and custom applications for businesses, built end to end. Toronto.',
   email: 'gane2506@gmail.com',
   github: 'https://github.com/Gane2506',
   role: 'Full stack engineer · Product owner · Toronto',
 };
 
 export const HERO = {
-  lead: 'I build custom products for businesses, end to end: from the first requirements call to the architecture, the build, the launch and every change after it.',
+  lead: 'I build websites, online stores and custom software for businesses, get them found on Google and in AI answers, and automate the work around them, from the first call to every change after launch.',
+  // Shown under the hero as links, so every service is visible before the first scroll.
+  services: [
+    ['SEO and AEO', '#search'],
+    ['WordPress and WooCommerce', '#search'],
+    ['Shopify', '#capabilities'],
+    ['Automation', '#builds'],
+    ['Custom applications', '#builds'],
+    ['AI and voice agents', '#work'],
+    ['Cloud and IT', '#capabilities'],
+  ],
 };
 
 export const MARQUEE = [
@@ -49,6 +59,15 @@ export const ABOUT = {
 // hue: the project's one colour ("1"–"6"); art: the generated drawing; shape: its particle-field target
 export const WORK = [
   {
+    title: 'Flooring Liquidators: 600 dead product pages turned into leads',
+    type: 'E-commerce · SEO',
+    year: '2024–2026',
+    hue: '5',
+    art: 'constellation',
+    tags: ['WooCommerce', 'Local SEO', 'CRM'],
+    href: '/casestudy/flooring-liquidators-discontinued-pages/',
+  },
+  {
     title: 'Document OCR and RAG on Amazon Bedrock',
     type: 'AI · Data',
     year: '2026',
@@ -56,6 +75,15 @@ export const WORK = [
     art: 'helix',
     tags: ['Bedrock', 'Textract', 'pgvector'],
     href: '/casestudy/document-ocr-rag-bedrock/',
+  },
+  {
+    title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
+    type: 'E-commerce · SEO',
+    year: '2023',
+    hue: '6',
+    art: 'grid',
+    tags: ['WooCommerce', 'Programmatic SEO', 'AWS'],
+    href: '/casestudy/woocommerce-15k-skus-cpanel-to-aws/',
   },
   {
     title: 'Sarah, a voice agent that answers and books calls',
@@ -67,15 +95,6 @@ export const WORK = [
     href: '/casestudy/sarah-voice-agent/',
   },
   {
-    title: 'Baton, an orchestrator for coding agents',
-    type: 'AI agents',
-    year: '2026',
-    hue: '4',
-    art: 'orbit',
-    tags: ['MCP', 'OpenRouter'],
-    href: '/casestudy/baton-agent-orchestrator/',
-  },
-  {
     title: 'RDPV Solutions, headless WordPress on Next.js',
     type: 'Web',
     year: '2026',
@@ -85,30 +104,22 @@ export const WORK = [
     href: '/casestudy/rdpv-solutions-website/',
   },
   {
-    title: 'talentsear.ch, x-ray search for recruiters',
-    type: 'Web',
+    title: 'Baton, an orchestrator for coding agents',
+    type: 'AI agents',
     year: '2026',
-    hue: '5',
-    art: 'grid',
-    tags: ['Search', 'API'],
-    href: '/casestudy/talentsearch/',
-  },
-  {
-    title: 'floorstoday.ca, a headless storefront site',
-    type: 'Web',
-    year: '2026',
-    hue: '6',
-    art: 'constellation',
-    seed: 4,
-    tags: ['Headless', 'Next.js'],
-    href: 'https://floorstoday.ca/',
+    hue: '4',
+    art: 'orbit',
+    tags: ['MCP', 'OpenRouter'],
+    href: '/casestudy/baton-agent-orchestrator/',
   },
 ];
 
 // Client sites from ganeshunnam.com, shown as a compact list under the bento
 export const MORE_WORK = [
-  ['Flooring Liquidators', 'WooCommerce', 'https://flooringliquidators.ca/'],
-  ['Vinyl Sound', 'Shopify', 'https://vinylsound.ca/'],
+  ['Flooring Liquidators', 'WooCommerce · SEO', 'https://flooringliquidators.ca/'],
+  ['Vinyl Sound', 'Shopify · SEO', 'https://vinylsound.ca/'],
+  ['floorstoday.ca', 'Headless', 'https://floorstoday.ca/'],
+  ['talentsear.ch', 'Search tool', 'https://talentsear.ch/'],
   ['A1 Mississauga Auto', 'Automotive', 'https://a1mississaugaauto.com/'],
   ['Reno Liquidators', 'E-commerce', 'https://renoliquidators.ca/'],
   ['TV Parts Canada', 'WooCommerce', 'https://tvpartscanada.ca/'],
@@ -401,7 +412,7 @@ export const EXPERIENCE = [
     org: 'Premier Electronic Parts',
     body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
   },
-  { years: '2018', role: 'Analyst, Talent Sourcing', org: 'Deloitte' },
+  { years: '2018 — 2022', role: 'Analyst, Talent Sourcing', org: 'Deloitte' },
   {
     years: '2017 — now',
     role: 'Web development and SEO',

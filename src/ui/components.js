@@ -91,6 +91,7 @@ export function ThemeToggle() {
 
 export const NAV = [
   { label: 'About', href: '/#about' },
+  { label: 'Services', href: '/#capabilities' },
   { label: 'Work', href: '/#work' },
   { label: 'Experience', href: '/#experience' },
   { label: 'Case studies', href: '/casestudy/' },
