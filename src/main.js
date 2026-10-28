@@ -93,6 +93,9 @@ function unmountPage() {
   page = null;
   document.querySelector('.gu-cursor-bubble')?.setAttribute('hidden', '');
   document.querySelector('.gu-cursor-dot')?.removeAttribute('hidden');
+  // a page left with the mobile menu open must not keep scrolling locked
+  document.body.style.overflow = '';
+  lenis?.start();
 }
 
 const lifeHooks = (p) => ({ onChange: (fn) => p.lifeListeners.push(fn) });

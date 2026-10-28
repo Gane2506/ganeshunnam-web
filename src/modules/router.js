@@ -11,6 +11,9 @@ const HEAD =
   'meta[name="description"], link[rel="canonical"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]';
 const cache = new Map();
 const parser = new DOMParser();
+// the built bundle this tab runs; a fetched page pointing at a different one means a new deploy
+const bundle = () => document.querySelector('script[type="module"][src]')?.getAttribute('src');
+const BUNDLE = bundle();
 
 const pageUrl = (a) => {
   if (!a || !a.href || a.target === '_blank' || a.hasAttribute('download') || a.dataset.reload !== undefined)
@@ -22,19 +25,37 @@ const pageUrl = (a) => {
 };
 const samePage = (url) => url.pathname === location.pathname && url.search === location.search;
 
-function load(url) {
+// The cache holds each page's HTML text, never a parsed document: swapping moves the parsed nodes into this page,
+// so a cached document would be empty the second time it is shown (the blank-page bug). Parse fresh every time.
+function fetchHtml(url) {
   const key = url.pathname + url.search;
   if (!cache.has(key)) {
-    const p = fetch(key, { headers: { Accept: 'text/html' } })
-      .then((r) => {
-        if (!r.headers.get('content-type')?.includes('text/html')) throw new Error('not html');
-        return r.text();
-      })
-      .then((html) => parser.parseFromString(html, 'text/html'));
+    const p = fetch(key, { headers: { Accept: 'text/html' }, credentials: 'same-origin' }).then((r) => {
+      // 404 is our own designed page; anything else not OK (rate limits, bot checks, errors) loads normally
+      if (
+        (!r.ok && r.status !== 404) ||
+        r.redirected ||
+        !r.headers.get('content-type')?.includes('text/html')
+      )
+        throw new Error(`unusable response ${r.status}`);
+      return r.text();
+    });
     p.catch(() => cache.delete(key));
     cache.set(key, p);
   }
   return cache.get(key);
+}
+
+async function load(url) {
+  const doc = parser.parseFromString(await fetchHtml(url), 'text/html');
+  // only swap in real pages of this site: header, main content and the same build as this tab
+  const real = doc.body?.dataset.page && doc.querySelector('[data-header]') && doc.getElementById('main');
+  const sameBuild = doc.querySelector('script[type="module"][src]')?.getAttribute('src') === BUNDLE;
+  if (!real || !sameBuild) {
+    cache.delete(url.pathname + url.search);
+    throw new Error(real ? 'new deploy' : 'not a site page');
+  }
+  return doc;
 }
 
 const visible = (el) => {
@@ -76,16 +97,23 @@ export function initRouter({ unmount, mount, scrollTo }) {
   const html = document.documentElement;
   const cover = curtain();
   let busy = false;
+  let queued = null; // back/forward pressed mid-transition: replayed when it ends
   let current = location.pathname + location.search;
+  const hard = (url) => {
+    location.href = url.href;
+  };
 
   async function go(url, { push = true, trigger = null, y = 0 } = {}) {
-    if (busy) return;
+    if (busy) {
+      if (!push) queued = { y };
+      return;
+    }
     busy = true;
     let next;
     try {
       next = await load(url);
     } catch {
-      location.href = url.href; // let the browser handle it
+      hard(url); // let the browser load it normally
       return;
     }
     history.replaceState({ ...history.state, gu: true, y: window.scrollY }, '');
@@ -105,26 +133,51 @@ export function initRouter({ unmount, mount, scrollTo }) {
       if (push && !target) document.getElementById('main')?.focus({ preventScroll: true });
     };
 
+    let failed = false;
+    const safeUpdate = () => {
+      try {
+        update();
+      } catch (err) {
+        failed = true;
+        console.warn('Page swap failed, loading normally:', err);
+      }
+    };
+
     try {
-      if (document.startViewTransition) {
+      if (document.startViewTransition && document.visibilityState === 'visible') {
         if (pair) {
           pair[0].style.viewTransitionName = SHARED;
           pair[1].style.viewTransitionName = SHARED;
         }
         html.classList.add('is-swapping');
-        const vt = document.startViewTransition(update);
+        const vt = document.startViewTransition(safeUpdate);
+        const guard = setTimeout(() => vt.skipTransition(), 2500); // never leave the overlay up
         await vt.finished.catch(() => {});
+        clearTimeout(guard);
         html.classList.remove('is-swapping');
         document.querySelectorAll('.gu-media').forEach((a) => a.style.removeProperty('view-transition-name'));
       } else {
         await cover.cover();
-        update();
+        safeUpdate();
         await cover.reveal();
       }
     } catch {
-      location.href = url.href;
+      failed = true;
     } finally {
+      html.classList.remove('is-swapping');
       busy = false;
+    }
+    // last line of defence: a swap that left no page behind becomes a normal load
+    if (failed || !document.getElementById('main') || !document.querySelector('[data-header]')) {
+      cache.clear();
+      location.reload();
+      return;
+    }
+    if (queued) {
+      const q = queued;
+      queued = null;
+      const here = new URL(location.href);
+      if (here.pathname + here.search !== current) go(here, { push: false, y: q.y });
     }
   }
 
@@ -143,14 +196,28 @@ export function initRouter({ unmount, mount, scrollTo }) {
     go(url, { trigger: a });
   });
 
-  // warm the next page the moment intent shows, so most swaps start without waiting on the network
-  const warm = (e) => {
-    const url = pageUrl(e.target.closest?.('a[href]'));
-    if (url && !samePage(url)) load(url).catch(() => {});
+  // warm the next page once intent is clear (a 90ms hover, a touch, a press or keyboard focus), a few at a time,
+  // so most swaps start without waiting on the network and sweeping the pointer never bursts requests
+  let hoverTimer;
+  const warmNow = (a) => {
+    const url = pageUrl(a);
+    if (!url || samePage(url) || cache.has(url.pathname + url.search) || cache.size > 24) return;
+    fetchHtml(url).catch(() => {});
   };
-  document.addEventListener('pointerover', warm, { passive: true });
-  document.addEventListener('touchstart', warm, { passive: true });
-  document.addEventListener('focusin', warm);
+  document.addEventListener(
+    'pointerover',
+    (e) => {
+      clearTimeout(hoverTimer);
+      const a = e.target.closest?.('a[href]');
+      if (a) hoverTimer = setTimeout(() => warmNow(a), 90);
+    },
+    { passive: true },
+  );
+  document.addEventListener('pointerout', () => clearTimeout(hoverTimer), { passive: true });
+  const warmTarget = (e) => warmNow(e.target.closest?.('a[href]'));
+  document.addEventListener('pointerdown', warmTarget, { passive: true });
+  document.addEventListener('touchstart', warmTarget, { passive: true });
+  document.addEventListener('focusin', warmTarget);
 
   window.addEventListener('popstate', (e) => {
     const url = new URL(location.href);
