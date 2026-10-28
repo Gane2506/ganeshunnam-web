@@ -393,19 +393,13 @@ export const EXPERIENCE = [
     years: '2023 — now',
     role: 'Shopify Developer · SEO',
     org: 'Vinyl Sound',
-    body: 'Custom Liquid landing pages built on staging and pushed live, product uploads and theme code, SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
+    body: 'Theme development and storefront work on Shopify: responsive Liquid, HTML and CSS themes maintained with Shopify CLI, custom landing pages built on staging and pushed live, product uploads and custom code. SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, GA4 and Tag Manager analytics behind every change, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
   },
   {
     years: '2023',
     role: 'Web Developer · SEO Specialist',
     org: 'Premier Electronic Parts',
     body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
-  },
-  {
-    years: '2019 — 2022',
-    role: 'Shopify Developer',
-    org: 'Muse Wearables, Bangalore',
-    body: 'Responsive Shopify and WooCommerce stores for a wearables brand: Liquid, HTML and CSS themes maintained with Shopify CLI, GA and Tag Manager analytics, and SEO changes driven by that data.',
   },
   { years: '2018', role: 'Analyst, Talent Sourcing', org: 'Deloitte' },
   {
