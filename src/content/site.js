@@ -16,6 +16,9 @@ export const HERO = {
 };
 
 export const MARQUEE = [
+  'SEO',
+  'AEO',
+  'WooCommerce',
   'AI agents',
   'MCP servers',
   'Next.js',
@@ -141,15 +144,15 @@ export const CAPABILITIES = [
     icon: 'ecommerce',
     shape: 'commerce',
     title: 'E-commerce',
-    body: 'Shopify and WooCommerce themes, apps and checkout tweaks.',
-    tags: ['Shopify', 'WooCommerce'],
+    body: 'WooCommerce and Shopify stores: large catalogues, clean product data, checkout fixes, and the speed and search work that turns visits into orders.',
+    tags: ['WooCommerce', 'Shopify', 'Liquid', 'Klaviyo'],
   },
   {
     icon: 'seo-growth',
     shape: 'seo',
-    title: 'SEO and growth',
-    body: 'Technical SEO, structured data and the speed work that search rewards.',
-    tags: ['Core Web Vitals', 'Schema'],
+    title: 'SEO and AEO',
+    body: 'Technical, on-page and local SEO, plus structured data and answer-ready content, so search engines rank you and AI answers quote you.',
+    tags: ['Ahrefs', 'Screaming Frog', 'Schema', 'GA4'],
   },
   {
     icon: 'automation',
@@ -184,19 +187,105 @@ export const TOOLKIT = [
   },
   { title: 'Voice agents', items: ['Vapi', 'Twilio', 'Call qualification', 'Booking flows', 'SMS'] },
   {
+    title: 'WordPress and WooCommerce',
+    items: [
+      'WordPress',
+      'WooCommerce',
+      'Custom themes and plugins',
+      'ACF',
+      'Custom post types',
+      'Elementor',
+      'Divi',
+      'WPBakery',
+      'WPGraphQL',
+    ],
+  },
+  {
+    title: 'SEO and AEO',
+    items: [
+      'Ahrefs',
+      'SEMrush',
+      'Screaming Frog',
+      'Moz',
+      'Google Search Console',
+      'Rank Math',
+      'Yoast SEO',
+      'Schema.org JSON-LD',
+      'Google Business Profile',
+    ],
+  },
+  {
+    title: 'Analytics and growth',
+    items: ['GA4', 'Google Tag Manager', 'Google Ads', 'Meta Ads', 'Google Shopping', 'Klaviyo'],
+  },
+  {
     title: 'Front end',
     items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Three.js', 'GSAP', 'Lenis', 'Vite'],
   },
-  { title: 'Back end and data', items: ['Node.js', 'PHP', 'WPGraphQL', 'pgvector', 'Firebase'] },
-  {
-    title: 'CMS and commerce',
-    items: ['WordPress', 'Webflow', 'Sanity', 'Contentful', 'Shopify', 'WooCommerce'],
-  },
+  { title: 'Back end and automation', items: ['Node.js', 'PHP', 'n8n', 'pgvector', 'Firebase', 'REST APIs'] },
+  { title: 'Other platforms', items: ['Shopify', 'Liquid', 'Webflow', 'Sanity', 'Contentful'] },
   {
     title: 'Cloud and delivery',
-    items: ['AWS', 'GCP', 'Cloudflare Workers', 'D1', 'Docker', 'Kubernetes', 'GitHub Actions'],
+    items: [
+      'AWS',
+      'GCP',
+      'DigitalOcean',
+      'Cloudflare Workers',
+      'D1',
+      'Docker',
+      'Kubernetes',
+      'GitHub Actions',
+    ],
   },
-  { title: 'Automation and growth', items: ['n8n', 'Google Analytics', 'Klaviyo', 'SEO'] },
+];
+
+// The SEO, AEO and WordPress deep dive. "proof" lines are facts from real work only.
+export const EXPERTISE = [
+  {
+    when: 'Since 2017',
+    title: 'SEO',
+    body: 'Technical, on-page and local SEO for online stores, service businesses and my own niche sites.',
+    items: [
+      'Technical audits with Screaming Frog and Search Console: crawl errors, redirects, canonicals, indexation and Core Web Vitals',
+      'Programmatic SEO templates for large catalogues, so thousands of product and category pages get indexed',
+      'Keyword research in Ahrefs and SEMrush, page titles, internal links and content briefs',
+      'Local SEO for multi-location businesses: Google Business Profiles, reviews and location pages',
+      'Link-building strategy for difficult keywords',
+      'GA4 and Google Tag Manager tracking, so every change is measured',
+    ],
+    proof:
+      'At Premier Electronic Parts, programmatic SEO across three WooCommerce stores lifted clicks and impressions 25% within two months.',
+  },
+  {
+    when: 'Answer engines',
+    title: 'AEO',
+    body: 'Answer engine optimization: being the answer Google AI Overviews, ChatGPT, Perplexity and voice assistants quote.',
+    items: [
+      'Structured data in JSON-LD: Organization, LocalBusiness, Product, FAQ, Article and Person schema',
+      'Entity-first content: the same clear facts about who you are, what you offer and where, on every page and profile',
+      'Question-led pages and FAQ blocks written so one passage answers the question on its own',
+      'Semantic, accessible HTML (WCAG and AODA) that crawlers and language models read cleanly',
+      'Google Business Profile and review signals for local answers',
+      'Fast, server-rendered pages, because answer engines skip what they can’t read',
+    ],
+    proof:
+      'This site is built that way: static HTML, Person and Article schema, and one page per project with its stack, role and results.',
+  },
+  {
+    when: 'Since 2017',
+    title: 'WordPress and WooCommerce',
+    body: 'From brochure sites to large WooCommerce catalogues and headless builds, and the care plans that keep them running.',
+    items: [
+      'Custom themes and plugins in PHP, with ACF and custom post types',
+      'Page builders when the team needs them: Elementor, Divi and WPBakery',
+      'WooCommerce catalogues with 15,000+ SKUs: product data, categories, filters and checkout',
+      'Headless WordPress through WPGraphQL or the REST API, behind Next.js or static front ends',
+      'Migrations and hosting: cPanel to AWS, DigitalOcean and GCP, with staging and backups',
+      'Care plans: updates, security patches, speed work and content changes',
+    ],
+    proof:
+      'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators, TV Parts Canada and Equisential run on WooCommerce; RDPV Solutions is headless WordPress on Next.js.',
+  },
 ];
 
 export const EXPERIENCE = [
@@ -211,7 +300,7 @@ export const EXPERIENCE = [
     years: '2024 — 2026',
     role: 'Web Developer',
     org: 'Flooring Liquidators Canada',
-    body: 'Storefront development and site maintenance for a multi-location retailer.',
+    body: 'WooCommerce storefront, catalogue and landing pages for a retailer with 15 independently run locations. Turned 600+ discontinued product pages that still drew search traffic into leads, brought Google and Meta ads in-house, and built one CRM and review process across every location’s Google Business Profile.',
   },
   {
     years: '2024',
@@ -223,13 +312,13 @@ export const EXPERIENCE = [
     years: '2023 — now',
     role: 'Shopify Developer',
     org: 'Vinyl Sound',
-    body: 'Custom Liquid landing pages, Google Shopping, SEO and Klaviyo flows.',
+    body: 'Custom Liquid landing pages built on staging, product uploads, SEO, Google Shopping, Google and Meta ads, and Klaviyo cross-sell emails.',
   },
   {
     years: '2023',
     role: 'Web Developer',
     org: 'Premier Electronic Parts',
-    body: 'Three WooCommerce stores with 15,000+ SKUs moved from cPanel to AWS, and a 25% lift in clicks and impressions in two months.',
+    body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months. Also ran Amazon Seller Central and eBay for the US and Canada.',
   },
   {
     years: '2019 — 2022',
@@ -242,7 +331,7 @@ export const EXPERIENCE = [
     years: '2017 — now',
     role: 'Web development and SEO',
     org: 'Freelance',
-    body: 'WordPress, WooCommerce and Shopify builds and care plans for agencies and their clients.',
+    body: 'WordPress, WooCommerce, Shopify, Wix and Squarespace builds and care plans for agencies and their clients, with Elementor, WPBakery, ACF and custom post types. SEO strategy and link building for difficult keywords, and my own micro-niche, event and long-term blogs.',
   },
 ];
 

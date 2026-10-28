@@ -484,12 +484,23 @@ export function ChangeLog({ entries }) {
 
 export function Engagement({ when, title, body, includes, cta, featured, email }) {
   const subject = encodeURIComponent(`Project enquiry: ${title}`);
-  return `<div class="${cx('gu-eng', featured && 'is-featured')}" data-rise>
+  return `<div class="${cx('gu-eng', featured && 'is-featured')}">
   <div class="gu-eng-top"><span class="gu-meta">${esc(when)}</span>${featured ? Tag({ label: 'Start here', hue: 'accent' }) : ''}</div>
   <h3 class="gu-eng-title">${esc(title)}</h3>
   <p class="gu-eng-body">${esc(body)}</p>
   <ul class="gu-life-list">${includes.map((d) => `<li>${Icon({ name: 'check' })}${esc(d)}</li>`).join('')}</ul>
   ${Button({ label: cta || 'Talk about this', variant: featured ? 'solid' : 'ghost', iconEnd: 'arrow-right', href: `mailto:${email}?subject=${subject}` })}
+</div>`;
+}
+
+// A deep-dive card in the Engagement card's style: what I do, the checklist, and one line of proof from real work.
+export function ExpertiseCard({ when, title, body, items, proof }) {
+  return `<div class="gu-eng gu-expertise">
+  <div class="gu-eng-top"><span class="gu-meta">${esc(when)}</span></div>
+  <h3 class="gu-eng-title">${esc(title)}</h3>
+  <p class="gu-eng-body">${esc(body)}</p>
+  <ul class="gu-life-list">${items.map((d) => `<li>${Icon({ name: 'check' })}${esc(d)}</li>`).join('')}</ul>
+  ${proof ? `<div class="gu-life-example"><p class="gu-meta">From real work</p><p>${esc(proof)}</p></div>` : ''}
 </div>`;
 }
 

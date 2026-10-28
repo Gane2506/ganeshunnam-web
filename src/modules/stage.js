@@ -25,6 +25,7 @@ const HOME = {
   featured: { x: 0.82, y: 0.3, scale: 0.42, opacity: 0.2 },
   work: { shape: 'torusKnot', x: 0.84, y: 0.22, scale: 0.5, opacity: 0.6, tilt: 0.35, tint: '--hue-3' },
   capabilities: { shape: 'agents', x: 0.86, y: 0.3, scale: 0.36, opacity: 0.35, tint: '--particle-tint' },
+  search: { shape: 'seo', x: 0.88, y: 0.28, scale: 0.34, opacity: 0.35, tint: '--hue-3' },
   toolkit: { shape: 'cloud', x: 0.84, y: 0.5, scale: 0.45, opacity: 0.35, tint: '--particle-tint' },
   experience: {
     shape: 'torusKnot',
@@ -82,7 +83,7 @@ function pageScenes() {
 const forViewport = (s, id) => {
   if (!isMobile) return s;
   if (id === 'hero') return { ...s, x: 0.5, y: 0.25, scale: 0.42, opacity: 1 }; // its own band above the name (site.css)
-  return { ...s, x: 0.5, y: 0.3, scale: (s.scale || 0.6) * 0.75, opacity: Math.min(s.opacity ?? 1, 0.2) }; // behind body text: barely there
+  return { ...s, x: 0.5, y: 0.3, scale: (s.scale || 0.6) * 0.75, opacity: Math.min(s.opacity ?? 1, 0.12) }; // behind body text: barely there
 };
 
 export function initStage(field, { lifecycle } = {}) {

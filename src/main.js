@@ -84,7 +84,8 @@ function initMotion() {
   });
   html.classList.add('motion-ready');
 
-  // body copy fades only (400ms, no movement); cards and rows rise
+  // body copy fades only (400ms, no movement); cards and rows rise.
+  // An element must be in only one of these batches: two "from" tweens on it would end it at opacity 0.
   ScrollTrigger.batch('[data-rise]', {
     start: 'top 85%',
     once: true,
