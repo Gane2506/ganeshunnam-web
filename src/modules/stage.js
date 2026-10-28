@@ -26,6 +26,7 @@ const HOME = {
   work: { shape: 'torusKnot', x: 0.84, y: 0.22, scale: 0.5, opacity: 0.6, tilt: 0.35, tint: '--hue-3' },
   capabilities: { shape: 'agents', x: 0.86, y: 0.3, scale: 0.36, opacity: 0.35, tint: '--particle-tint' },
   search: { shape: 'seo', x: 0.88, y: 0.28, scale: 0.34, opacity: 0.35, tint: '--hue-3' },
+  builds: { shape: 'automation', x: 0.88, y: 0.3, scale: 0.34, opacity: 0.35, tint: '--hue-2' },
   toolkit: { shape: 'cloud', x: 0.84, y: 0.5, scale: 0.45, opacity: 0.35, tint: '--particle-tint' },
   experience: {
     shape: 'torusKnot',

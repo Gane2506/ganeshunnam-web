@@ -10,6 +10,7 @@ import {
   MORE_WORK,
   CAPABILITIES,
   EXPERTISE,
+  BUILDS,
   TOOLKIT,
   EXPERIENCE,
   EDUCATION,
@@ -108,23 +109,30 @@ export function home({ caseStudies = [] } = {}) {
     </div>`,
   )}
   ${sec(
+    'builds',
+    `<div class="pg-wrap">
+      <div class="pg-head">${G.SectionHeader({ index: '07', eyebrow: 'Automation and custom builds', title: 'Less manual work, and software that fits', lead: 'Workflows that connect the tools you already use, and custom applications for the jobs those tools can’t do.' })}</div>
+      <div class="pg-eng">${BUILDS.map(G.ExpertiseCard).join('')}</div>
+    </div>`,
+  )}
+  ${sec(
     'toolkit',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '07', eyebrow: 'Toolkit', title: 'What I build with' })}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '08', eyebrow: 'Toolkit', title: 'What I build with' })}</div>
       ${G.StackList({ groups: TOOLKIT })}
     </div>`,
   )}
   ${sec(
     'experience',
     `<div class="pg-wrap pg-grid">
-      <div class="pg-head" style="grid-column:1 / -1">${G.SectionHeader({ index: '08', eyebrow: 'Experience', title: 'Where I have done it' })}</div>
+      <div class="pg-head" style="grid-column:1 / -1">${G.SectionHeader({ index: '09', eyebrow: 'Experience', title: 'Where I have done it' })}</div>
       <div class="pg-tl">${EXPERIENCE.map(G.TimelineItem).join('')}<p class="pg-edu gu-meta" data-rise>${EDUCATION}</p></div>
     </div>`,
   )}
   ${sec(
     'case-studies',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '09', eyebrow: 'Case studies', title: 'How the work actually went' })}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '10', eyebrow: 'Case studies', title: 'How the work actually went' })}</div>
       ${caseStudyCards(caseStudies.slice(0, 5))}
       <div class="pg-more">${G.Button({ label: 'All case studies', variant: 'text', href: '/casestudy/', attrs: { 'data-transition': '' } })}</div>
     </div>`,
@@ -132,7 +140,7 @@ export function home({ caseStudies = [] } = {}) {
   ${sec(
     'engage',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '10', eyebrow: 'Work together', title: 'Three ways to start' })}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '11', eyebrow: 'Work together', title: 'Three ways to start' })}</div>
       <div class="pg-eng">${ENGAGEMENTS.map((e) => G.Engagement({ ...e, email: SITE.email })).join('')}</div>
     </div>`,
   )}

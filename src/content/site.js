@@ -136,8 +136,8 @@ export const CAPABILITIES = [
   {
     icon: 'web',
     shape: 'web',
-    title: 'Fast websites',
-    body: 'Next.js and React front ends in TypeScript, on WordPress, Webflow, Sanity or Contentful, that load quickly and stay easy for your team to edit.',
+    title: 'Websites and custom apps',
+    body: 'Next.js and React front ends in TypeScript on WordPress, Webflow, Sanity or Contentful, and custom web applications with their own APIs and data when off-the-shelf software doesn’t fit.',
     tags: ['Next.js', 'React', 'TypeScript', 'Webflow', 'Sanity', 'Contentful'],
   },
   {
@@ -157,9 +157,9 @@ export const CAPABILITIES = [
   {
     icon: 'automation',
     shape: 'automation',
-    title: 'Automation',
-    body: 'n8n workflows and small Node.js services that remove the copy-and-paste from your week.',
-    tags: ['n8n', 'Node.js', 'APIs'],
+    title: 'Automation and integrations',
+    body: 'n8n workflows, webhooks and small Node.js services that connect your CRM, store, inbox and phones, so data moves on its own and people only step in where a decision matters.',
+    tags: ['n8n', 'Node.js', 'Webhooks', 'Twilio'],
   },
   {
     icon: 'cloud-devops',
@@ -167,6 +167,40 @@ export const CAPABILITIES = [
     title: 'Cloud and hosting',
     body: 'Sensible hosting, deploys and monitoring for the things above.',
     tags: ['AWS', 'GCP', 'Docker', 'GitHub Actions'],
+  },
+];
+
+// Detail cards for the "Automation and custom builds" section; same shape as EXPERTISE.
+export const BUILDS = [
+  {
+    when: 'Workflows and integrations',
+    title: 'Automation',
+    body: 'Workflows that move data between the tools a business already pays for, with a person kept in the loop wherever a decision matters.',
+    items: [
+      'n8n workflows and API integrations, self-hosted or in the cloud',
+      'CRM, lead routing and data sync between forms, inboxes and sales tools',
+      'Inventory, order and email workflows for online stores, including Klaviyo flows',
+      'Call handling: voice agents that qualify, book and text back through Twilio',
+      'Document intake: OCR on Amazon Textract, then structured fields into the next system',
+      'Build and content pipelines: GitHub Actions tests and deploys on every change',
+    ],
+    proof:
+      'At Flooring Liquidators, one CRM and review process runs across 15 locations’ Google Business Profiles. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
+  },
+  {
+    when: 'Built to spec',
+    title: 'Custom applications',
+    body: 'When off-the-shelf software doesn’t fit the work, I build the application: scoped with the people who will use it, then shipped and maintained.',
+    items: [
+      'Web apps and dashboards in React, Next.js, TypeScript and Vue.js',
+      'APIs and services in Node.js, Python and FastAPI, over REST or GraphQL',
+      'Data in Postgres with pgvector, MySQL, MongoDB, Supabase and Firebase',
+      'Edge apps on Cloudflare Workers and D1; containers on Docker and AWS',
+      'LLM features: retrieval, multi-agent workflows and MCP servers',
+      'Custom WordPress plugins and headless storefronts',
+    ],
+    proof:
+      'Baton, a CLI and web dashboard that takes coding agents from plan to merged code; Sarah, a voice agent on Workers and D1; the Bedrock document pipeline; and talentsear.ch.',
   },
 ];
 
@@ -220,9 +254,28 @@ export const TOOLKIT = [
   },
   {
     title: 'Front end',
-    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Three.js', 'GSAP', 'Lenis', 'Vite'],
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Vue.js', 'Three.js', 'GSAP', 'Lenis', 'Vite'],
   },
-  { title: 'Back end and automation', items: ['Node.js', 'PHP', 'n8n', 'pgvector', 'Firebase', 'REST APIs'] },
+  {
+    title: 'Back end and data',
+    items: [
+      'Node.js',
+      'Python',
+      'FastAPI',
+      'PHP',
+      'GraphQL',
+      'REST APIs',
+      'Postgres and pgvector',
+      'MySQL',
+      'MongoDB',
+      'Supabase',
+      'Firebase',
+    ],
+  },
+  {
+    title: 'Automation and integrations',
+    items: ['n8n', 'Webhooks', 'Twilio', 'Klaviyo flows', 'CRM sync', 'Scheduled jobs', 'GitHub Actions'],
+  },
   { title: 'Other platforms', items: ['Shopify', 'Liquid', 'Webflow', 'Sanity', 'Contentful'] },
   {
     title: 'Cloud and delivery',
