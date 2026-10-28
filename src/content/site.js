@@ -36,7 +36,7 @@ export const MARQUEE = [
 export const ABOUT = {
   title: 'One person who owns the whole product, not one slice of it',
   paragraphs: [
-    'I started in web development and Shopify themes, moved into React, Next.js and TypeScript on WordPress, Webflow, Sanity and Contentful, worked across IT infrastructure and cloud, and now spend most of my time on <strong>AI agent systems</strong>: orchestration, retrieval and MCP servers that connect models to the tools a team already uses.',
+    'I started in web development and Shopify themes, moved into React, Next.js and TypeScript on WordPress, Webflow, Sanity and Contentful, set up IT infrastructure and cloud for small companies (AWS networking, Microsoft 365, SharePoint and VoIP), and now spend most of my time on <strong>AI agent systems</strong>: orchestration, retrieval and MCP servers that connect models to the tools a team already uses.',
     'Clients get one person from the first requirements call to the release after launch: I write the scope, design the system, build it, ship it and keep changing it as the business changes. AI is one of the things I build, not the whole story.',
   ],
   stats: [
@@ -137,7 +137,7 @@ export const CAPABILITIES = [
     icon: 'web',
     shape: 'web',
     title: 'Websites and custom apps',
-    body: 'Next.js and React front ends in TypeScript on WordPress, Webflow, Sanity or Contentful, and custom web applications with their own APIs and data when off-the-shelf software doesn’t fit.',
+    body: 'Next.js and React front ends in TypeScript on WordPress, Webflow, Sanity or Contentful, and custom web applications with their own APIs and data when off-the-shelf software doesn’t fit. Built to WCAG and AODA.',
     tags: ['Next.js', 'React', 'TypeScript', 'Webflow', 'Sanity', 'Contentful'],
   },
   {
@@ -145,7 +145,7 @@ export const CAPABILITIES = [
     shape: 'commerce',
     title: 'E-commerce',
     body: 'WooCommerce and Shopify stores: large catalogues, clean product data, checkout fixes, and the speed and search work that turns visits into orders.',
-    tags: ['WooCommerce', 'Shopify', 'Liquid', 'Klaviyo'],
+    tags: ['WooCommerce', 'Shopify', 'Liquid', 'Google Shopping', 'Klaviyo'],
   },
   {
     icon: 'seo-growth',
@@ -164,9 +164,9 @@ export const CAPABILITIES = [
   {
     icon: 'cloud-devops',
     shape: 'cloud',
-    title: 'Cloud and hosting',
-    body: 'Sensible hosting, deploys and monitoring for the things above.',
-    tags: ['AWS', 'GCP', 'Docker', 'GitHub Actions'],
+    title: 'Cloud and IT',
+    body: 'Hosting, deploys and monitoring for the things above, plus the office IT around them: AWS networking (VPCs, subnets, security groups), Microsoft 365, SharePoint and VoIP, and migrations with minimal downtime.',
+    tags: ['AWS', 'GCP', 'Terraform', 'Docker', 'Microsoft 365'],
   },
 ];
 
@@ -183,9 +183,10 @@ export const BUILDS = [
       'Call handling: voice agents that qualify, book and text back through Twilio',
       'Document intake: OCR on Amazon Textract, then structured fields into the next system',
       'Build and content pipelines: GitHub Actions tests and deploys on every change',
+      'Infrastructure as code: Terraform provisions AWS, Ansible configures it, Jenkins ships it',
     ],
     proof:
-      'At Flooring Liquidators, one CRM and review process runs across 15 locations’ Google Business Profiles. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
+      'At Flooring Liquidators, one CRM pulls customers from 15 locations’ separate accounts, segments them, sends automated follow-ups and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
   },
   {
     when: 'Built to spec',
@@ -198,6 +199,7 @@ export const BUILDS = [
       'Edge apps on Cloudflare Workers and D1; containers on Docker and AWS',
       'LLM features: retrieval, multi-agent workflows and MCP servers',
       'Custom WordPress plugins and headless storefronts',
+      'Accessible by default: WCAG 2.1 AA and AODA, keyboard and screen-reader friendly',
     ],
     proof:
       'Baton, a CLI and web dashboard that takes coding agents from plan to merged code; Sarah, a voice agent on Workers and D1; the Bedrock document pipeline; and talentsear.ch.',
@@ -287,7 +289,32 @@ export const TOOLKIT = [
       'D1',
       'Docker',
       'Kubernetes',
+      'Terraform',
+      'Ansible',
+      'Jenkins',
       'GitHub Actions',
+    ],
+  },
+  {
+    title: 'IT and workplace',
+    items: [
+      'Microsoft 365',
+      'SharePoint',
+      'Google Workspace',
+      'Email migrations',
+      'Amazon Chime VoIP',
+      'AWS VPC networking',
+    ],
+  },
+  {
+    title: 'Accessibility and privacy',
+    items: [
+      'WCAG 2.1 AA',
+      'AODA',
+      'Semantic markup',
+      'Accessible navigation',
+      'PIPEDA',
+      'Cookie and terms policies',
     ],
   },
 ];
@@ -297,17 +324,18 @@ export const EXPERTISE = [
   {
     when: 'Since 2017',
     title: 'SEO',
-    body: 'Technical, on-page and local SEO for online stores, service businesses and my own niche sites.',
+    body: 'Technical, on-page and local SEO for online stores, multi-location retailers, service businesses and my own niche sites.',
     items: [
       'Technical audits with Screaming Frog and Search Console: crawl errors, redirects, canonicals, indexation and Core Web Vitals',
       'Programmatic SEO templates for large catalogues, so thousands of product and category pages get indexed',
       'Keyword research in Ahrefs and SEMrush, page titles, internal links and content briefs',
       'Local SEO for multi-location businesses: Google Business Profiles, reviews and location pages',
+      'Discontinued and out-of-stock pages kept ranking and turned into leads, not 404s',
       'Link-building strategy for difficult keywords',
       'GA4 and Google Tag Manager tracking, so every change is measured',
     ],
     proof:
-      'At Premier Electronic Parts, programmatic SEO across three WooCommerce stores lifted clicks and impressions 25% within two months.',
+      'Programmatic SEO across Premier Electronic Parts’ three WooCommerce stores lifted clicks and impressions 25% within two months. At Flooring Liquidators: local SEO for 15 locations, and 600+ discontinued pages kept as entry points.',
   },
   {
     when: 'Answer engines',
@@ -317,7 +345,7 @@ export const EXPERTISE = [
       'Structured data in JSON-LD: Organization, LocalBusiness, Product, FAQ, Article and Person schema',
       'Entity-first content: the same clear facts about who you are, what you offer and where, on every page and profile',
       'Question-led pages and FAQ blocks written so one passage answers the question on its own',
-      'Semantic, accessible HTML (WCAG and AODA) that crawlers and language models read cleanly',
+      'Semantic, accessible HTML to WCAG 2.1 AA and Ontario’s AODA, which crawlers and language models also read cleanly',
       'Google Business Profile and review signals for local answers',
       'Fast, server-rendered pages, because answer engines skip what they can’t read',
     ],
@@ -334,7 +362,7 @@ export const EXPERTISE = [
       'WooCommerce catalogues with 15,000+ SKUs: product data, categories, filters and checkout',
       'Headless WordPress through WPGraphQL or the REST API, behind Next.js or static front ends',
       'Migrations and hosting: cPanel to AWS, DigitalOcean and GCP, with staging and backups',
-      'Care plans: updates, security patches, speed work and content changes',
+      'Care plans: updates, security patches, uptime, speed work and content changes',
     ],
     proof:
       'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators, TV Parts Canada and Equisential run on WooCommerce; RDPV Solutions is headless WordPress on Next.js.',
@@ -347,44 +375,44 @@ export const EXPERIENCE = [
     role: 'Gen AI Developer',
     org: 'RDPV Solutions',
     current: true,
-    body: 'AI features and the website around them: LLM applications, retrieval, multi-agent workflows and MCP integrations.',
+    body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
   },
   {
     years: '2024 — 2026',
-    role: 'Web Developer',
+    role: 'Web Developer · IT Director · SEO',
     org: 'Flooring Liquidators Canada',
-    body: 'WooCommerce storefront, catalogue and landing pages for a retailer with 15 independently run locations. Turned 600+ discontinued product pages that still drew search traffic into leads, brought Google and Meta ads in-house, and built one CRM and review process across every location’s Google Business Profile.',
+    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and automated follow-ups; brought Google and Meta ads in-house; and built one CRM that consolidates and segments customers, automates messages and runs reviews for every location.',
   },
   {
     years: '2024',
-    role: 'Web Developer · IT Support',
+    role: 'Web Developer · IT Specialist',
     org: 'AZTRA',
-    body: 'Designed and launched aztra.ai, set up the cloud, Microsoft 365 and VoIP, and migrated email and the website with minimal downtime.',
+    body: 'Designed and launched aztra.ai from scratch and set up the company’s IT: an AWS VPC, Microsoft 365, SharePoint and VoIP on Amazon Chime. Moved the website and every mailbox over from the previous provider with no lost data and minimal downtime, then handled shared mailboxes, support and troubleshooting.',
   },
   {
     years: '2023 — now',
-    role: 'Shopify Developer',
+    role: 'Shopify Developer · SEO',
     org: 'Vinyl Sound',
-    body: 'Custom Liquid landing pages built on staging, product uploads, SEO, Google Shopping, Google and Meta ads, and Klaviyo cross-sell emails.',
+    body: 'Custom Liquid landing pages built on staging and pushed live, product uploads and theme code, SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
   },
   {
     years: '2023',
-    role: 'Web Developer',
+    role: 'Web Developer · SEO Specialist',
     org: 'Premier Electronic Parts',
-    body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months. Also ran Amazon Seller Central and eBay for the US and Canada.',
+    body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
   },
   {
     years: '2019 — 2022',
     role: 'Shopify Developer',
     org: 'Muse Wearables, Bangalore',
-    body: 'Theme development and storefront work for a wearables brand.',
+    body: 'Responsive Shopify and WooCommerce stores for a wearables brand: Liquid, HTML and CSS themes maintained with Shopify CLI, GA and Tag Manager analytics, and SEO changes driven by that data.',
   },
   { years: '2018', role: 'Analyst, Talent Sourcing', org: 'Deloitte' },
   {
     years: '2017 — now',
     role: 'Web development and SEO',
     org: 'Freelance',
-    body: 'WordPress, WooCommerce, Shopify, Wix and Squarespace builds and care plans for agencies and their clients, with Elementor, WPBakery, ACF and custom post types. SEO strategy and link building for difficult keywords, and my own micro-niche, event and long-term blogs.',
+    body: 'WordPress, WooCommerce, Shopify, Wix, Squarespace and Bootstrap builds and annual care plans for agencies and their clients: designs turned into working themes and plugins, Elementor, WPBakery, ACF, form builders and custom post types, hosting on cPanel, DigitalOcean, GCP and AWS. SEO strategy and link building for difficult keywords, and my own micro-niche, event and long-term blogs.',
   },
 ];
 
