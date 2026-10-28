@@ -230,14 +230,6 @@ export const MORE_WORK = [
     tags: [],
   },
   {
-    name: 'Godavari Abroad',
-    kind: 'Website',
-    url: 'https://godavariabroad.com/',
-    about:
-      'Study-abroad consultancy. Destination, coaching and work-visa pages that turn students into enquiries.',
-    tags: ['Lead forms'],
-  },
-  {
     name: 'Informed Technologies',
     kind: 'Website',
     url: 'https://informed-tech.com/',
@@ -253,11 +245,11 @@ export const MORE_WORK = [
   },
   {
     name: 'Equisential',
-    kind: 'WooCommerce',
+    kind: 'Headless WooCommerce',
     url: 'https://equisential.in/',
     about:
-      'Postpartum nutrition brand. A WooCommerce store for traditional recipes made from real ingredients.',
-    tags: ['WooCommerce'],
+      'Postpartum nutrition brand. A headless WooCommerce store on Next.js for traditional recipes made from real ingredients.',
+    tags: ['WooCommerce', 'Next.js', 'Headless'],
   },
   {
     name: 'Cheshire Clear Vision',
@@ -595,7 +587,7 @@ export const EXPERTISE = [
       'Care plans: updates, security patches, uptime, speed work and content changes',
     ],
     proof:
-      'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators, TV Parts Canada and Equisential run on WooCommerce; RDPV Solutions is headless WordPress on Next.js.',
+      'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators and TV Parts Canada run on WooCommerce, Equisential on headless WooCommerce with Next.js; RDPV Solutions is headless WordPress on Next.js.',
   },
   {
     when: 'On 90% of my sites',
