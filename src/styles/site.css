@@ -482,8 +482,11 @@ body > .gu-footer {
   height: 0.62em;
 }
 .gu-marquee-item .gu-brand-mono {
-  --s: 0.62em;
-  border-radius: 0.14em;
+  /* size from the marquee's type size, not the inline px (em here is the badge's own font size) */
+  font-size: 0.26em;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 0.5em;
 }
 .pg-hero-services a {
   gap: 8px;
@@ -558,70 +561,136 @@ body > .gu-footer {
   height: 34px;
 }
 
-/* ---------- client grid: thumbnails of shipped sites ---------- */
-.gu-clients {
+/* ---------- client list: alternating rows, screenshot left then right ---------- */
+.pg-more-head {
+  display: grid;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+.pg-more-lead {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--text-dim);
+}
+.gu-crows {
   list-style: none;
-  margin: var(--space-3) 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  gap: var(--pg-g);
+  gap: var(--space-4);
 }
-.gu-client {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 100%;
-  color: var(--text);
-  text-decoration: none;
+.gu-crow {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
 }
-.gu-client-shot {
+.gu-crow[data-flip] .gu-crow-shot {
+  order: 2;
+}
+.gu-crow-shot {
   position: relative;
   display: block;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--line);
   background: var(--surface-1);
 }
-.gu-client-shot .gu-art {
-  color: var(--accent-text);
-  opacity: 0.55;
-}
-.gu-client-shot img {
+.gu-crow-shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
   transition: transform 1200ms var(--ease-out);
 }
-.gu-client:hover .gu-client-shot img {
-  transform: scale(1.05);
+.gu-crow-shot .gu-art {
+  color: var(--accent-text);
+  opacity: 0.55;
 }
-.gu-client-meta {
+.gu-crow:hover .gu-crow-shot img {
+  transform: scale(1.04);
+}
+.gu-crow-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--line);
+  gap: 10px;
+  flex-wrap: wrap;
 }
-.gu-client-name {
-  flex: 1;
-  transition: color var(--dur-micro) var(--ease-ui);
+.gu-crow-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
-.gu-client:hover .gu-client-name {
+.gu-crow-name a {
+  color: var(--text);
+  text-decoration: none;
+}
+.gu-crow-name a:hover {
   color: var(--accent-text);
 }
+.gu-crow-head .gu-meta {
+  margin-left: auto;
+}
+.gu-crow-about {
+  margin: var(--space-2) 0;
+  max-width: 54ch;
+  color: var(--text-dim);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.gu-crow-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.gu-crows-more {
+  margin-top: var(--space-4);
+}
+.gu-crows-more > summary {
+  list-style: none;
+  cursor: pointer;
+  width: fit-content;
+}
+.gu-crows-more > summary::-webkit-details-marker {
+  display: none;
+}
+.gu-crows-more[open] > summary {
+  margin-bottom: var(--space-4);
+}
 .gu-client-logo {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 5px;
   background: #fff;
   object-fit: contain;
 }
+@media (max-width: 767px) {
+  .gu-crow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+  .gu-crow[data-flip] .gu-crow-shot {
+    order: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .pg-eng.pg-eng-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .gu-shot img,
-  .gu-client-shot img {
+  .gu-crow-shot img {
     transition: none;
   }
 }

@@ -3,7 +3,7 @@
 // internet); writes public/shots/<host>.jpg (1280×800) and public/logos/<host>.png (64×64).
 //   node scripts/capture-sites.mjs [host ...]   (no arguments: every site)
 /* global window, document, location -- page.evaluate callbacks run in the browser */
-import { mkdir, readFile, readdir } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { WORK, MORE_WORK, EXPERIENCE } from '../src/content/site.js';
 
@@ -13,7 +13,7 @@ const host = (u) => new URL(u).hostname.replace(/^www\./, '');
 const urls = new Set([
   ...WORK.map((w) => w.site),
   ...EXPERIENCE.map((e) => e.site),
-  ...MORE_WORK.map(([, , u]) => u),
+  ...MORE_WORK.map((c) => c.url),
 ]);
 const dir = new URL('content/casestudies/', root);
 for (const f of await readdir(dir)) {
@@ -37,11 +37,13 @@ const ctx = await browser.newContext({
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
 });
 let ok = 0;
+const sitesFile = new URL('public/shots/sites.json', root);
+const signals = JSON.parse(await readFile(sitesFile, 'utf8').catch(() => '{}'));
 for (const url of sites) {
   const h = host(url);
   const page = await ctx.newPage();
   try {
-    await page.goto(url, { waitUntil: 'load', timeout: 45000 });
+    const res = await page.goto(url, { waitUntil: 'load', timeout: 45000 });
     await page.addStyleTag({ content: HIDE }).catch(() => {});
     await page.waitForTimeout(3000); // fonts, sliders, lazy hero images
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -59,6 +61,24 @@ for (const url of sites) {
       )
     )
       throw new Error('bot protection page, skipped (add public/shots/<host>.jpg by hand)');
+    // platform and edge signals for the client list tags
+    const html = await page.content();
+    const hdr = res?.headers() || {};
+    const has = (re) => re.test(html);
+    signals[h] = {
+      platforms: [
+        has(/woocommerce/i) && 'WooCommerce',
+        has(/\/wp-content\/|\/wp-json\//i) && 'WordPress',
+        has(/cdn\.shopify\.com|Shopify\.theme/i) && 'Shopify',
+        has(/\/_next\/static/) && 'Next.js',
+        has(/static\.wixstatic\.com|wix\.com/i) && 'Wix',
+        has(/squarespace/i) && 'Squarespace',
+        has(/webflow/i) && 'Webflow',
+        has(/elementor/i) && 'Elementor',
+      ].filter(Boolean),
+      cloudflare: hdr.server === 'cloudflare' || Boolean(hdr['cf-ray']),
+      zaraz: has(/\/cdn-cgi\/zaraz\//),
+    };
     await page.screenshot({
       path: new URL(`public/shots/${h}.jpg`, root).pathname,
       type: 'jpeg',
@@ -89,4 +109,5 @@ for (const url of sites) {
   await page.close();
 }
 await browser.close();
+await writeFile(sitesFile, JSON.stringify(signals, null, 2) + '\n');
 console.log(`${ok}/${sites.length} sites captured`);

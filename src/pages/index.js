@@ -82,16 +82,16 @@ export function home({ caseStudies = [] } = {}) {
       <div class="pg-head" style="grid-column:1 / -1">${G.SectionHeader({ index: '03', eyebrow: 'Selected work', title: 'Stores, search, agents and the glue between them' })}</div>
       <div class="pg-bento">${WORK.map((w, i) => G.ProjectCard({ ...w, size: 'wide', speed: [0.94, 1.06, 1.04, 0.96, 0.95, 1.05][i] })).join('')}</div>
       <div class="pg-more-work">
-        <p class="gu-meta">More shipped client work</p>
-        ${G.ClientGrid({ items: MORE_WORK })}
+        <div class="pg-more-head"><p class="gu-meta">More shipped client work</p><p class="pg-more-lead">On almost all of these I also handled on-page and technical SEO, Core Web Vitals, server-side caching and Cloudflare CDN, WAF and Zaraz.</p></div>
+        ${G.ClientList({ items: MORE_WORK })}
       </div>
     </div>`,
   )}
   ${sec(
     'search',
     `<div class="pg-wrap">
-      <div class="pg-head">${G.SectionHeader({ index: '04', eyebrow: 'Search and WordPress', title: 'Found on Google, quoted by AI, built on WordPress', lead: 'Nine years of SEO and WordPress work, and the answer engine optimization that now sits on top of it.' })}</div>
-      <div class="pg-eng">${EXPERTISE.map(G.ExpertiseCard).join('')}</div>
+      <div class="pg-head">${G.SectionHeader({ index: '04', eyebrow: 'Search and WordPress', title: 'Found on Google, quoted by AI, built on WordPress', lead: 'Nine years of SEO and WordPress work, the speed work that rankings depend on, and the answer engine optimization that now sits on top of it.' })}</div>
+      <div class="pg-eng pg-eng-2">${EXPERTISE.map(G.ExpertiseCard).join('')}</div>
     </div>`,
   )}
   ${sec(

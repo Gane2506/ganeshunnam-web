@@ -27,36 +27,40 @@ export const HERO = {
 };
 
 export const MARQUEE = [
+  'AI agents',
+  'MCP servers',
+  'Agent orchestration',
+  'AWS',
+  'GraphQL',
+  'Docker',
   'SEO',
   'AEO',
+  'Core Web Vitals',
+  'Cloudflare',
   'Google Ads',
   'Meta Ads',
   'ChatGPT',
   'Claude',
+  'GCP',
+  'On-prem',
   'WordPress',
   'WooCommerce',
   'Shopify',
   'Node.js',
-  'Next.js',
+  'Python',
   'React',
+  'Next.js',
+  'TypeScript',
   'n8n',
   'Google Analytics',
   'Google Search Console',
-  'QuickBooks',
-  'Cloudflare',
-  'Python',
-  'TypeScript',
   'PHP',
   'Vue.js',
-  'Docker',
+  'Bootstrap',
   'MongoDB',
   'Supabase',
   'Figma',
   'GitHub Actions',
-  'Bootstrap',
-  'AWS',
-  'GCP',
-  'On-prem',
 ];
 
 export const ABOUT = {
@@ -134,25 +138,149 @@ export const WORK = [
 ];
 
 // Client sites from ganeshunnam.com, shown as a compact list under the bento
+// More shipped client work: name, kind, live URL, a two-line description and tags. The client list adds the
+// platform and Cloudflare tags detected by scripts/capture-sites.mjs (public/shots/sites.json).
 export const MORE_WORK = [
-  ['Flooring Liquidators', 'WooCommerce · SEO', 'https://flooringliquidators.ca/'],
-  ['Vinyl Sound', 'Shopify · SEO', 'https://vinylsound.ca/'],
-  ['floorstoday.ca', 'Headless', 'https://floorstoday.ca/'],
-  ['talentsear.ch', 'Search tool', 'https://talentsear.ch/'],
-  ['A1 Mississauga Auto', 'Automotive', 'https://a1mississaugaauto.com/'],
-  ['Reno Liquidators', 'E-commerce', 'https://renoliquidators.ca/'],
-  ['TV Parts Canada', 'WooCommerce', 'https://tvpartscanada.ca/'],
-  ['Installmart', 'Shopify', 'https://installmart.ca/'],
-  ['NAS Solutions', 'Technology', 'https://nassolutions.ca/'],
-  ['Bound India', 'Website', 'https://www.boundindia.com/'],
-  ['Willow International', 'Website', 'https://willowinter.com/'],
-  ['Godavari Abroad', 'Website', 'https://godavariabroad.com/'],
-  ['Informed Technologies', 'Website', 'https://informed-tech.com/'],
-  ['Protech Industries', 'Website', 'https://protechindustries.com/'],
-  ['Equisential', 'WooCommerce', 'https://equisential.in/'],
-  ['Cheshire Clear Vision', 'Healthcare', 'https://cheshireclearvision.com/'],
-  ['Dr. Priti Challa', 'Healthcare', 'https://drpritichalla.com/'],
-  ['Padma Skin Clinic', 'Healthcare', 'https://padmaskinclinic.com/'],
+  {
+    name: 'Flooring Liquidators',
+    kind: 'WooCommerce · SEO',
+    url: 'https://flooringliquidators.ca/',
+    about:
+      'Flooring retailer with 15 locations across Ontario. WooCommerce catalogue, local SEO for every store, one CRM and email automation.',
+    tags: ['WooCommerce', 'Local SEO', 'CRM'],
+  },
+  {
+    name: 'Vinyl Sound',
+    kind: 'Shopify · SEO',
+    url: 'https://vinylsound.ca/',
+    about:
+      'Hi-fi and turntable specialist in Richmond Hill. Custom Liquid landing pages, product SEO, Google Shopping and Klaviyo campaigns.',
+    tags: ['Shopify', 'SEO', 'Klaviyo'],
+  },
+  {
+    name: 'floorstoday.ca',
+    kind: 'Headless',
+    url: 'https://floorstoday.ca/',
+    about:
+      'Flooring for Southern Ontario and Ottawa. A fast headless storefront built around an in-home estimate funnel.',
+    tags: ['Next.js', 'Headless', 'SEO'],
+  },
+  {
+    name: 'talentsear.ch',
+    kind: 'Search tool',
+    url: 'https://talentsear.ch/',
+    about:
+      'X-ray search for recruiters across LinkedIn, GitHub, Behance and more, with ready-made filters on Google Custom Search.',
+    tags: ['JavaScript', 'Google Custom Search'],
+  },
+  {
+    name: 'A1 Mississauga Auto',
+    kind: 'Automotive',
+    url: 'https://a1mississaugaauto.com/',
+    about:
+      'Collision and auto repair shop in Mississauga since 1989. Service pages, appointment booking and local search.',
+    tags: ['Local SEO'],
+  },
+  {
+    name: 'Reno Liquidators',
+    kind: 'E-commerce',
+    url: 'https://renoliquidators.ca/',
+    about:
+      'Ontario renovation supplies and lumber. An online catalogue with categories, deals and store pickup.',
+    tags: ['E-commerce', 'SEO'],
+  },
+  {
+    name: 'TV Parts Canada',
+    kind: 'WooCommerce',
+    url: 'https://tvpartscanada.ca/',
+    about:
+      "Canada's one-stop shop for TV parts and DLP lamps. A large WooCommerce parts catalogue with search and filters.",
+    tags: ['WooCommerce', 'SEO'],
+  },
+  {
+    name: 'Installmart',
+    kind: 'Shopify',
+    url: 'https://installmart.ca/',
+    about:
+      'Air conditioning and HVAC installers. Service pages and a quote request form that turns visits into jobs.',
+    tags: ['Shopify', 'Lead forms'],
+  },
+  {
+    name: 'NAS Solutions',
+    kind: 'Technology',
+    url: 'https://nassolutions.ca/',
+    about:
+      'Network and security solutions for businesses. A services site with free quotes and appointment booking.',
+    tags: ['Lead forms'],
+  },
+  {
+    name: 'Bound India',
+    kind: 'Website',
+    url: 'https://www.boundindia.com/',
+    about:
+      'A storytelling company that helps brands and individuals tell theirs. Brand site with courses and resources.',
+    tags: [],
+  },
+  {
+    name: 'Willow International',
+    kind: 'Website',
+    url: 'https://willowinter.com/',
+    about:
+      "An international supplier's product showcase, built around large galleries and clear product pages.",
+    tags: [],
+  },
+  {
+    name: 'Godavari Abroad',
+    kind: 'Website',
+    url: 'https://godavariabroad.com/',
+    about:
+      'Study-abroad consultancy. Destination, coaching and work-visa pages that turn students into enquiries.',
+    tags: ['Lead forms'],
+  },
+  {
+    name: 'Informed Technologies',
+    kind: 'Website',
+    url: 'https://informed-tech.com/',
+    about: 'Software testing and IT services. A services site with clear paths to a conversation.',
+    tags: [],
+  },
+  {
+    name: 'Protech Industries',
+    kind: 'Website',
+    url: 'https://protechindustries.com/',
+    about: 'Industrial manufacturer established in 1981. A company and capabilities site for a B2B audience.',
+    tags: [],
+  },
+  {
+    name: 'Equisential',
+    kind: 'WooCommerce',
+    url: 'https://equisential.in/',
+    about:
+      'Postpartum nutrition brand. A WooCommerce store for traditional recipes made from real ingredients.',
+    tags: ['WooCommerce'],
+  },
+  {
+    name: 'Cheshire Clear Vision',
+    kind: 'Healthcare',
+    url: 'https://cheshireclearvision.com/',
+    about: 'Eye care clinic. Services, conditions treated and online appointment booking.',
+    tags: ['Booking'],
+  },
+  {
+    name: 'Dr. Priti Challa',
+    kind: 'Healthcare',
+    url: 'https://drpritichalla.com/',
+    about: "Women's health specialist. A practice site with services, media mentions and appointments.",
+    tags: ['Booking'],
+  },
+  {
+    name: 'Padma Skin Clinic',
+    kind: 'Healthcare',
+    url: 'https://padmaskinclinic.com/',
+    about:
+      'Skin clinic led by specialists with 15 years of experience. Treatments, gallery and consultation booking.',
+    tags: ['Booking'],
+  },
 ];
 
 export const CAPABILITIES = [
@@ -181,8 +309,8 @@ export const CAPABILITIES = [
     icon: 'seo-growth',
     shape: 'seo',
     title: 'SEO and AEO',
-    body: 'Technical, on-page and local SEO, plus structured data and answer-ready content, so search engines rank you and AI answers quote you.',
-    tags: ['Ahrefs', 'Screaming Frog', 'Schema', 'GA4'],
+    body: 'On-page, technical and local SEO, fast pages that pass Core Web Vitals, and structured, answer-ready content, so search engines rank you and AI answers quote you.',
+    tags: ['Google Search Console', 'PageSpeed Insights', 'Cloudflare', 'Ahrefs', 'Schema'],
   },
   {
     icon: 'automation',
@@ -304,16 +432,23 @@ export const TOOLKIT = [
     ],
   },
   {
-    title: 'Analytics and growth',
+    title: 'Speed and edge',
     items: [
-      'GA4',
-      'Google Tag Manager',
-      'Google Ads',
-      'Meta Ads',
-      'Google Shopping',
-      'Klaviyo',
-      'QuickBooks',
+      'Core Web Vitals',
+      'PageSpeed Insights',
+      'Lighthouse',
+      'Cloudflare',
+      'Cloudflare WAF',
+      'Cloudflare Zaraz',
+      'Server-side caching',
+      'Nginx',
+      'WebP and AVIF',
+      'Font subsetting',
     ],
+  },
+  {
+    title: 'Analytics and growth',
+    items: ['GA4', 'Google Tag Manager', 'Google Ads', 'Meta Ads', 'Google Shopping', 'Klaviyo'],
   },
   {
     title: 'Front end',
@@ -461,6 +596,22 @@ export const EXPERTISE = [
     ],
     proof:
       'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators, TV Parts Canada and Equisential run on WooCommerce; RDPV Solutions is headless WordPress on Next.js.',
+  },
+  {
+    when: 'On 90% of my sites',
+    title: 'Speed, Core Web Vitals and the edge',
+    tools: ['PageSpeed Insights', 'Lighthouse', 'Cloudflare', 'Cloudflare WAF', 'Cloudflare Zaraz', 'Nginx'],
+    body: 'Most sites I build or take over also get the performance work that rankings and conversions depend on: fast first paint, stable layout and a server that answers quickly.',
+    items: [
+      'Core Web Vitals: LCP, CLS and INP measured in the field and fixed at the cause',
+      'Images in WebP and AVIF at the right sizes, lazy-loaded below the fold',
+      'Fonts subset, preloaded and swapped, so text paints immediately',
+      'Server tuning and server-side page caching, so HTML comes back fast',
+      'Cloudflare CDN and WAF in front: cached at the edge, attacks and bots stopped before the server',
+      'Cloudflare Zaraz runs analytics and pixels at the edge instead of in the browser',
+    ],
+    proof:
+      'This site: static HTML on Cloudflare, Lighthouse 99 for performance and 100 for accessibility, best practices and SEO.',
   },
 ];
 

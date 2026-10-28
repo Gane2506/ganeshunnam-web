@@ -81,10 +81,20 @@ const SLUG = {
   GitHub: 'github',
   Vercel: 'vercel',
   Figma: 'figma',
+  'PageSpeed Insights': 'pagespeedinsights',
+  Lighthouse: 'lighthouse',
+  'Cloudflare WAF': 'cloudflare',
+  'Cloudflare Zaraz': 'cloudflare',
+  Nginx: 'nginx',
+  Redis: 'redis',
+  'Google Custom Search': 'google',
+  'Core Web Vitals': 'pagespeedinsights',
 };
 
 // no Simple Icons mark: a two-letter badge in the brand's own colour
 const MONO = {
+  'Agent orchestration': ['AO', '#B3A0FF'],
+  'AI agents': ['AI', '#C6F432'],
   'On-prem': ['srv', '#6A6974'],
   'On-prem servers': ['srv', '#6A6974'],
   WooCommerce: ['Woo', '#7F54B3'], // the official mark is a wide speech bubble that turns into a line at 14px
@@ -135,5 +145,6 @@ export function Brand({ label, size = 16 }) {
   }
   const m = MONO[label];
   if (!m) return '';
-  return `<span class="gu-brand gu-brand-mono" style="--brand:${m[1]};--s:${size}px" aria-hidden="true">${m[0]}</span>`;
+  const ink = lum(m[1].slice(1)) > 0.6 ? ';color:#0b0b0f' : ''; // dark letters on light badges
+  return `<span class="gu-brand gu-brand-mono" style="--brand:${m[1]};--s:${size}px${ink}" aria-hidden="true">${m[0]}</span>`;
 }

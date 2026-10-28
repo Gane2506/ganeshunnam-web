@@ -1,7 +1,7 @@
 // Design system components as HTML string templates.
 // Same markup and class names as the design system's React bundle (window.GU), so components.css styles
 // them unchanged, but rendered at build time: no framework ships to the browser. Behaviour lives in src/modules.
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { ICONS, GLYPHS } from './glyphs.js';
 import { Brand, hasBrand } from './brands.js';
 
@@ -561,13 +561,42 @@ export function EmptyState({ title, body }) {
     .join('')}</svg><h3>${esc(title)}</h3><p>${esc(body)}</p></div>`;
 }
 
-// "More shipped client work": live-site thumbnails where captured, a favicon and the kind of work
-export function ClientGrid({ items }) {
-  return `<ul class="gu-clients">${items
-    .map(([name, kind, url]) => {
-      const shot = shotFor(url);
-      const logo = logoFor(url);
-      return `<li><a href="${esc(url)}" rel="noopener" target="_blank" class="gu-client gu-focusable" data-cursor="Visit ↗"><span class="gu-client-shot">${shot ? `<img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async">` : GenArt({ kind: 'constellation', seed: 5 })}</span><span class="gu-client-meta">${logo ? `<img class="gu-client-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}<span class="gu-client-name">${esc(name)}</span><span class="gu-meta">${esc(kind)}</span></span></a></li>`;
-    })
-    .join('')}</ul>`;
+// Platform and Cloudflare signals per host, detected by scripts/capture-sites.mjs from the live sites
+const SITES = (() => {
+  try {
+    return JSON.parse(readFileSync(new URL('shots/sites.json', PUBLIC), 'utf8'));
+  } catch {
+    return {};
+  }
+})();
+const detectedTags = (url) => {
+  const d = SITES[hostOf(url)] || {};
+  return [...(d.platforms || []), d.cloudflare && 'Cloudflare', d.zaraz && 'Cloudflare Zaraz'].filter(
+    Boolean,
+  );
+};
+
+// "More shipped client work": alternating rows (screenshot left, then right) with a two-line story and tags.
+// The first `open` rows show; the rest sit behind a native <details> toggle.
+export function ClientList({ items, open = 6 }) {
+  const row = ({ name, kind, url, about, tags = [] }, i) => {
+    const shot = shotFor(url);
+    const logo = logoFor(url);
+    const all = [...new Set([...tags, ...detectedTags(url)])].slice(0, 5);
+    return `<li class="gu-crow"${i % 2 ? ' data-flip' : ''}>
+  <a href="${esc(url)}" rel="noopener" target="_blank" class="gu-crow-shot gu-focusable" data-cursor="Visit ↗" tabindex="-1" aria-hidden="true">${shot ? `<img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async">` : GenArt({ kind: 'constellation', seed: 5 })}</a>
+  <div class="gu-crow-body">
+    <div class="gu-crow-head">${logo ? `<img class="gu-client-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}<h3 class="gu-crow-name"><a href="${esc(url)}" rel="noopener" target="_blank" class="gu-focusable" data-cursor="Visit ↗">${esc(name)}<span class="gu-sr"> (opens in a new tab)</span></a></h3><span class="gu-meta">${esc(kind)}</span></div>
+    <p class="gu-crow-about">${esc(about)}</p>
+    ${all.length ? `<div class="gu-crow-tags">${all.map((t) => Tag({ label: t })).join('')}</div>` : ''}
+  </div>
+</li>`;
+  };
+  const rows = items.map(row);
+  const more = rows.length - open;
+  return `<ul class="gu-crows">${rows.slice(0, open).join('')}</ul>${
+    more > 0
+      ? `<details class="gu-crows-more"><summary class="gu-btn gu-btn-ghost gu-btn-m">Show ${more} more sites</summary><ul class="gu-crows">${rows.slice(open).join('')}</ul></details>`
+      : ''
+  }`;
 }
