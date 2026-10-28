@@ -107,5 +107,14 @@
     ],
     "cloudflare": true,
     "zaraz": false
+  },
+  "boundindia.com": {
+    "platforms": [
+      "WooCommerce",
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": false,
+    "zaraz": false
   }
 }
