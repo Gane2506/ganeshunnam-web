@@ -80,10 +80,13 @@ const SLUG = {
   'GitHub Actions': 'githubactions',
   GitHub: 'github',
   Vercel: 'vercel',
+  Figma: 'figma',
 };
 
 // no Simple Icons mark: a two-letter badge in the brand's own colour
 const MONO = {
+  'On-prem': ['srv', '#6A6974'],
+  'On-prem servers': ['srv', '#6A6974'],
   WooCommerce: ['Woo', '#7F54B3'], // the official mark is a wide speech bubble that turns into a line at 14px
   ChatGPT: ['GPT', '#10A37F'],
   Codex: ['Cx', '#10A37F'],

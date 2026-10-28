@@ -45,6 +45,18 @@ export const MARQUEE = [
   'QuickBooks',
   'Cloudflare',
   'Python',
+  'TypeScript',
+  'PHP',
+  'Vue.js',
+  'Docker',
+  'MongoDB',
+  'Supabase',
+  'Figma',
+  'GitHub Actions',
+  'Bootstrap',
+  'AWS',
+  'GCP',
+  'On-prem',
 ];
 
 export const ABOUT = {
@@ -305,7 +317,18 @@ export const TOOLKIT = [
   },
   {
     title: 'Front end',
-    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Vue.js', 'Three.js', 'GSAP', 'Lenis', 'Vite'],
+    items: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'Vue.js',
+      'Bootstrap',
+      'Three.js',
+      'GSAP',
+      'Lenis',
+      'Vite',
+    ],
   },
   {
     title: 'Back end and data',
@@ -352,6 +375,7 @@ export const TOOLKIT = [
       'Ansible',
       'Jenkins',
       'GitHub Actions',
+      'On-prem servers',
     ],
   },
   {
