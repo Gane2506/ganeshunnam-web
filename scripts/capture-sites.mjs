@@ -45,6 +45,20 @@ for (const url of sites) {
     await page.addStyleTag({ content: HIDE }).catch(() => {});
     await page.waitForTimeout(3000); // fonts, sliders, lazy hero images
     await page.evaluate(() => window.scrollTo(0, 0));
+    // bot walls (Cloudflare, Sucuri…) would make a screenshot of a security check, not the site
+    const text =
+      (await page.title()) +
+      ' ' +
+      (await page
+        .locator('body')
+        .innerText()
+        .catch(() => ''));
+    if (
+      /security verification|just a moment|verify you are human|attention required|access denied/i.test(
+        text.slice(0, 2000),
+      )
+    )
+      throw new Error('bot protection page, skipped (add public/shots/<host>.jpg by hand)');
     await page.screenshot({
       path: new URL(`public/shots/${h}.jpg`, root).pathname,
       type: 'jpeg',
