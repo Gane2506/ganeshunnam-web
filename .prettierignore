@@ -11,3 +11,6 @@ src/styles/tokens.css
 src/three
 src/ui/glyphs.js
 src/content/lifecycle.js
+
+# written by scripts/capture-sites.mjs in the screenshots workflow
+public/shots/sites.json
