@@ -59,15 +59,6 @@ export const ABOUT = {
 // hue: the project's one colour ("1"–"6"); art: the generated drawing; shape: its particle-field target
 export const WORK = [
   {
-    title: 'Flooring Liquidators: 600 dead product pages turned into leads',
-    type: 'E-commerce · SEO',
-    year: '2024–2026',
-    hue: '5',
-    art: 'constellation',
-    tags: ['WooCommerce', 'Local SEO', 'CRM'],
-    href: '/casestudy/flooring-liquidators-discontinued-pages/',
-  },
-  {
     title: 'Document OCR and RAG on Amazon Bedrock',
     type: 'AI · Data',
     year: '2026',
@@ -75,15 +66,6 @@ export const WORK = [
     art: 'helix',
     tags: ['Bedrock', 'Textract', 'pgvector'],
     href: '/casestudy/document-ocr-rag-bedrock/',
-  },
-  {
-    title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
-    type: 'E-commerce · SEO',
-    year: '2023',
-    hue: '6',
-    art: 'grid',
-    tags: ['WooCommerce', 'Programmatic SEO', 'AWS'],
-    href: '/casestudy/woocommerce-15k-skus-cpanel-to-aws/',
   },
   {
     title: 'Sarah, a voice agent that answers and books calls',
@@ -95,6 +77,15 @@ export const WORK = [
     href: '/casestudy/sarah-voice-agent/',
   },
   {
+    title: 'Baton, an orchestrator for coding agents',
+    type: 'AI agents',
+    year: '2026',
+    hue: '4',
+    art: 'orbit',
+    tags: ['MCP', 'OpenRouter'],
+    href: '/casestudy/baton-agent-orchestrator/',
+  },
+  {
     title: 'RDPV Solutions, headless WordPress on Next.js',
     type: 'Web',
     year: '2026',
@@ -104,13 +95,22 @@ export const WORK = [
     href: '/casestudy/rdpv-solutions-website/',
   },
   {
-    title: 'Baton, an orchestrator for coding agents',
-    type: 'AI agents',
-    year: '2026',
-    hue: '4',
-    art: 'orbit',
-    tags: ['MCP', 'OpenRouter'],
-    href: '/casestudy/baton-agent-orchestrator/',
+    title: 'Flooring Liquidators: 600 dead product pages turned into leads',
+    type: 'E-commerce · SEO',
+    year: '2024–2026',
+    hue: '5',
+    art: 'constellation',
+    tags: ['WooCommerce', 'Local SEO', 'CRM'],
+    href: '/casestudy/flooring-liquidators-discontinued-pages/',
+  },
+  {
+    title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
+    type: 'E-commerce · SEO',
+    year: '2023',
+    hue: '6',
+    art: 'grid',
+    tags: ['WooCommerce', 'Programmatic SEO', 'AWS'],
+    href: '/casestudy/woocommerce-15k-skus-cpanel-to-aws/',
   },
 ];
 
