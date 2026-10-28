@@ -214,14 +214,6 @@ export const MORE_WORK = [
     tags: ['Lead forms'],
   },
   {
-    name: 'Bound India',
-    kind: 'Website',
-    url: 'https://www.boundindia.com/',
-    about:
-      'A storytelling company that helps brands and individuals tell theirs. Brand site with courses and resources.',
-    tags: [],
-  },
-  {
     name: 'Willow International',
     kind: 'Website',
     url: 'https://willowinter.com/',
