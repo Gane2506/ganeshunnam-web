@@ -1,5 +1,5 @@
 {
-  "order": 4,
+  "order": 5,
   "slug": "baton-agent-orchestrator",
   "title": "Baton: one orchestrator for Claude Code, Codex and API models",
   "short": "Baton",

@@ -1,0 +1,36 @@
+{
+  "order": 4,
+  "slug": "flooring-liquidators-crm-reviews-quickbooks",
+  "title": "One CRM for 15 stores: QuickBooks, reviews and the website, connected",
+  "short": "Flooring Liquidators CRM",
+  "excerpt": "Fifteen independently run stores, each with its own QuickBooks account, customer list and Google Business Profile. One CRM now pulls them together, automates follow-ups and review requests, and gives leadership one view.",
+  "date": "2025-11-01",
+  "client": "Flooring Liquidators",
+  "year": "2024–2026",
+  "role": "Web developer · IT director",
+  "type": "Automation · CRM",
+  "stack": [
+    "QuickBooks",
+    "CRM",
+    "Google Business Profile",
+    "WooCommerce",
+    "Email automation",
+    "Review management"
+  ],
+  "hue": "5",
+  "art": "ribbon",
+  "liveUrl": "https://flooringliquidators.ca/",
+  "metrics": [
+    {
+      "value": "15",
+      "delta": "LOCATIONS",
+      "label": "Stores, each with its own QuickBooks account, brought into one CRM"
+    },
+    {
+      "value": "3",
+      "delta": "SOURCES",
+      "label": "QuickBooks, Google Business Profile and the website, connected"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>Fifteen stores, fifteen islands</h2><p>Flooring Liquidators runs 15 independently operated locations. Each one has its own QuickBooks account, its own customer list and its own Google Business Profile. Leads from the website arrived separately again.</p><p>So nobody could see a customer across stores, follow-ups depended on whoever remembered, and reviews came in unevenly: some locations asked every customer, others never did.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>One hub, three sources</h2><p>The plan put one CRM at the centre and connected the three places customers already show up:</p><ul><li><strong>QuickBooks:</strong> every location’s customers and sales, pulled in and tagged with the store they belong to</li><li><strong>The website:</strong> form enquiries and sign-ups from the WooCommerce store, including the discontinued product pages, routed to the right location</li><li><strong>Google Business Profile:</strong> one profile per store, so each review lands on the location that earned it</li></ul><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>Consolidate, segment, automate</h2><ul><li>Customer records from 15 QuickBooks accounts consolidated and segmented by location, purchase and lead source</li><li>Automated messages instead of manual follow-up: confirmations, follow-ups and offers to the right segment</li><li>Automated review requests that send each customer to their own store’s Google Business Profile</li><li>One place to see and answer reviews across all 15 profiles</li><li>Website leads captured into the same system, so online and in-store customers share one record</li></ul><p class=\"gu-meta cs-kicker\">05–06 · Maintain and evolve</p><h2>One view for leadership</h2><p>Leadership got a single view of customer activity and marketing performance across every location, instead of 15 separate reports. The same customer data feeds the email programme and the review process, so each new campaign or store builds on what is already there.</p><p>Related: <a href=\"/casestudy/flooring-liquidators-discontinued-pages/\">turning 600 discontinued product pages into leads</a>, which feeds this CRM from the website side.</p>"
+}
