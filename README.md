@@ -44,10 +44,11 @@ Add `?forcegl` to a URL to force the WebGL field on machines with software GL (Q
 
 ## Themes
 
-Dark is the default; light is the design system's warm paper theme. An inline script in `<head>` sets
-`data-theme` before any CSS (saved choice, else the OS setting), so there is no flash. Toggles in the header,
-menu and footer cross-fade with a View Transition and stay in sync; the particles switch from additive glow to
-ink dots. The script's hash is in the CSP (`deploy/nginx/ganeshunnam.conf`); `npm run build` prints it.
+Dark is the default for everyone; light is the design system's warm paper theme, used only when a visitor picks
+it. `public/theme-init.js` runs in `<head>` before any CSS and sets `data-theme` (saved choice, else dark), so there
+is no flash. It's a same-origin file rather than an inline script, so the CSP needs no hash for it. Toggles in the
+header, menu and footer cross-fade with a View Transition and stay in sync; the particles switch from additive glow
+to ink dots.
 
 ## Motion and scene map
 

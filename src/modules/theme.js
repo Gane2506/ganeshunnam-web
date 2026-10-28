@@ -1,5 +1,5 @@
 // Light/dark theme. The inline head script already set data-theme before first paint; this keeps every
-// toggle in sync, follows the OS until the visitor picks, and cross-fades with a View Transition.
+// toggle in sync (dark by default, light only when picked) and cross-fades with a View Transition.
 import { reducedMotion } from './env.js';
 
 const root = document.documentElement;
@@ -38,15 +38,5 @@ export function initTheme() {
   syncTheme();
   document.addEventListener('click', (e) => {
     if (e.target.closest('[data-theme-toggle]')) apply(currentTheme() === 'dark' ? 'light' : 'dark', true);
-  });
-  const mq = matchMedia('(prefers-color-scheme: light)');
-  mq.addEventListener('change', (e) => {
-    let saved = null;
-    try {
-      saved = localStorage.getItem('theme');
-    } catch {
-      /* ignore */
-    }
-    if (!saved) apply(e.matches ? 'light' : 'dark', false);
   });
 }

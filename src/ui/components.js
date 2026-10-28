@@ -1,7 +1,38 @@
 // Design system components as HTML string templates.
 // Same markup and class names as the design system's React bundle (window.GU), so components.css styles
 // them unchanged, but rendered at build time: no framework ships to the browser. Behaviour lives in src/modules.
+import { existsSync } from 'node:fs';
 import { ICONS, GLYPHS } from './glyphs.js';
+import { Brand, hasBrand } from './brands.js';
+
+export { Brand, hasBrand };
+
+// Screenshots and favicons of live sites, captured by .github/workflows/screenshots.yml into public/shots and
+// public/logos. Anything not captured yet falls back to the generated drawing.
+const PUBLIC = new URL('../../public/', import.meta.url);
+export const hostOf = (url = '') => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+};
+const has = (rel) => existsSync(new URL(rel, PUBLIC));
+export const shotFor = (url) => {
+  const h = hostOf(url);
+  return h && has(`shots/${h}.jpg`) ? `/shots/${h}.jpg` : null;
+};
+export const logoFor = (url) => {
+  const h = hostOf(url);
+  return h && has(`logos/${h}.png`) ? `/logos/${h}.png` : null;
+};
+
+// a screenshot in a quiet browser frame; gu-media marks the element page transitions morph
+export function SiteShot({ url, alt = '', eager = false }) {
+  const src = shotFor(url);
+  if (!src) return '';
+  return `<span class="gu-shot gu-media"><span class="gu-shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(hostOf(url))}</span></span><img src="${src}" alt="${esc(alt)}" width="1280" height="800" loading="${eager ? 'eager' : 'lazy'}" decoding="async"></span>`;
+}
 
 export const esc = (s = '') =>
   String(s).replace(
@@ -149,7 +180,8 @@ export function Footer({ email, github, onHome = false }) {
 }
 
 export function Tag({ label, hue, dot }) {
-  return `<span class="gu-tag"${hue ? ` data-hue="${hue}"` : ''}>${dot ? '<span class="gu-tag-dot" aria-hidden="true"></span>' : ''}${esc(label)}</span>`;
+  const brand = !hue && hasBrand(label) ? Brand({ label, size: 14 }) : '';
+  return `<span class="${brand ? 'gu-tag gu-tag-brand' : 'gu-tag'}"${hue ? ` data-hue="${hue}"` : ''}>${dot ? '<span class="gu-tag-dot" aria-hidden="true"></span>' : ''}${brand}${esc(label)}</span>`;
 }
 
 export function SectionHeader({ index, eyebrow, title, lead, level = 2, id }) {
@@ -176,7 +208,7 @@ export function GenArt({ kind = 'orbit', seed = 7 } = {}) {
   const k = ART_KINDS.includes(kind) ? kind : 'orbit';
   const file = `${k}-${seed || 7}.svg`;
   usedArt.add(file);
-  return `<i class="gu-art" style="--art:url(/art/${file})" aria-hidden="true"></i>`;
+  return `<i class="gu-art gu-media" style="--art:url(/art/${file})" aria-hidden="true"></i>`;
 }
 export function genArtSvg(file) {
   const m = /^([a-z]+)-(\d+)\.svg$/.exec(file);
@@ -285,7 +317,7 @@ export function genArtSvg(file) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">${el.join('')}</svg>`;
 }
 
-export function ProjectCard({ title, type, year, hue = '3', art, seed, tags, href, size, speed }) {
+export function ProjectCard({ title, type, year, hue = '3', art, seed, tags, href, size, speed, site }) {
   const ext = isExternal(href);
   return `<a${attrs({
     href: href || '#',
@@ -298,7 +330,7 @@ export function ProjectCard({ title, type, year, hue = '3', art, seed, tags, hre
     rel: ext ? 'noopener' : null,
     'data-transition': ext ? null : '',
   })}>
-  <div class="gu-pcard-art">${GenArt({ kind: art, seed })}</div>
+  <div class="gu-pcard-art">${SiteShot({ url: site, alt: `${title}, the live site` }) || GenArt({ kind: art, seed })}</div>
   <div class="gu-pcard-body">
     <div class="gu-pcard-top"><span class="gu-meta">${esc(type)} · ${esc(year)}</span><span class="gu-pcard-go" aria-hidden="true">${Icon({ name: 'arrow-up-right' })}</span></div>
     <h3 class="gu-pcard-title">${esc(title)}</h3>
@@ -307,9 +339,9 @@ export function ProjectCard({ title, type, year, hue = '3', art, seed, tags, hre
 </a>`;
 }
 
-export function CaseStudyCard({ title, summary, client, year, hue = '3', art, seed, href, level = 3 }) {
+export function CaseStudyCard({ title, summary, client, year, hue = '3', art, seed, href, level = 3, site }) {
   return `<a href="${esc(href || '#')}" class="gu-cscard" data-tint="${hue}" data-cursor="Read" data-transition>
-  <div class="gu-cscard-thumb">${GenArt({ kind: art, seed })}</div>
+  <div class="gu-cscard-thumb">${SiteShot({ url: site, alt: '' }) || GenArt({ kind: art, seed })}</div>
   <div><h${level} class="gu-cscard-title">${esc(title)}</h${level}><p class="gu-cscard-sum">${esc(summary)}</p></div>
   <div class="gu-cscard-meta"><span class="gu-meta">${esc(client)}</span><span class="gu-meta">${esc(year)}</span></div>
 </a>`;
@@ -329,21 +361,22 @@ export function CapabilityRow({ index, icon, title, body, tags, shape }) {
   return `<div class="gu-cap" tabindex="0" data-shape="${shape}"><span class="gu-cap-idx gu-meta">${index}</span><span class="gu-cap-ico" aria-hidden="true">${Icon({ name: icon })}</span><h3 class="gu-cap-title">${esc(title)}</h3><div><p class="gu-cap-body">${esc(body)}</p>${tags ? `<div class="gu-cap-tags">${tags.map((t) => Tag({ label: t })).join('')}</div>` : ''}</div></div>`;
 }
 
-export function TimelineItem({ years, role, org, body, current }) {
-  return `<div class="gu-tl" data-current="${current ? 'true' : 'false'}" data-rise><div class="gu-tl-when gu-meta">${esc(years)}</div><div class="gu-tl-rail" aria-hidden="true"><span class="gu-tl-dot"></span></div><div class="gu-tl-body"><h3 class="gu-tl-role">${esc(role)}</h3><p class="gu-tl-org">${esc(org)}${current ? ' · now' : ''}</p>${body ? `<p class="gu-tl-text">${esc(body)}</p>` : ''}</div></div>`;
+export function TimelineItem({ years, role, org, body, current, site }) {
+  const logo = logoFor(site);
+  return `<div class="gu-tl" data-current="${current ? 'true' : 'false'}" data-rise><div class="gu-tl-when gu-meta">${esc(years)}</div><div class="gu-tl-rail" aria-hidden="true"><span class="gu-tl-dot"></span></div><div class="gu-tl-body"><h3 class="gu-tl-role">${esc(role)}</h3><p class="gu-tl-org">${logo ? `<img class="gu-tl-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}${esc(org)}${current ? ' · now' : ''}</p>${body ? `<p class="gu-tl-text">${esc(body)}</p>` : ''}</div></div>`;
 }
 
 export function FactsBar({ items }) {
   return `<dl class="gu-facts">${items.map(([k, v]) => `<div><dt class="gu-meta">${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>`;
 }
 
-export function CaseStudyHero({ type, year, hue = '3', title, lead, facts, art, seed }) {
+export function CaseStudyHero({ type, year, hue = '3', title, lead, facts, art, seed, site }) {
   return `<section class="gu-cshero" data-tint="${hue}">
   <div class="gu-cshero-top">${Tag({ label: type, hue, dot: true })}<span class="gu-meta">${esc(year)}</span></div>
   <h1 class="gu-cshero-title" data-split>${esc(title)}</h1>
   <p class="gu-cshero-lead" data-rise>${esc(lead)}</p>
   ${facts ? FactsBar({ items: facts }) : ''}
-  <div class="gu-cshero-media">${GenArt({ kind: art || 'orbit', seed })}</div>
+  <div class="gu-cshero-media">${SiteShot({ url: site, alt: `${title}: the live site`, eager: true }) || GenArt({ kind: art || 'orbit', seed })}</div>
 </section>`;
 }
 
@@ -355,7 +388,8 @@ export function Marquee({ items }) {
   const row = (hidden) =>
     items
       .map(
-        (t) => `<span class="gu-marquee-item"${hidden ? ' aria-hidden="true"' : ''}>${esc(t)}<i></i></span>`,
+        (t) =>
+          `<span class="gu-marquee-item"${hidden ? ' aria-hidden="true"' : ''}>${Brand({ label: t, size: 28 })}${esc(t)}<i></i></span>`,
       )
       .join('');
   return `<div class="gu-marquee" role="marquee" aria-label="${esc(items.join(', '))}"><div class="gu-marquee-track" data-marquee>${row(false)}${row(true)}</div></div>`;
@@ -495,11 +529,12 @@ export function Engagement({ when, title, body, includes, cta, featured, email }
 }
 
 // A deep-dive card in the Engagement card's style: what I do, the checklist, and one line of proof from real work.
-export function ExpertiseCard({ when, title, body, items, proof }) {
+export function ExpertiseCard({ when, title, body, items, proof, tools }) {
   return `<div class="gu-eng gu-expertise">
   <div class="gu-eng-top"><span class="gu-meta">${esc(when)}</span></div>
   <h3 class="gu-eng-title">${esc(title)}</h3>
   <p class="gu-eng-body">${esc(body)}</p>
+  ${tools ? `<div class="gu-eng-tools">${tools.map((t) => Tag({ label: t })).join('')}</div>` : ''}
   <ul class="gu-life-list">${items.map((d) => `<li>${Icon({ name: 'check' })}${esc(d)}</li>`).join('')}</ul>
   ${proof ? `<div class="gu-life-example"><p class="gu-meta">From real work</p><p>${esc(proof)}</p></div>` : ''}
 </div>`;
@@ -524,4 +559,15 @@ export function EmptyState({ title, body }) {
         `<g>${i ? `<line x1="${pts[i - 1][0]}" y1="${pts[i - 1][1]}" x2="${q[0]}" y2="${q[1]}" stroke="currentColor" stroke-opacity=".4" stroke-dasharray="2 4"/>` : ''}<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="currentColor"/></g>`,
     )
     .join('')}</svg><h3>${esc(title)}</h3><p>${esc(body)}</p></div>`;
+}
+
+// "More shipped client work": live-site thumbnails where captured, a favicon and the kind of work
+export function ClientGrid({ items }) {
+  return `<ul class="gu-clients">${items
+    .map(([name, kind, url]) => {
+      const shot = shotFor(url);
+      const logo = logoFor(url);
+      return `<li><a href="${esc(url)}" rel="noopener" target="_blank" class="gu-client gu-focusable" data-cursor="Visit ↗">${shot ? `<span class="gu-client-shot"><img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async"></span>` : ''}<span class="gu-client-meta">${logo ? `<img class="gu-client-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}<span class="gu-client-name">${esc(name)}</span><span class="gu-meta">${esc(kind)}</span></span></a></li>`;
+    })
+    .join('')}</ul>`;
 }

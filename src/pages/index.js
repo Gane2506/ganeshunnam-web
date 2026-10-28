@@ -37,6 +37,7 @@ const caseStudyCards = (posts, level = 3) =>
             art: p.art,
             seed: p.seed,
             href: `/casestudy/${p.slug}/`,
+            site: p.liveUrl,
             level,
           }),
         )
@@ -54,7 +55,7 @@ export function home({ caseStudies = [] } = {}) {
         <p class="pg-hero-lead hero-in" style="--d:.6s">${HERO.lead}</p>
         <div class="pg-hero-ctas hero-in" style="--d:.7s">${G.Button({ label: 'Start a project', size: 'l', iconEnd: 'arrow-up-right', href: '#contact', cursor: 'Say hi' })}${G.Button({ label: 'See the work', size: 'l', variant: 'ghost', href: '#work', cursor: 'View' })}</div>
       </div>
-      <nav class="pg-hero-services hero-in" style="--d:.8s" aria-label="What I do"><span class="gu-meta">What I do</span><ul>${HERO.services.map(([label, href]) => `<li><a href="${href}" class="gu-focusable">${label}</a></li>`).join('')}</ul></nav>
+      <nav class="pg-hero-services hero-in" style="--d:.8s" aria-label="What I do"><span class="gu-meta">What I do</span><ul>${HERO.services.map(([label, href, brand]) => `<li><a href="${href}" class="gu-focusable">${G.Brand({ label: brand, size: 16 })}${label}</a></li>`).join('')}</ul></nav>
     </div>
   </section>
   ${G.Marquee({ items: MARQUEE })}
@@ -82,7 +83,7 @@ export function home({ caseStudies = [] } = {}) {
       <div class="pg-bento">${WORK.map((w, i) => G.ProjectCard({ ...w, size: 'wide', speed: [0.94, 1.06, 1.04, 0.96, 0.95, 1.05][i] })).join('')}</div>
       <div class="pg-more-work">
         <p class="gu-meta">More shipped client work</p>
-        <ul>${MORE_WORK.map(([n, k, u]) => `<li><a href="${u}" rel="noopener" target="_blank" class="gu-focusable">${n}<span class="gu-meta">${k}</span></a></li>`).join('')}</ul>
+        ${G.ClientGrid({ items: MORE_WORK })}
       </div>
     </div>`,
   )}
@@ -182,7 +183,7 @@ export function caseStudy(p, next) {
   <div class="pg-cs-top pg-cs-hero" data-section="cs-hero">
     <div class="pg-wrap">
       ${G.BackLink({ trail: [{ label: 'Case studies', href: '/casestudy/' }, { label: p.type || 'Project' }, { label: p.short || p.title }] })}
-      ${G.CaseStudyHero({ type: p.type || 'Project', year: p.year, hue: p.hue, art: p.art, seed: p.seed, title: p.title, lead: p.excerpt, facts })}
+      ${G.CaseStudyHero({ type: p.type || 'Project', year: p.year, hue: p.hue, art: p.art, seed: p.seed, title: p.title, lead: p.excerpt, facts, site: p.liveUrl })}
       ${p.liveUrl ? `<p class="pg-cs-live">${G.Button({ label: 'View project', variant: 'ghost', iconEnd: 'arrow-up-right', href: p.liveUrl })}</p>` : ''}
     </div>
   </div>

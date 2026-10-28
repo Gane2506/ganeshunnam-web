@@ -3,44 +3,48 @@
 export const SITE = {
   url: 'https://ganeshunnam.com',
   name: 'Ganesh Unnam',
-  title: 'Ganesh Unnam · Full stack engineer and product owner, Toronto',
+  title: 'Ganesh Unnam · Full stack engineer, SEO / AEO and product owner, Toronto',
   description:
     'Websites, WooCommerce and Shopify stores, SEO and AEO, automation and custom applications for businesses, built end to end. Toronto.',
   email: 'gane2506@gmail.com',
   github: 'https://github.com/Gane2506',
-  role: 'Full stack engineer · Product owner · Toronto',
+  role: 'Full stack engineer · SEO / AEO · Product owner · Toronto',
 };
 
 export const HERO = {
   lead: 'I build websites, online stores and custom software for businesses, get them found on Google and in AI answers, and automate the work around them, from the first call to every change after launch.',
   // Shown under the hero as links, so every service is visible before the first scroll.
   services: [
-    ['SEO and AEO', '#search'],
-    ['WordPress and WooCommerce', '#search'],
-    ['Shopify', '#capabilities'],
-    ['Automation', '#builds'],
-    ['Custom applications', '#builds'],
-    ['AI and voice agents', '#work'],
-    ['Cloud and IT', '#capabilities'],
+    ['SEO and AEO', '#search', 'Google Search Console'],
+    ['WordPress and WooCommerce', '#search', 'WooCommerce'],
+    ['Shopify', '#capabilities', 'Shopify'],
+    ['Google and Meta ads', '#experience', 'Google Ads'],
+    ['Automation', '#builds', 'n8n'],
+    ['Custom applications', '#builds', 'React'],
+    ['AI and voice agents', '#work', 'Claude'],
+    ['Cloud and IT', '#capabilities', 'Cloudflare'],
   ],
 };
 
 export const MARQUEE = [
   'SEO',
   'AEO',
+  'Google Ads',
+  'Meta Ads',
+  'ChatGPT',
+  'Claude',
+  'WordPress',
   'WooCommerce',
-  'AI agents',
-  'MCP servers',
+  'Shopify',
+  'Node.js',
   'Next.js',
   'React',
-  'TypeScript',
-  'Node.js',
-  'Shopify',
-  'WordPress',
-  'Webflow',
-  'Sanity',
-  'Contentful',
   'n8n',
+  'Google Analytics',
+  'Google Search Console',
+  'QuickBooks',
+  'Cloudflare',
+  'Python',
 ];
 
 export const ABOUT = {
@@ -84,6 +88,7 @@ export const WORK = [
     art: 'orbit',
     tags: ['MCP', 'OpenRouter'],
     href: '/casestudy/baton-agent-orchestrator/',
+    site: 'https://github.com/Gane2506/baton',
   },
   {
     title: 'RDPV Solutions, headless WordPress on Next.js',
@@ -93,6 +98,7 @@ export const WORK = [
     art: 'stack',
     tags: ['Next.js', 'WPGraphQL', 'Docker'],
     href: '/casestudy/rdpv-solutions-website/',
+    site: 'https://rdpvsolutions.ca/',
   },
   {
     title: 'Flooring Liquidators: 600 dead product pages turned into leads',
@@ -102,6 +108,7 @@ export const WORK = [
     art: 'constellation',
     tags: ['WooCommerce', 'Local SEO', 'CRM'],
     href: '/casestudy/flooring-liquidators-discontinued-pages/',
+    site: 'https://flooringliquidators.ca/',
   },
   {
     title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
@@ -186,6 +193,16 @@ export const BUILDS = [
   {
     when: 'Workflows and integrations',
     title: 'Automation',
+    tools: [
+      'n8n',
+      'Node.js',
+      'QuickBooks',
+      'Klaviyo',
+      'Twilio',
+      'Google Business Profile',
+      'GitHub Actions',
+      'Terraform',
+    ],
     body: 'Workflows that move data between the tools a business already pays for, with a person kept in the loop wherever a decision matters.',
     items: [
       'n8n workflows and API integrations, self-hosted or in the cloud',
@@ -203,6 +220,17 @@ export const BUILDS = [
   {
     when: 'Built to spec',
     title: 'Custom applications',
+    tools: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Vue.js',
+      'Node.js',
+      'Python',
+      'FastAPI',
+      'Supabase',
+      'Cloudflare Workers',
+    ],
     body: 'When off-the-shelf software doesn’t fit the work, I build the application: scoped with the people who will use it, then shipped and maintained.',
     items: [
       'Web apps and dashboards in React, Next.js, TypeScript and Vue.js',
@@ -223,6 +251,7 @@ export const TOOLKIT = [
     title: 'AI and agents',
     items: [
       'Claude Code',
+      'ChatGPT',
       'Codex',
       'Cursor',
       'MCP',
@@ -264,7 +293,15 @@ export const TOOLKIT = [
   },
   {
     title: 'Analytics and growth',
-    items: ['GA4', 'Google Tag Manager', 'Google Ads', 'Meta Ads', 'Google Shopping', 'Klaviyo'],
+    items: [
+      'GA4',
+      'Google Tag Manager',
+      'Google Ads',
+      'Meta Ads',
+      'Google Shopping',
+      'Klaviyo',
+      'QuickBooks',
+    ],
   },
   {
     title: 'Front end',
@@ -346,6 +383,16 @@ export const EXPERTISE = [
   {
     when: 'Since 2017',
     title: 'SEO',
+    tools: [
+      'Google Search Console',
+      'GA4',
+      'Google Tag Manager',
+      'SEMrush',
+      'Ahrefs',
+      'Screaming Frog',
+      'Yoast SEO',
+      'Rank Math',
+    ],
     body: 'Technical, on-page and local SEO for online stores, multi-location retailers, service businesses and my own niche sites.',
     items: [
       'Technical audits with Screaming Frog and Search Console: crawl errors, redirects, canonicals, indexation and Core Web Vitals',
@@ -362,6 +409,7 @@ export const EXPERTISE = [
   {
     when: 'Answer engines',
     title: 'AEO',
+    tools: ['ChatGPT', 'Gemini', 'Perplexity', 'Claude', 'Schema.org JSON-LD', 'Google Business Profile'],
     body: 'Answer engine optimization: being the answer Google AI Overviews, ChatGPT, Perplexity and voice assistants quote.',
     items: [
       'Structured data in JSON-LD: Organization, LocalBusiness, Product, FAQ, Article and Person schema',
@@ -377,6 +425,7 @@ export const EXPERTISE = [
   {
     when: 'Since 2017',
     title: 'WordPress and WooCommerce',
+    tools: ['WordPress', 'WooCommerce', 'Elementor', 'Divi', 'WPGraphQL', 'PHP', 'AWS', 'DigitalOcean'],
     body: 'From brochure sites to large WooCommerce catalogues and headless builds, and the care plans that keep them running.',
     items: [
       'Custom themes and plugins in PHP, with ACF and custom post types',
@@ -396,6 +445,7 @@ export const EXPERIENCE = [
     years: 'Now',
     role: 'Gen AI Developer',
     org: 'RDPV Solutions',
+    site: 'https://rdpvsolutions.ca/',
     current: true,
     body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
   },
@@ -403,18 +453,21 @@ export const EXPERIENCE = [
     years: '2024 — 2026',
     role: 'Web Developer · IT Director · SEO',
     org: 'Flooring Liquidators Canada',
+    site: 'https://flooringliquidators.ca/',
     body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and segmented email drip campaigns; brought Google and Meta ads in-house; and built one CRM that consolidates customers from every store’s QuickBooks, segments them for email drip campaigns and runs review requests for every location.',
   },
   {
     years: '2024',
     role: 'Web Developer · IT Specialist',
     org: 'AZTRA',
+    site: 'https://aztra.ai/',
     body: 'Designed and launched aztra.ai from scratch and set up the company’s IT: an AWS VPC, Microsoft 365, SharePoint and VoIP on Amazon Chime. Moved the website and every mailbox over from the previous provider with no lost data and minimal downtime, then handled shared mailboxes, support and troubleshooting.',
   },
   {
     years: '2023 — now',
     role: 'Shopify Developer · SEO',
     org: 'Vinyl Sound',
+    site: 'https://vinylsound.ca/',
     body: 'Theme development and storefront work on Shopify: responsive Liquid, HTML and CSS themes maintained with Shopify CLI, custom landing pages built on staging and pushed live, product uploads and custom code. SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, GA4 and Tag Manager analytics behind every change, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
   },
   {
@@ -423,7 +476,12 @@ export const EXPERIENCE = [
     org: 'Premier Electronic Parts',
     body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
   },
-  { years: '2018 — 2022', role: 'Analyst, Talent Sourcing', org: 'Deloitte' },
+  {
+    years: '2018 — 2022',
+    role: 'Analyst, Talent Sourcing',
+    org: 'Deloitte',
+    site: 'https://www.deloitte.com/',
+  },
   {
     years: '2017 — now',
     role: 'Web development and SEO',

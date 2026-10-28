@@ -45,14 +45,14 @@ const visible = (el) => {
 // The drawing that travels: card → its case study hero, hero → the next hero, or hero → its card going back.
 function sharedPair(trigger, next) {
   const from =
-    trigger?.closest('.gu-pcard, .gu-cscard')?.querySelector('.gu-art') ||
-    document.querySelector('.gu-cshero-media .gu-art');
-  let to = next.querySelector('.gu-cshero-media .gu-art');
+    trigger?.closest('.gu-pcard, .gu-cscard')?.querySelector('.gu-media') ||
+    document.querySelector('.gu-cshero-media .gu-media');
+  let to = next.querySelector('.gu-cshero-media .gu-media');
   if (!to && document.body.dataset.page === 'casestudy') {
     const card = [...next.querySelectorAll('.gu-pcard, .gu-cscard')].find(
       (c) => new URL(c.getAttribute('href'), location.href).pathname === location.pathname,
     );
-    to = card?.querySelector('.gu-art');
+    to = card?.querySelector('.gu-media');
   }
   return from && to && visible(from) ? [from, to] : null;
 }
@@ -115,7 +115,7 @@ export function initRouter({ unmount, mount, scrollTo }) {
         const vt = document.startViewTransition(update);
         await vt.finished.catch(() => {});
         html.classList.remove('is-swapping');
-        document.querySelectorAll('.gu-art').forEach((a) => a.style.removeProperty('view-transition-name'));
+        document.querySelectorAll('.gu-media').forEach((a) => a.style.removeProperty('view-transition-name'));
       } else {
         await cover.cover();
         update();

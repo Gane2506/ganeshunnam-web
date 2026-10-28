@@ -1,12 +1,8 @@
-import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { defineConfig } from 'vite';
 
-// Runs before any stylesheet so the page never flashes the wrong theme. Its sha256 goes in the CSP
-// (deploy/nginx/ganeshunnam.conf); `npm run build` prints it, so update the CSP if this line changes.
-export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
-export const THEME_SCRIPT_HASH = `sha256-${createHash('sha256').update(THEME_SCRIPT).digest('base64')}`;
+// The theme is set before any stylesheet by public/theme-init.js (a same-origin file, so no CSP hash).
 
 const COMMON_HEAD = `<meta name="theme-color" content="#0B0B0F" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#F3EEE4" media="(prefers-color-scheme: light)" />
@@ -52,7 +48,7 @@ function pages() {
         const { loadCaseStudies } = await load('/scripts/lib/casestudies.mjs');
         const caseStudies = await loadCaseStudies();
         return html
-          .replace('<!--head:theme-->', `<script>${THEME_SCRIPT}</script>`)
+          .replace('<!--head:theme-->', '<script src="/theme-init.js"></script>')
           .replace('<!--head:common-->', COMMON_HEAD)
           .replace('<!--chrome-->', CHROME)
           .replace(/<!--page:(home|archive|notfound|privacy)-->/, (m, name) => {
@@ -66,7 +62,6 @@ function pages() {
       const { usedArt, genArtSvg } = await load('/src/ui/components.js');
       for (const file of usedArt)
         this.emitFile({ type: 'asset', fileName: `art/${file}`, source: genArtSvg(file) });
-      this.info(`theme script CSP hash: '${THEME_SCRIPT_HASH}'`);
     },
   };
 }
