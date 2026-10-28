@@ -1,0 +1,111 @@
+{
+  "github.com": {
+    "platforms": [],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "rdpvsolutions.ca": {
+    "platforms": [
+      "Next.js"
+    ],
+    "cloudflare": true,
+    "zaraz": false
+  },
+  "aztra.ai": {
+    "platforms": [],
+    "cloudflare": true,
+    "zaraz": true
+  },
+  "vinylsound.ca": {
+    "platforms": [
+      "Shopify"
+    ],
+    "cloudflare": true,
+    "zaraz": false
+  },
+  "deloitte.com": {
+    "platforms": [],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "floorstoday.ca": {
+    "platforms": [
+      "WordPress",
+      "Next.js",
+      "Elementor"
+    ],
+    "cloudflare": true,
+    "zaraz": true
+  },
+  "talentsear.ch": {
+    "platforms": [],
+    "cloudflare": true,
+    "zaraz": false
+  },
+  "a1mississaugaauto.com": {
+    "platforms": [
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": true,
+    "zaraz": false
+  },
+  "renoliquidators.ca": {
+    "platforms": [
+      "WooCommerce",
+      "WordPress"
+    ],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "tvpartscanada.ca": {
+    "platforms": [
+      "WooCommerce",
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": true,
+    "zaraz": false
+  },
+  "nassolutions.ca": {
+    "platforms": [
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "willowinter.com": {
+    "platforms": [
+      "WooCommerce",
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "informed-tech.com": {
+    "platforms": [
+      "WooCommerce",
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "protechindustries.com": {
+    "platforms": [
+      "WordPress",
+      "Elementor"
+    ],
+    "cloudflare": false,
+    "zaraz": false
+  },
+  "equisential.in": {
+    "platforms": [
+      "Next.js"
+    ],
+    "cloudflare": true,
+    "zaraz": false
+  }
+}
