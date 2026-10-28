@@ -567,7 +567,7 @@ export function ClientGrid({ items }) {
     .map(([name, kind, url]) => {
       const shot = shotFor(url);
       const logo = logoFor(url);
-      return `<li><a href="${esc(url)}" rel="noopener" target="_blank" class="gu-client gu-focusable" data-cursor="Visit ↗">${shot ? `<span class="gu-client-shot"><img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async"></span>` : ''}<span class="gu-client-meta">${logo ? `<img class="gu-client-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}<span class="gu-client-name">${esc(name)}</span><span class="gu-meta">${esc(kind)}</span></span></a></li>`;
+      return `<li><a href="${esc(url)}" rel="noopener" target="_blank" class="gu-client gu-focusable" data-cursor="Visit ↗"><span class="gu-client-shot">${shot ? `<img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async">` : GenArt({ kind: 'constellation', seed: 5 })}</span><span class="gu-client-meta">${logo ? `<img class="gu-client-logo" src="${logo}" alt="" width="20" height="20" loading="lazy">` : ''}<span class="gu-client-name">${esc(name)}</span><span class="gu-meta">${esc(kind)}</span></span></a></li>`;
     })
     .join('')}</ul>`;
 }

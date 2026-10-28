@@ -584,6 +584,10 @@ body > .gu-footer {
   border: 1px solid var(--line);
   background: var(--surface-1);
 }
+.gu-client-shot .gu-art {
+  color: var(--accent-text);
+  opacity: 0.55;
+}
 .gu-client-shot img {
   width: 100%;
   height: 100%;
