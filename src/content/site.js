@@ -190,7 +190,7 @@ export const BUILDS = [
     items: [
       'n8n workflows and API integrations, self-hosted or in the cloud',
       'CRM, lead routing and data sync between forms, inboxes and sales tools',
-      'Inventory, order and email workflows for online stores, including Klaviyo flows',
+      'Email segmentation and drip campaigns (welcome, follow-up, cross-sell, win-back), including Klaviyo flows',
       'Call handling: voice agents that qualify, book and text back through Twilio',
       'QuickBooks to CRM: customer and sales data from many accounts, consolidated and segmented',
       'Review management: automated requests and one inbox across every Google Business Profile',
@@ -198,7 +198,7 @@ export const BUILDS = [
       'Infrastructure as code: Terraform provisions AWS, Ansible configures it, Jenkins ships it',
     ],
     proof:
-      'At Flooring Liquidators, one CRM pulls customers from 15 locations’ separate accounts, segments them, sends automated follow-ups and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
+      'At Flooring Liquidators, one CRM pulls customers from 15 locations’ QuickBooks accounts, segments them into email drip campaigns and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
   },
   {
     when: 'Built to spec',
@@ -288,7 +288,17 @@ export const TOOLKIT = [
   },
   {
     title: 'Automation and integrations',
-    items: ['n8n', 'Webhooks', 'Twilio', 'Klaviyo flows', 'CRM sync', 'Scheduled jobs', 'GitHub Actions'],
+    items: [
+      'n8n',
+      'Webhooks',
+      'Twilio',
+      'Email segmentation',
+      'Drip campaigns',
+      'Klaviyo flows',
+      'CRM sync',
+      'Scheduled jobs',
+      'GitHub Actions',
+    ],
   },
   { title: 'Other platforms', items: ['Shopify', 'Liquid', 'Webflow', 'Sanity', 'Contentful'] },
   {
@@ -393,7 +403,7 @@ export const EXPERIENCE = [
     years: '2024 — 2026',
     role: 'Web Developer · IT Director · SEO',
     org: 'Flooring Liquidators Canada',
-    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and automated follow-ups; brought Google and Meta ads in-house; and built one CRM that consolidates and segments customers, automates messages and runs reviews for every location.',
+    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and segmented email drip campaigns; brought Google and Meta ads in-house; and built one CRM that consolidates customers from every store’s QuickBooks, segments them for email drip campaigns and runs review requests for every location.',
   },
   {
     years: '2024',
