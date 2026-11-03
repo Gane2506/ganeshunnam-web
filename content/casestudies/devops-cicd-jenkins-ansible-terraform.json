@@ -1,0 +1,23 @@
+{
+  "order": 7,
+  "slug": "devops-cicd-jenkins-ansible-terraform",
+  "title": "A CI/CD pipeline on AWS with Jenkins, Ansible and Terraform",
+  "short": "DevOps CI/CD",
+  "excerpt": "Infrastructure as code with Terraform and Ansible on AWS, and Jenkins pipelines that build and deploy a Python app on every GitHub change. A York University Cloud Operations project.",
+  "date": "2024-04-30",
+  "client": "York University · Cloud Operations",
+  "year": "2024",
+  "role": "Engineer",
+  "type": "DevOps · Cloud",
+  "stack": ["Terraform", "Ansible", "Jenkins", "AWS", "GitHub", "Python"],
+  "hue": "2",
+  "art": "cloud",
+  "metrics": [
+    {
+      "value": "3",
+      "delta": "LABS",
+      "label": "Terraform, Terraform with Ansible, and Jenkins pipelines"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>Infrastructure by hand does not scale</h2><p>Clicking servers, networks and deploys together one step at a time is slow, hard to repeat and easy to get wrong. This York University Cloud Operations project set out to automate the whole path, from the AWS infrastructure to every release of the code that runs on it.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>Three tools, one pipeline</h2><ul><li><strong>Terraform</strong> describes the AWS infrastructure as code and provisions it</li><li><strong>Ansible</strong> configures what Terraform creates</li><li><strong>Jenkins</strong> builds, tests and deploys the application whenever the code changes on GitHub</li></ul><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>Built in three labs</h2><p><strong>Lab 1: automating AWS infrastructure with Terraform.</strong> Instead of creating resources step by step, the infrastructure is written as Terraform code and provisioned by running it, which saves time and makes the systems on AWS easier to manage.</p><p><strong>Lab 2: provisioning and configuring with Terraform and Ansible.</strong> Terraform and Ansible together manage a more complex set of systems on AWS: one creates the infrastructure, the other configures it.</p><p><strong>Lab 3: Jenkins pipelines.</strong> CI/CD pipelines for a Python program build it and put it into action automatically. Every change pushed to the GitHub repository triggers the pipeline, with no manual deploy.</p><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>From commit to running code</h2><p>The result is a pipeline where a code change on GitHub flows through build and deploy on its own, on infrastructure that is defined, provisioned and configured as code. It is the same approach behind this site, where every push is tested, built and deployed by GitHub Actions.</p>"
+}

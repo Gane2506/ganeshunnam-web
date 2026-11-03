@@ -570,7 +570,7 @@ export const EXPERTISE = [
 
 export const EXPERIENCE = [
   {
-    years: 'Now',
+    years: 'Nov 2024 — now',
     role: 'Gen AI Developer',
     org: 'RDPV Solutions',
     site: 'https://rdpvsolutions.ca/',
@@ -578,7 +578,7 @@ export const EXPERIENCE = [
     body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
   },
   {
-    years: '2024 — now',
+    years: '2024',
     role: 'Web Developer · IT Support',
     org: 'AZTRA',
     site: 'https://aztra.ai/',
@@ -590,12 +590,6 @@ export const EXPERIENCE = [
     org: 'Vinyl Sound',
     site: 'https://vinylsound.ca/',
     body: 'Theme development and storefront work on Shopify: responsive Liquid, HTML and CSS themes maintained with Shopify CLI, custom landing pages built on staging and pushed live, product uploads and custom code. SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, GA4 and Tag Manager analytics behind every change, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
-  },
-  {
-    years: '2023',
-    role: 'Web Developer · SEO Specialist',
-    org: 'Premier Electronic Parts',
-    body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
   },
   {
     years: '2020 — now',
