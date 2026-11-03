@@ -590,6 +590,12 @@ body > .gu-footer {
 .gu-crow[data-flip] .gu-crow-shot {
   order: 2;
 }
+.gu-crow.gu-crow-text {
+  grid-template-columns: minmax(0, 1fr);
+}
+.gu-crow-text .gu-crow-about {
+  max-width: 90ch;
+}
 .gu-crow-shot {
   position: relative;
   display: block;

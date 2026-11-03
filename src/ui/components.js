@@ -584,6 +584,15 @@ export function ClientList({ items, open = 6 }) {
     const shot = shotFor(url);
     const logo = logoFor(url);
     const all = [...new Set([...tags, ...detectedTags(url)])].slice(0, 5);
+    // a client listed without a URL shows as text only: no picture, no link
+    if (!url)
+      return `<li class="gu-crow gu-crow-text">
+  <div class="gu-crow-body">
+    <div class="gu-crow-head"><h3 class="gu-crow-name">${esc(name)}</h3><span class="gu-meta">${esc(kind)}</span></div>
+    <p class="gu-crow-about">${esc(about)}</p>
+    ${tags.length ? `<div class="gu-crow-tags">${tags.map((t) => Tag({ label: t })).join('')}</div>` : ''}
+  </div>
+</li>`;
     return `<li class="gu-crow"${i % 2 ? ' data-flip' : ''}>
   <a href="${esc(url)}" rel="noopener" target="_blank" class="gu-crow-shot gu-focusable" data-cursor="Visit ↗" tabindex="-1" aria-hidden="true">${shot ? `<img src="${shot}" alt="" width="1280" height="800" loading="lazy" decoding="async">` : GenArt({ kind: 'constellation', seed: 5 })}</a>
   <div class="gu-crow-body">

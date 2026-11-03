@@ -122,9 +122,8 @@ export const WORK = [
     year: '2024–2026',
     hue: '5',
     art: 'constellation',
-    tags: ['WooCommerce', 'Local SEO', 'CRM'],
+    tags: ['WooCommerce', 'Local SEO', 'Automation'],
     href: '/casestudy/flooring-liquidators-discontinued-pages/',
-    site: 'https://flooringliquidators.ca/',
   },
   {
     title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
@@ -144,10 +143,9 @@ export const MORE_WORK = [
   {
     name: 'Flooring Liquidators',
     kind: 'WooCommerce · SEO',
-    url: 'https://flooringliquidators.ca/',
     about:
-      'Flooring retailer with 15 locations across Ontario. WooCommerce catalogue, local SEO for every store, one CRM and email automation.',
-    tags: ['WooCommerce', 'Local SEO', 'CRM'],
+      'Flooring retailer with 15 locations across Ontario. WooCommerce catalogue, local SEO for every store, and automation that connects QuickBooks, reviews and email.',
+    tags: ['WooCommerce', 'Local SEO', 'Automation'],
   },
   {
     name: 'Vinyl Sound',
@@ -333,13 +331,13 @@ export const BUILDS = [
       'CRM, lead routing and data sync between forms, inboxes and sales tools',
       'Email segmentation and drip campaigns (welcome, follow-up, cross-sell, win-back), including Klaviyo flows',
       'Call handling: voice agents that qualify, book and text back through Twilio',
-      'QuickBooks to CRM: customer and sales data from many accounts, consolidated and segmented',
+      'QuickBooks automation: customer and sales data from many accounts, consolidated and segmented',
       'Review management: automated requests and one inbox across every Google Business Profile',
       'Build and content pipelines: GitHub Actions tests and deploys on every change',
       'Infrastructure as code: Terraform provisions AWS, Ansible configures it, Jenkins ships it',
     ],
     proof:
-      'At Flooring Liquidators, one CRM pulls customers from 15 locations’ QuickBooks accounts, segments them into email drip campaigns and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
+      'At Flooring Liquidators, one automation pulls customers from 15 locations’ QuickBooks accounts, segments them into email drip campaigns and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
   },
   {
     when: 'Built to spec',
@@ -612,8 +610,7 @@ export const EXPERIENCE = [
     years: '2024 — 2026',
     role: 'Web Developer · IT Director · SEO',
     org: 'Flooring Liquidators Canada',
-    site: 'https://flooringliquidators.ca/',
-    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and segmented email drip campaigns; brought Google and Meta ads in-house; and built one CRM that consolidates customers from every store’s QuickBooks, segments them for email drip campaigns and runs review requests for every location.',
+    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and segmented email drip campaigns; brought Google and Meta ads in-house; and built automation that consolidates customers from every store’s QuickBooks, segments them for email drip campaigns and runs review requests for every location.',
   },
   {
     years: '2024',
