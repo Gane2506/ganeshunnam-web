@@ -88,6 +88,7 @@ const SLUG = {
   Nginx: 'nginx',
   Redis: 'redis',
   'Google Custom Search': 'google',
+  'Google Programmable Search': 'google',
   'Core Web Vitals': 'pagespeedinsights',
 };
 

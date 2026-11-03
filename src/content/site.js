@@ -8,6 +8,7 @@ export const SITE = {
     'Websites, WooCommerce and Shopify stores, SEO and AEO, automation and custom applications for businesses, built end to end. Toronto.',
   email: 'gane2506@gmail.com',
   github: 'https://github.com/Gane2506',
+  linkedin: 'https://www.linkedin.com/in/ganeshunnam/',
   role: 'Full stack engineer · SEO / AEO · Product owner · Toronto',
 };
 
@@ -117,15 +118,6 @@ export const WORK = [
     site: 'https://rdpvsolutions.ca/',
   },
   {
-    title: 'Flooring Liquidators: 600 dead product pages turned into leads',
-    type: 'E-commerce · SEO',
-    year: '2024–2026',
-    hue: '5',
-    art: 'constellation',
-    tags: ['WooCommerce', 'Local SEO', 'Automation'],
-    href: '/casestudy/flooring-liquidators-discontinued-pages/',
-  },
-  {
     title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
     type: 'E-commerce · SEO',
     year: '2023',
@@ -134,19 +126,22 @@ export const WORK = [
     tags: ['WooCommerce', 'Programmatic SEO', 'AWS'],
     href: '/casestudy/woocommerce-15k-skus-cpanel-to-aws/',
   },
+  {
+    title: 'talentsear.ch, x-ray search for recruiters',
+    type: 'Side project',
+    year: '2020–now',
+    hue: '5',
+    art: 'cloud',
+    tags: ['Google Programmable Search', 'WordPress'],
+    href: '/casestudy/talentsearch/',
+    site: 'https://talentsear.ch/',
+  },
 ];
 
 // Client sites from ganeshunnam.com, shown as a compact list under the bento
 // More shipped client work: name, kind, live URL, a two-line description and tags. The client list adds the
 // platform and Cloudflare tags detected by scripts/capture-sites.mjs (public/shots/sites.json).
 export const MORE_WORK = [
-  {
-    name: 'Flooring Liquidators',
-    kind: 'WooCommerce · SEO',
-    about:
-      'Flooring retailer with 15 locations across Ontario. WooCommerce catalogue, local SEO for every store, and automation that connects QuickBooks, reviews and email.',
-    tags: ['WooCommerce', 'Local SEO', 'Automation'],
-  },
   {
     name: 'Vinyl Sound',
     kind: 'Shopify · SEO',
@@ -156,36 +151,12 @@ export const MORE_WORK = [
     tags: ['Shopify', 'SEO', 'Klaviyo'],
   },
   {
-    name: 'floorstoday.ca',
-    kind: 'Headless',
-    url: 'https://floorstoday.ca/',
-    about:
-      'Flooring for Southern Ontario and Ottawa. A fast headless storefront built around an in-home estimate funnel.',
-    tags: ['Next.js', 'Headless', 'SEO'],
-  },
-  {
-    name: 'talentsear.ch',
-    kind: 'Search tool',
-    url: 'https://talentsear.ch/',
-    about:
-      'X-ray search for recruiters across LinkedIn, GitHub, Behance and more, with ready-made filters on Google Custom Search.',
-    tags: ['JavaScript', 'Google Custom Search'],
-  },
-  {
     name: 'A1 Mississauga Auto',
     kind: 'Automotive',
     url: 'https://a1mississaugaauto.com/',
     about:
       'Collision and auto repair shop in Mississauga since 1989. Service pages, appointment booking and local search.',
     tags: ['Local SEO'],
-  },
-  {
-    name: 'Reno Liquidators',
-    kind: 'E-commerce',
-    url: 'https://renoliquidators.ca/',
-    about:
-      'Ontario renovation supplies and lumber. An online catalogue with categories, deals and store pickup.',
-    tags: ['E-commerce', 'SEO'],
   },
   {
     name: 'TV Parts Canada',
@@ -337,7 +308,7 @@ export const BUILDS = [
       'Infrastructure as code: Terraform provisions AWS, Ansible configures it, Jenkins ships it',
     ],
     proof:
-      'At Flooring Liquidators, one automation pulls customers from 15 locations’ QuickBooks accounts, segments them into email drip campaigns and runs review requests. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
+      'Sarah answers, qualifies and books calls through Twilio and texts back the details. On this site, publishing a case study in WordPress rebuilds and deploys it in about two minutes.',
   },
   {
     when: 'Built to spec',
@@ -545,7 +516,7 @@ export const EXPERTISE = [
       'GA4 and Google Tag Manager tracking, so every change is measured',
     ],
     proof:
-      'Programmatic SEO across Premier Electronic Parts’ three WooCommerce stores lifted clicks and impressions 25% within two months. At Flooring Liquidators: local SEO for 15 locations, and 600+ discontinued pages kept as entry points.',
+      'Programmatic SEO across Premier Electronic Parts’ three WooCommerce stores lifted clicks and impressions 25% within two months.',
   },
   {
     when: 'Answer engines',
@@ -577,7 +548,7 @@ export const EXPERTISE = [
       'Care plans: updates, security patches, uptime, speed work and content changes',
     ],
     proof:
-      'Premier Electronic Parts’ three stores moved from cPanel to AWS; Flooring Liquidators and TV Parts Canada run on WooCommerce, Equisential on headless WooCommerce with Next.js; RDPV Solutions is headless WordPress on Next.js.',
+      'Premier Electronic Parts’ three stores moved from cPanel to AWS; TV Parts Canada runs on WooCommerce and Equisential on headless WooCommerce with Next.js; RDPV Solutions is headless WordPress on Next.js.',
   },
   {
     when: 'On 90% of my sites',
@@ -605,12 +576,6 @@ export const EXPERIENCE = [
     site: 'https://rdpvsolutions.ca/',
     current: true,
     body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
-  },
-  {
-    years: '2024 — 2026',
-    role: 'Web Developer · IT Director · SEO',
-    org: 'Flooring Liquidators Canada',
-    body: 'Ran the WooCommerce storefront, catalogue, merchandising and SEO for a retailer with 15 independently run locations, each with its own QuickBooks account, customer data and Google Business Profile. Local SEO across all 15 profiles and their location pages; turned 600+ discontinued product pages that still drew search traffic into leads with email capture, related products, back-in-stock alerts and segmented email drip campaigns; brought Google and Meta ads in-house; and built automation that consolidates customers from every store’s QuickBooks, segments them for email drip campaigns and runs review requests for every location.',
   },
   {
     years: '2024',
@@ -647,4 +612,4 @@ export const EXPERIENCE = [
 ];
 
 export const EDUCATION =
-  'Post-graduate certificate, Cloud Operations, York University · B.Com (Computer Applications), Osmania University';
+  'Post-graduate certificate, Cloud Operations, York University · B.Com (Computer Applications), Osmania University · ISC2 Candidate (2024) · Google AdWords Search and Fundamentals (2018) · English, Telugu and Hindi';

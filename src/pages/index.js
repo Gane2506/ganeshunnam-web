@@ -147,7 +147,7 @@ export function home({ caseStudies = [] } = {}) {
   )}
 </main>
 <section class="pg-contact" id="contact" data-section="contact">
-  ${G.Footer({ email: SITE.email, github: SITE.github, onHome: true })}
+  ${G.Footer({ email: SITE.email, github: SITE.github, linkedin: SITE.linkedin, onHome: true })}
 </section>
 ${G.Toast()}`;
 }
@@ -162,7 +162,7 @@ export function archive({ caseStudies = [] } = {}) {
     </div>
   </section>
 </main>
-${G.Footer({ email: SITE.email, github: SITE.github })}
+${G.Footer({ email: SITE.email, github: SITE.github, linkedin: SITE.linkedin })}
 ${G.Toast()}`;
 }
 
@@ -193,7 +193,7 @@ export function caseStudy(p, next) {
   </div>
   ${next ? G.NextCaseStudy({ title: next.title, hue: next.hue, href: `/casestudy/${next.slug}/` }) : ''}
 </main>
-${G.Footer({ email: SITE.email, github: SITE.github })}
+${G.Footer({ email: SITE.email, github: SITE.github, linkedin: SITE.linkedin })}
 ${G.Toast()}`;
 }
 
@@ -224,6 +224,6 @@ export function privacy() {
     </div>
   </div>
 </main>
-${G.Footer({ email: SITE.email, github: SITE.github })}
+${G.Footer({ email: SITE.email, github: SITE.github, linkedin: SITE.linkedin })}
 ${G.Toast()}`;
 }

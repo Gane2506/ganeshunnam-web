@@ -158,7 +158,7 @@ export function CopyEmail({ email }) {
   return `<span style="position:relative;display:inline-flex"><button type="button" class="gu-copy" data-copy="${esc(email)}" data-cursor="Copy" aria-label="Copy email address ${esc(email)}">${esc(email)}${Icon({ name: 'copy' })}</button><span role="status" aria-live="polite" class="gu-sr" data-copy-status></span></span>`;
 }
 
-export function Footer({ email, github, onHome = false }) {
+export function Footer({ email, github, linkedin, onHome = false }) {
   return `<footer class="gu-footer">
   <div class="gu-footer-row">
     <h2 class="gu-footer-big" data-split>Let’s build<br>something <em>fast.</em></h2>
@@ -173,7 +173,7 @@ export function Footer({ email, github, onHome = false }) {
   </div>
   <div class="gu-footer-base">
     <span class="gu-meta">© <span data-year>2026</span> Ganesh Unnam · Toronto</span>
-    <div class="gu-socials">${IconButton({ icon: 'github', label: 'GitHub', href: github })}${IconButton({ icon: 'mail', label: 'Email', href: `mailto:${email}` })}</div>
+    <div class="gu-socials">${linkedin ? IconButton({ icon: 'linkedin', label: 'LinkedIn', href: linkedin }) : ''}${IconButton({ icon: 'github', label: 'GitHub', href: github })}${IconButton({ icon: 'mail', label: 'Email', href: `mailto:${email}` })}</div>
     <div style="display:flex;gap:8px;align-items:center">${ThemeToggle()}${IconButton({ icon: 'arrow-up', label: 'Back to top', variant: 'solid', attrs: { 'data-top': '' } })}</div>
   </div>
 </footer>`;

@@ -28,15 +28,6 @@
     "cloudflare": false,
     "zaraz": false
   },
-  "floorstoday.ca": {
-    "platforms": [
-      "WordPress",
-      "Next.js",
-      "Elementor"
-    ],
-    "cloudflare": true,
-    "zaraz": true
-  },
   "talentsear.ch": {
     "platforms": [],
     "cloudflare": true,
@@ -48,14 +39,6 @@
       "Elementor"
     ],
     "cloudflare": true,
-    "zaraz": false
-  },
-  "renoliquidators.ca": {
-    "platforms": [
-      "WooCommerce",
-      "WordPress"
-    ],
-    "cloudflare": false,
     "zaraz": false
   },
   "tvpartscanada.ca": {

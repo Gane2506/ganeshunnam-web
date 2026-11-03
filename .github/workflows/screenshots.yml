@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       hosts:
-        description: 'Space-separated hosts to refresh (empty: all), e.g. flooringliquidators.ca vinylsound.ca'
+        description: 'Space-separated hosts to refresh (empty: all), e.g. vinylsound.ca rdpvsolutions.ca'
         required: false
         default: ''
 
