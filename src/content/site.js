@@ -578,15 +578,15 @@ export const EXPERIENCE = [
     body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
   },
   {
-    years: '2024',
-    role: 'Web Developer · IT Specialist',
+    years: '2024 — now',
+    role: 'Web Developer · IT Support',
     org: 'AZTRA',
     site: 'https://aztra.ai/',
     body: 'Designed and launched aztra.ai from scratch and set up the company’s IT: an AWS VPC, Microsoft 365, SharePoint and VoIP on Amazon Chime. Moved the website and every mailbox over from the previous provider with no lost data and minimal downtime, then handled shared mailboxes, support and troubleshooting.',
   },
   {
-    years: '2023 — now',
-    role: 'Shopify Developer · SEO',
+    years: '2023 — 2025',
+    role: 'Shopify Developer · SEO Specialist',
     org: 'Vinyl Sound',
     site: 'https://vinylsound.ca/',
     body: 'Theme development and storefront work on Shopify: responsive Liquid, HTML and CSS themes maintained with Shopify CLI, custom landing pages built on staging and pushed live, product uploads and custom code. SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, GA4 and Tag Manager analytics behind every change, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
@@ -596,6 +596,13 @@ export const EXPERIENCE = [
     role: 'Web Developer · SEO Specialist',
     org: 'Premier Electronic Parts',
     body: 'Built and ran three WooCommerce stores with 15,000+ SKUs and moved them from cPanel to AWS for speed and headroom, with VPCs for internal and external apps. Programmatic SEO templates across the catalogue lifted clicks and impressions 25% in two months, and conversion work followed the data. Also ran Amazon Seller Central and eBay for the US and Canada, Microsoft 365 and SharePoint, and the office network.',
+  },
+  {
+    years: '2020 — now',
+    role: 'Creator · Web Developer and SEO',
+    org: 'talentsear.ch',
+    site: 'https://talentsear.ch/',
+    body: 'X-ray search engines for recruiters and head hunters, built on Google Programmable Search and a custom WordPress site. Each one is scoped to a country and a platform (LinkedIn, GitHub, Behance, Dribbble and more), so passive sourcing no longer needs long hand-written search strings. Free to use at talentsear.ch and talentsearch.in.',
   },
   {
     years: '2018 — 2022',
