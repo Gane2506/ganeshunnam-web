@@ -1,0 +1,28 @@
+{
+  "order": 4,
+  "slug": "role-based-rag-chatbot",
+  "title": "A RAG chatbot that only answers from documents your role may see",
+  "short": "Role-based RAG chatbot",
+  "excerpt": "Natural-language questions across Finance, HR, Marketing and Engineering documents, answered with citations, with role-based access enforced in the retriever so each of six roles only sees what it is permitted to.",
+  "date": "2026-08-01",
+  "client": "Personal project",
+  "year": "2026",
+  "role": "Designer and developer",
+  "type": "AI · RAG",
+  "stack": ["Python", "FastAPI", "LangChain", "ChromaDB", "SentenceTransformers", "Mistral 7B", "Streamlit"],
+  "hue": "6",
+  "art": "grid",
+  "metrics": [
+    {
+      "value": "6",
+      "delta": "ROLES",
+      "label": "From employee to C-level, each with its own document access"
+    },
+    {
+      "value": "4",
+      "delta": "DEPARTMENTS",
+      "label": "Finance, HR, Marketing and Engineering documents"
+    }
+  ],
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>One chatbot, different permissions</h2><p>Company documents span Finance, HR, Marketing and Engineering, and not everyone may read all of them. The chatbot had to answer natural-language questions across all of it, cite its sources, and never surface a document the person asking is not allowed to see.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>Access control in the retriever</h2><p>Permissions are enforced where retrieval happens, not after the answer is written: metadata filtering in the LangChain retrievers means each of six roles, from employee to C-level, only retrieves the documents it is permitted to see.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>The stack</h2><ul><li>FastAPI backend with authenticated REST endpoints, batched document ingestion and logging</li><li>ChromaDB vector store with SentenceTransformers embeddings</li><li>Mistral 7B through the Hugging Face Inference API for answers that cite their sources</li><li>A Streamlit chat interface on top</li></ul>"
+}

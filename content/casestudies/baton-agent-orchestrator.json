@@ -1,30 +1,30 @@
 {
   "order": 3,
   "slug": "baton-agent-orchestrator",
-  "title": "Baton: one orchestrator for Claude Code, Codex and API models",
+  "title": "Baton: an open-source agentic CLI platform for reviewed, tested code",
   "short": "Baton",
-  "excerpt": "Routing tasks between Claude Code, Codex and API models with shared context, through plan, validate, code, test and integrate stages.",
+  "excerpt": "An event-driven pipeline that takes an idea through planning, validation, design, coding, testing, review and integration, with every decision cached, budget-limited and logged with its cost.",
   "date": "2026-10-13",
-  "client": "Open source",
+  "client": "Open source · Apache 2.0",
   "year": "2026",
-  "role": "Creator",
+  "role": "Creator and lead developer",
   "type": "AI agents",
-  "stack": ["Python", "Claude Code", "Codex", "OpenRouter", "MCP"],
+  "stack": ["Python", "Claude Code", "Codex CLI", "OpenRouter", "MCP", "Git worktrees", "GitHub Actions"],
   "hue": "4",
   "art": "constellation",
   "seed": 2,
   "liveUrl": "https://github.com/Gane2506/baton",
   "metrics": [
     {
-      "value": "5",
-      "delta": "STAGES",
-      "label": "Plan, validate, code, test, integrate"
+      "value": "3,000+",
+      "delta": "TESTS",
+      "label": "Automated tests, plus static analysis and dependency checks in CI"
     },
     {
       "value": "3",
       "delta": "PROVIDERS",
-      "label": "Claude Code, Codex and OpenRouter models"
+      "label": "Claude Code, Codex CLI and OpenRouter models"
     }
   ],
-  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>The problem</h2><p>Coding agents are fast, but left alone they skip planning, review and tests. Teams end up babysitting each run instead of shipping.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>One job, five stages</h2><p>Baton (the <code>jev</code> CLI plus a web dashboard) treats every idea as a job that moves through plan, validate, code, test and integrate. Each stage is dispatched to the provider best suited to it, with cost-aware routing and a quality gate before anything merges.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>What it does</h2><ul><li>Autonomy modes from fully supervised to hands-off</li><li>Idea queue, scheduler, Kanban board and a fleet view across runs</li><li>Per-role MCP tools and skills, and learning profiles that improve routing over time</li><li>Browser preview with human takeover</li></ul><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>Open source</h2><p>Work arrives as reviewed, tested pull requests instead of raw diffs. The orchestrator is public on GitHub.</p>"
+  "content": "<p class=\"gu-meta cs-kicker\">01 · Discover</p><h2>The problem</h2><p>Coding agents are fast, but left alone they skip planning, review and tests, and nobody can see what each step cost. Teams end up babysitting each run instead of shipping.</p><p class=\"gu-meta cs-kicker\">02 · Architect</p><h2>A pipeline that runs as a state machine</h2><p>Baton (the <code>jev</code> CLI) turns an idea into reviewed, tested, integration-ready code through planning, validation, design, coding, testing, review and integration agents. The pipeline runs as a state machine, so each stage transition and decision point triggers the next agent, and runs pause at approval states until a person signs off.</p><p>Jev’s decision engine handles agent selection, model routing, confidence evaluation and fallbacks across Claude Code, Codex CLI and OpenRouter, with role-specific MCP tools and reusable skills.</p><p class=\"gu-meta cs-kicker\">03 · Build</p><h2>Built to be cheap, observable and safe</h2><ul><li><strong>Caching:</strong> exact-match and semantic caching reuse earlier AI responses, cutting redundant LLM calls, token use and inference cost</li><li><strong>Learning:</strong> failed runs are captured and fed back so future executions improve</li><li><strong>Observability:</strong> every decision and attempt is logged with its cost; per-run and per-task budget limits keep spend predictable</li><li><strong>Shadow mode:</strong> new behaviour, such as semantic matching, runs in shadow first to measure agreement before it is allowed to serve</li><li><strong>Isolation:</strong> work happens in Git worktrees with human approval checkpoints and auditable runs</li><li><strong>Dashboard:</strong> a web dashboard on top of the CLI with conversational planning, so ideas can be talked through, queued as work and tracked live on a Kanban board</li></ul><p class=\"gu-meta cs-kicker\">04 · Launch</p><h2>Open source</h2><p>Baton is open source under Apache 2.0, backed by more than 3,000 automated tests and gated by static analysis, dependency checks and GitHub Actions CI. Work arrives as reviewed, tested changes instead of raw diffs.</p>"
 }

@@ -1,5 +1,5 @@
 {
-  "order": 7,
+  "order": 8,
   "slug": "devops-cicd-jenkins-ansible-terraform",
   "title": "A CI/CD pipeline on AWS with Jenkins, Ansible and Terraform",
   "short": "DevOps CI/CD",

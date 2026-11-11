@@ -13,6 +13,12 @@ const SLUG = {
   'MCP servers': 'modelcontextprotocol',
   OpenRouter: 'openrouter',
   LangChain: 'langchain',
+  LangGraph: 'langgraph',
+  'Hugging Face': 'huggingface',
+  Mistral: 'mistralai',
+  Streamlit: 'streamlit',
+  Portainer: 'portainer',
+  GitOps: 'argo',
   Gemini: 'googlegemini',
   Perplexity: 'perplexity',
   'GitHub Copilot': 'githubcopilot',
@@ -94,6 +100,10 @@ const SLUG = {
 
 // no Simple Icons mark: a two-letter badge in the brand's own colour
 const MONO = {
+  'Codex CLI': ['Cx', '#10A37F'],
+  'Mistral 7B': ['M', '#FA520F'],
+  ChromaDB: ['Ch', '#FF6446'],
+  'AWS Lambda': ['λ', '#FF9900'],
   'Agent orchestration': ['AO', '#B3A0FF'],
   'AI agents': ['AI', '#C6F432'],
   'On-prem': ['srv', '#6A6974'],

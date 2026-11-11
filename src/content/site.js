@@ -3,17 +3,17 @@
 export const SITE = {
   url: 'https://ganeshunnam.com',
   name: 'Ganesh Unnam',
-  title: 'Ganesh Unnam · Full stack engineer, SEO / AEO and product owner, Toronto',
+  title: 'Ganesh Unnam · Full-stack AI engineer, agentic systems and SEO / AEO, Toronto',
   description:
-    'Websites, WooCommerce and Shopify stores, SEO and AEO, automation and custom applications for businesses, built end to end. Toronto.',
+    'Full-stack AI engineer in the Greater Toronto Area: React and Next.js front ends, Python and FastAPI back ends, agentic AI systems, and websites and stores built to rank and convert.',
   email: 'gane2506@gmail.com',
   github: 'https://github.com/Gane2506',
   linkedin: 'https://www.linkedin.com/in/ganeshunnam/',
-  role: 'Full stack engineer · SEO / AEO · Product owner · Toronto',
+  role: 'Full-stack AI engineer · Agentic systems · SEO / AEO · Toronto',
 };
 
 export const HERO = {
-  lead: 'I build websites, online stores and custom software for businesses, get them found on Google and in AI answers, and automate the work around them, from the first call to every change after launch.',
+  lead: 'I build production web apps and the backend systems behind them, with generative AI built in: AI agents, RAG pipelines and MCP integrations, plus websites and online stores that get found on Google and in AI answers.',
   // Shown under the hero as links, so every service is visible before the first scroll.
   services: [
     ['SEO and AEO', '#search', 'Google Search Console'],
@@ -32,8 +32,12 @@ export const MARQUEE = [
   'MCP servers',
   'Agent orchestration',
   'AWS',
+  'LangChain',
+  'FastAPI',
   'GraphQL',
   'Docker',
+  'Kubernetes',
+  'Vercel',
   'SEO',
   'AEO',
   'Core Web Vitals',
@@ -67,13 +71,14 @@ export const MARQUEE = [
 export const ABOUT = {
   title: 'One person who owns the whole product, not one slice of it',
   paragraphs: [
-    'I started in web development and Shopify themes, moved into React, Next.js and TypeScript on WordPress, Webflow, Sanity and Contentful, set up IT infrastructure and cloud for small companies (AWS networking, Microsoft 365, SharePoint and VoIP), and now spend most of my time on <strong>AI agent systems</strong>: orchestration, retrieval and MCP servers that connect models to the tools a team already uses.',
-    'Clients get one person from the first requirements call to the release after launch: I write the scope, design the system, build it, ship it and keep changing it as the business changes. AI is one of the things I build, not the whole story.',
+    'I’m a full-stack product engineer who ships production web applications and the backend systems behind them first, with <strong>applied generative AI</strong> built in. I build React and Next.js front ends in TypeScript, Python and FastAPI back ends with REST and GraphQL APIs, and deploy them on AWS, Cloudflare Workers and Vercel with Docker, Kubernetes and GitHub Actions.',
+    'I created Baton, an open-source agentic CLI platform where every stage transition triggers the next agent and every decision is cached, budget-limited and logged with its cost. In client work I bring AI into production: RAG pipelines with LangChain and AWS Bedrock, structured LLM outputs from a Textract OCR pipeline, and MCP tool integrations, shipped behind automated tests and CI quality gates.',
+    'Clients get one person from the first requirements call to the release after launch, who explains the technical tradeoffs clearly to technical and non-technical teams alike.',
   ],
   stats: [
-    { value: 9, suffix: '+', label: 'years across web, cloud and automation' },
+    { value: 10, suffix: '+', label: 'years across cloud, web and AI, since 2016' },
     { value: 6, label: 'lifecycle phases owned, from requirements to change management' },
-    { value: 6, label: 'platforms: WordPress, Webflow, Shopify, WooCommerce, Sanity, Contentful' },
+    { value: 3000, suffix: '+', label: 'automated tests behind Baton, my open-source agent platform' },
   ],
 };
 
@@ -98,12 +103,12 @@ export const WORK = [
     href: '/casestudy/sarah-voice-agent/',
   },
   {
-    title: 'Baton, an orchestrator for coding agents',
+    title: 'Baton, an open-source agentic CLI platform',
     type: 'AI agents',
     year: '2026',
     hue: '4',
     art: 'orbit',
-    tags: ['MCP', 'OpenRouter'],
+    tags: ['Python', 'Claude Code', 'MCP', 'OpenRouter'],
     href: '/casestudy/baton-agent-orchestrator/',
     site: 'https://github.com/Gane2506/baton',
   },
@@ -118,13 +123,13 @@ export const WORK = [
     site: 'https://rdpvsolutions.ca/',
   },
   {
-    title: 'Premier Electronic Parts: 15,000 SKUs, +25% search clicks',
-    type: 'E-commerce · SEO',
-    year: '2023',
+    title: 'A role-based RAG chatbot for company documents',
+    type: 'AI · RAG',
+    year: '2026',
     hue: '6',
     art: 'grid',
-    tags: ['WooCommerce', 'Programmatic SEO', 'AWS'],
-    href: '/casestudy/woocommerce-15k-skus-cpanel-to-aws/',
+    tags: ['LangChain', 'FastAPI', 'ChromaDB'],
+    href: '/casestudy/role-based-rag-chatbot/',
   },
   {
     title: 'talentsear.ch, x-ray search for recruiters',
@@ -240,9 +245,9 @@ export const CAPABILITIES = [
   {
     icon: 'ai-agents',
     shape: 'agents',
-    title: 'AI and voice agents',
-    body: 'Voice agents that answer, qualify and book calls, document pipelines that read and retrieve on Amazon Bedrock, and MCP servers that connect models to your tools.',
-    tags: ['Vapi', 'Twilio', 'Bedrock', 'Textract', 'MCP'],
+    title: 'AI agents and RAG',
+    body: 'Multi-agent workflows with tool calling and structured outputs, RAG pipelines with LangChain on AWS Bedrock, document OCR, voice agents that book calls, and MCP servers that connect models to your tools.',
+    tags: ['LangChain', 'LangGraph', 'Bedrock', 'MCP', 'Claude'],
   },
   {
     icon: 'web',
@@ -335,7 +340,7 @@ export const BUILDS = [
       'Accessible by default: WCAG 2.1 AA and AODA, keyboard and screen-reader friendly',
     ],
     proof:
-      'Baton, a CLI and web dashboard that takes coding agents from plan to merged code; Sarah, a voice agent on Workers and D1; the Bedrock document pipeline; and talentsear.ch.',
+      'Baton, an agentic CLI platform with a web dashboard and 3,000+ automated tests; a role-based RAG chatbot on FastAPI and ChromaDB; Sarah, a voice agent on Workers and D1; and the Bedrock document pipeline.',
   },
 ];
 
@@ -350,9 +355,27 @@ export const TOOLKIT = [
       'MCP',
       'OpenRouter',
       'LangChain',
+      'LangGraph',
       'RAG',
       'Amazon Bedrock',
       'Textract',
+      'Hugging Face',
+      'Mistral',
+      'Streamlit',
+    ],
+  },
+  {
+    title: 'Agentic systems',
+    items: [
+      'Event-driven pipelines',
+      'State machines',
+      'Work queues',
+      'Git worktree isolation',
+      'Human-in-the-loop approvals',
+      'Cost and token tracking',
+      'Confidence scoring',
+      'Shadow-mode evaluation',
+      'Exact-match and semantic caching',
     ],
   },
   { title: 'Voice agents', items: ['Vapi', 'Twilio', 'Call qualification', 'Booking flows', 'SMS'] },
@@ -428,6 +451,7 @@ export const TOOLKIT = [
       'GraphQL',
       'REST APIs',
       'Postgres and pgvector',
+      'ChromaDB',
       'MySQL',
       'MongoDB',
       'Supabase',
@@ -459,6 +483,10 @@ export const TOOLKIT = [
       'D1',
       'Docker',
       'Kubernetes',
+      'GitOps',
+      'Portainer',
+      'Vercel',
+      'AWS Lambda',
       'Terraform',
       'Ansible',
       'Jenkins',
@@ -571,25 +599,25 @@ export const EXPERTISE = [
 export const EXPERIENCE = [
   {
     years: 'Nov 2024 — now',
-    role: 'Gen AI Developer',
-    org: 'RDPV Solutions',
+    role: 'Full-Stack AI Engineer · Gen AI Developer',
+    org: 'RDPV Solutions · Remote, Greater Toronto Area',
     site: 'https://rdpvsolutions.ca/',
     current: true,
-    body: 'AI features and the website around them: LLM applications, retrieval and semantic caching, multi-agent workflows and MCP integrations, on a headless WordPress and Next.js site built to WCAG and AODA, with privacy, cookie and terms policies aligned with PIPEDA.',
+    body: 'Production web apps, PWAs and backend services across the full SDLC: React, Next.js and TypeScript front ends, Python and FastAPI back ends with REST and GraphQL. Built a document pipeline with Amazon Textract OCR, embeddings and PostgreSQL with pgvector feeding a Bedrock LLM that returns structured, validated output; RAG pipelines with LangChain and Bedrock; and AI agents with tool calling, structured outputs and MCP integrations using Claude Code, Codex and OpenRouter. Event-driven serverless and edge apps on AWS Lambda, Cloudflare Workers and Vercel, containers deployed to Kubernetes with GitOps, and GitHub Actions pipelines with security scanning and quality gates.',
   },
   {
-    years: '2024',
+    years: 'Mar 2024 — Nov 2024',
     role: 'Web Developer · IT Support',
-    org: 'AZTRA',
+    org: 'AZTRA · Remote, Greater Toronto Area',
     site: 'https://aztra.ai/',
-    body: 'Designed and launched aztra.ai from scratch and set up the company’s IT: an AWS VPC, Microsoft 365, SharePoint and VoIP on Amazon Chime. Moved the website and every mailbox over from the previous provider with no lost data and minimal downtime, then handled shared mailboxes, support and troubleshooting.',
+    body: 'Designed, built and launched aztra.ai as a headless WordPress build with a React front end, and deployed the cloud environments behind each project. Containerized the app with Docker and managed deployments through Portainer, set up GA4 and Google Tag Manager, and built the IT: VPC, Office 365, SharePoint and VoIP on AWS Chime. Led the website and email migration from Axium Systems with data intact and minimal downtime, and ran Office 365 and day-to-day IT support.',
   },
   {
-    years: '2023 — 2025',
-    role: 'Shopify Developer · SEO Specialist',
-    org: 'Vinyl Sound',
+    years: 'Mar 2023 — Mar 2024',
+    role: 'Shopify Developer',
+    org: 'Vinyl Sound · Remote, Greater Toronto Area',
     site: 'https://vinylsound.ca/',
-    body: 'Theme development and storefront work on Shopify: responsive Liquid, HTML and CSS themes maintained with Shopify CLI, custom landing pages built on staging and pushed live, product uploads and custom code. SEO strategy for organic traffic, Google Shopping, Google, Facebook and Instagram ads, GA4 and Tag Manager analytics behind every change, CRM lead updates, and Klaviyo email and cross-sell campaigns for existing customers.',
+    body: 'Built and refactored custom Liquid landing pages and theme sections with Shopify CLI, developed locally and tested on staging before going live, and built React components for the storefront. Used AI coding assistants (ChatGPT, GitHub Copilot) for theme work and AI tools to generate meta titles, descriptions and product content at scale. Ran SEO tracked in GA4, set up Klaviyo with Shopify for email and cross-sell campaigns, and maintained the store.',
   },
   {
     years: '2020 — now',
@@ -599,10 +627,11 @@ export const EXPERIENCE = [
     body: 'X-ray search engines for recruiters and head hunters, built on Google Programmable Search and a custom WordPress site. Each one is scoped to a country and a platform (LinkedIn, GitHub, Behance, Dribbble and more), so passive sourcing no longer needs long hand-written search strings. Free to use at talentsear.ch and talentsearch.in.',
   },
   {
-    years: '2018 — 2022',
-    role: 'Analyst, Talent Sourcing',
-    org: 'Deloitte',
+    years: 'Oct 2018 — Dec 2022',
+    role: 'Analyst',
+    org: 'Deloitte · Hyderabad, India',
     site: 'https://www.deloitte.com/',
+    body: 'Monitored AWS infrastructure for availability, performance and health, and handled incident and problem management through to root cause. Managed AWS IAM roles and policies to least privilege and maintained network ACLs, wrote Bash and Python scripts to automate routine operations, tuned network and server performance, and reported on system health and incidents to stakeholders.',
   },
   {
     years: '2017 — now',
@@ -610,7 +639,13 @@ export const EXPERIENCE = [
     org: 'Freelance',
     body: 'WordPress, WooCommerce, Shopify, Wix, Squarespace and Bootstrap builds and annual care plans for agencies and their clients: designs turned into working themes and plugins, Elementor, WPBakery, ACF, form builders and custom post types, hosting on cPanel, DigitalOcean, GCP and AWS. SEO strategy and link building for difficult keywords, and my own micro-niche, event and long-term blogs.',
   },
+  {
+    years: 'Jun 2016 — Aug 2018',
+    role: 'Analyst',
+    org: 'US Tech Solutions · Hyderabad, India',
+    body: 'Managed cloud environments for client systems, handling AWS, networking and server management to keep them secure, scalable and running reliably. Streamlined deployments, troubleshot complex issues to lasting fixes, and worked closely with cross-functional teams.',
+  },
 ];
 
 export const EDUCATION =
-  'Post-graduate certificate, Cloud Operations, York University · B.Com (Computer Applications), Osmania University · ISC2 Candidate (2024) · Google AdWords Search and Fundamentals (2018) · English, Telugu and Hindi';
+  'Postgraduate certificate, Cloud Operations and DevSecOps, York University (2024) · Bachelor’s degree, Osmania University (2013–2016) · ISC2 Candidate (2024) · Google AdWords Search and Fundamentals (2018) · English, Telugu and Hindi';
