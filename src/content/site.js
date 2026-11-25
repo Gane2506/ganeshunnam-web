@@ -600,50 +600,43 @@ export const EXPERIENCE = [
   {
     years: 'Nov 2024 — now',
     role: 'Full-Stack AI Engineer · Gen AI Developer',
-    org: 'RDPV Solutions · Remote, Greater Toronto Area',
+    org: 'RDPV Solutions · Greater Toronto Area',
     site: 'https://rdpvsolutions.ca/',
     current: true,
-    body: 'Production web apps, PWAs and backend services across the full SDLC: React, Next.js and TypeScript front ends, Python and FastAPI back ends with REST and GraphQL. Built a document pipeline with Amazon Textract OCR, embeddings and PostgreSQL with pgvector feeding a Bedrock LLM that returns structured, validated output; RAG pipelines with LangChain and Bedrock; and AI agents with tool calling, structured outputs and MCP integrations using Claude Code, Codex and OpenRouter. Event-driven serverless and edge apps on AWS Lambda, Cloudflare Workers and Vercel, containers deployed to Kubernetes with GitOps, and GitHub Actions pipelines with security scanning and quality gates.',
   },
   {
     years: 'Mar 2024 — Nov 2024',
     role: 'Web Developer · IT Support',
-    org: 'AZTRA · Remote, Greater Toronto Area',
+    org: 'AZTRA · Greater Toronto Area',
     site: 'https://aztra.ai/',
-    body: 'Designed, built and launched aztra.ai as a headless WordPress build with a React front end, and deployed the cloud environments behind each project. Containerized the app with Docker and managed deployments through Portainer, set up GA4 and Google Tag Manager, and built the IT: VPC, Office 365, SharePoint and VoIP on AWS Chime. Led the website and email migration from Axium Systems with data intact and minimal downtime, and ran Office 365 and day-to-day IT support.',
   },
   {
     years: 'Mar 2023 — Mar 2024',
     role: 'Shopify Developer',
-    org: 'Vinyl Sound · Remote, Greater Toronto Area',
+    org: 'Vinyl Sound · Greater Toronto Area',
     site: 'https://vinylsound.ca/',
-    body: 'Built and refactored custom Liquid landing pages and theme sections with Shopify CLI, developed locally and tested on staging before going live, and built React components for the storefront. Used AI coding assistants (ChatGPT, GitHub Copilot) for theme work and AI tools to generate meta titles, descriptions and product content at scale. Ran SEO tracked in GA4, set up Klaviyo with Shopify for email and cross-sell campaigns, and maintained the store.',
   },
   {
     years: '2020 — now',
     role: 'Creator · Web Developer and SEO',
     org: 'talentsear.ch',
     site: 'https://talentsear.ch/',
-    body: 'X-ray search engines for recruiters and head hunters, built on Google Programmable Search and a custom WordPress site. Each one is scoped to a country and a platform (LinkedIn, GitHub, Behance, Dribbble and more), so passive sourcing no longer needs long hand-written search strings. Free to use at talentsear.ch and talentsearch.in.',
   },
   {
     years: 'Oct 2018 — Dec 2022',
     role: 'Analyst',
     org: 'Deloitte · Hyderabad, India',
     site: 'https://www.deloitte.com/',
-    body: 'Monitored AWS infrastructure for availability, performance and health, and handled incident and problem management through to root cause. Managed AWS IAM roles and policies to least privilege and maintained network ACLs, wrote Bash and Python scripts to automate routine operations, tuned network and server performance, and reported on system health and incidents to stakeholders.',
   },
   {
     years: '2017 — now',
     role: 'Web development and SEO',
     org: 'Freelance',
-    body: 'WordPress, WooCommerce, Shopify, Wix, Squarespace and Bootstrap builds and annual care plans for agencies and their clients: designs turned into working themes and plugins, Elementor, WPBakery, ACF, form builders and custom post types, hosting on cPanel, DigitalOcean, GCP and AWS. SEO strategy and link building for difficult keywords, and my own micro-niche, event and long-term blogs.',
   },
   {
     years: 'Jun 2016 — Aug 2018',
     role: 'Analyst',
     org: 'US Tech Solutions · Hyderabad, India',
-    body: 'Managed cloud environments for client systems, handling AWS, networking and server management to keep them secure, scalable and running reliably. Streamlined deployments, troubleshot complex issues to lasting fixes, and worked closely with cross-functional teams.',
   },
 ];
 
