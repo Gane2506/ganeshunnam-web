@@ -598,11 +598,15 @@ export const EXPERTISE = [
 
 export const EXPERIENCE = [
   {
-    years: 'Nov 2024 — now',
+    years: 'May 2026 — Nov 2026',
     role: 'Full-Stack AI Engineer · Gen AI Developer',
     org: 'RDPV Solutions · Greater Toronto Area',
     site: 'https://rdpvsolutions.ca/',
-    current: true,
+  },
+  {
+    years: 'Nov 2024 — May 2026',
+    role: 'Web Developer · IT Director',
+    org: 'Flooring Liquidators Canada · Greater Toronto Area',
   },
   {
     years: 'Mar 2024 — Nov 2024',
