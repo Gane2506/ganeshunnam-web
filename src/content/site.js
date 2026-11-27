@@ -599,7 +599,7 @@ export const EXPERTISE = [
 export const EXPERIENCE = [
   {
     years: 'May 2026 — Nov 2026',
-    role: 'Full-Stack AI Engineer · Gen AI Developer',
+    role: 'Full-Stack AI Engineer',
     org: 'RDPV Solutions · Greater Toronto Area',
     site: 'https://rdpvsolutions.ca/',
   },
